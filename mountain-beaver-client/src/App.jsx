@@ -1,17 +1,18 @@
-import './App.scss';
+import "./App.scss";
+import Header from "./components/Header/Header";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
 
 function App() {
   return (
-    <div className='body-copy'>
-      <Router>
 
+    <div className="App">
+    <BrowserRouter className='body-copy'>
+    <Header />
         <Routes>
-          <Route path="/" element={<WarehousesPage />} /> {/* Pass videos as prop if needed */}
-          <Route path="/inventory" element={<InventoryPage />} />
+//           <Route path="/" element={<WarehousesPage />} /> {/* Pass videos as prop if needed */}
+//           <Route path="/inventory" element={<InventoryPage />} />
         </Routes>
-        
-      </Router>
-
+     </BrowserRouter>
     </div>
   );
 }

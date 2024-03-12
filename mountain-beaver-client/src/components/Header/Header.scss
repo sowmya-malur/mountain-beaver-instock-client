@@ -1,0 +1,54 @@
+@use "../../styles/partials/variables" as *;
+@use "../../styles/partials/mixin" as *;
+@use "../../styles/partials/typography" as *;
+
+.header {
+  background-color: $Background-graphite;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 0 1.5rem;
+  @include tablet {
+    display: flex;
+    flex-direction: row;
+    align-items: baseline;
+    justify-content: space-between;
+    padding: 0 2rem;
+  }
+
+  &__logo {
+    height: 2rem;
+    margin-bottom: 0.8rem;
+    margin-top: 1rem;
+    @include tablet {
+      height: 1.5rem;
+      margin-top: 2rem;
+    }
+  }
+  &__list {
+    display: flex;
+    align-items: center;
+    color: $Primary-white;
+    list-style: none;
+    gap: 7rem;
+    @include tablet {
+      width: 100%;
+      gap: 1rem;
+    }
+  }
+  &__link {
+    font-size: 1rem;
+    line-height: 2rem;
+    font-weight: 400;
+    padding: 0.5rem 0;
+    margin-bottom: 1rem;
+    width: 7rem;
+    transition: background-color 0.3s, padding 0.3s;
+    &:hover {
+      background-color: $Primary-black;
+      border-radius: 15rem;
+      border: 0.5rem transparent;
+    }
+  }
+}
