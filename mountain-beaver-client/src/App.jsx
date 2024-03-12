@@ -1,9 +1,21 @@
-import './App.scss';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import WarehousesPage from './pages/WarehousesPage/WarehousesPage'
+import InventoryPage from './pages/InventoryPage/InventoryPage';
+
 
 function App() {
+
+
   return (
-    <div className="App">
-     <h1>Hello</h1>
+    <div className='body-copy'>
+      <Router>
+
+        <Routes>
+          <Route path="/" element={<WarehousesPage />} /> {/* Pass videos as prop if needed */}
+          <Route path="/inventory" element={<InventoryPage />} />
+        </Routes>
+        {/* Adjusted the layout to remove direct reference to CurrentVideo */}
+      </Router>
     </div>
   );
 }
