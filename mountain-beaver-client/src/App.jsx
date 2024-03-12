@@ -2,8 +2,16 @@ import './App.scss';
 
 function App() {
   return (
-    <div className="App">
-     <h1>Hello</h1>
+    <div className='body-copy'>
+      <Router>
+
+        <Routes>
+          <Route path="/" element={<WarehousesPage />} /> {/* Pass videos as prop if needed */}
+          <Route path="/inventory" element={<InventoryPage />} />
+        </Routes>
+        
+      </Router>
+
     </div>
   );
 }
