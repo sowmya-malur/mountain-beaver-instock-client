@@ -14,7 +14,7 @@ function App() {
           <Route path="/" element={<WarehousesPage />} /> {/* Pass videos as prop if needed */}
           <Route path="/inventory" element={<InventoryPage />} />
         </Routes>
-        {/* Adjusted the layout to remove direct reference to CurrentVideo */}
+        
       </Router>
     </div>
   );
