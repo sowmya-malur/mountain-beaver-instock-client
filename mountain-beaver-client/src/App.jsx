@@ -1,6 +1,8 @@
+
 import "./App.scss";
-import Header from "./components/Header/Header";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
+import Footer from "./components/footer/Footer";
+import Header from "./components/Header/Header";
 
 function App() {
   return (
@@ -12,6 +14,7 @@ function App() {
 //           <Route path="/" element={<WarehousesPage />} /> {/* Pass videos as prop if needed */}
 //           <Route path="/inventory" element={<InventoryPage />} />
         </Routes>
+        <Footer />
      </BrowserRouter>
     </div>
   );
