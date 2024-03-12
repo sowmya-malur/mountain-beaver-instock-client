@@ -1,0 +1,10 @@
+@use "../../styles/partials/variables" as *;
+
+.footer {
+  background-color: $light-grey;
+  display: flex;
+  padding: 3rem;
+  justify-content: center;
+  color: $slate;
+  font-size: 0.8125rem;
+}
