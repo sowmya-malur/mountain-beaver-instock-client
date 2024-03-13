@@ -7,11 +7,11 @@ import { useState, useRef } from "react";
 import axios from "axios";
 
 function AddWarehousePage() {
- 
+  // Initialize hooks
   const navigate = useNavigate();
   const errorMessage = "This field is required";
 
-  // Set use states for all the fields
+  // Set states for all the form fields and errors
   const [wareHouseName, setWareHouseName] = useState("");
   const [streetAddress, setStreetAddress] = useState("");
   const [city, setCity] = useState("");
@@ -22,7 +22,7 @@ function AddWarehousePage() {
   const [email, setEmail] = useState("");
   const [errors, setErrors] = useState({});
 
-  // Set refs for all the fields
+  // Set refs for all the form fields to focus
   const formRef = useRef();
   const nameRef = useRef();
   const addressRef = useRef();
@@ -33,26 +33,38 @@ function AddWarehousePage() {
   const phoneRef = useRef();
   const emailRef = useRef();
 
-  // Event handler for change
+  // Event handler for form field changes
   const handleChange = (event) => {
     const { name, value } = event.target;
 
-    if (name === "wareHouseName") {
-      setWareHouseName(value);
-    } else if (name === "streetAddress") {
-      setStreetAddress(value);
-    } else if (name === "city") {
-      setCity(value);
-    } else if (name === "country") {
-      setCountry(value);
-    } else if (name === "contactName") {
-      setContactName(value);
-    } else if (name === "position") {
-      setPosition(value);
-    } else if (name === "phoneNumber") {
-      setPhoneNumber(value);
-    } else {
-      setEmail(value);
+    // Set state based on input field name
+    switch (name) {
+      case "wareHouseName":
+        setWareHouseName(value);
+        break;
+      case "streetAddress":
+        setStreetAddress(value);
+        break;
+      case "city":
+        setCity(value);
+        break;
+      case "country":
+        setCountry(value);
+        break;
+      case "contactName":
+        setContactName(value);
+        break;
+      case "position":
+        setPosition(value);
+        break;
+      case "phoneNumber":
+        setPhoneNumber(value);
+        break;
+      case "email":
+        setEmail(value);
+        break;
+      default:
+        break;
     }
 
     // Clear errors and hide error message when the user enters a value
@@ -61,95 +73,101 @@ function AddWarehousePage() {
     }
   };
 
-    // Event handler for submit
+  // Event handler for form submission
   const handleSubmit = async (event) => {
     try {
+      event.preventDefault();
 
-    event.preventDefault();
-    console.log("in submit function");
+      // Initialize form errors object
+      let formErrors = {};
 
-    let formErrors = {};
-
-    // Check the values from the form if empty, set the error message
-    if (wareHouseName.trim() === "") {
-      nameRef.current.focus();
-      formErrors.wareHouseName = errorMessage;
-    }
-    if (streetAddress.trim() === "") {
-      addressRef.current.focus();
-      formErrors.streetAddress = errorMessage;
-    }
-    if (city.trim() === "") {
-      cityRef.current.focus();
-      formErrors.city = errorMessage;
-    }
-    if (country.trim() === "") {
-      countryRef.current.focus();
-      formErrors.country = errorMessage;
-    }
-    if (contactName.trim() === "") {
-      contactRef.current.focus();
-      formErrors.contactName = errorMessage;
-    }
-    if (position.trim() === "") {
-      positionRef.current.focus();
-      formErrors.position = errorMessage;
-    }
-    if (phoneNumber.trim() === "") {
-      phoneRef.current.focus();
-      formErrors.phoneNumber = errorMessage;
-    }
-    if (email.trim() === "") {
-      emailRef.current.focus();
-      formErrors.email = errorMessage;
-    }
-
-    console.log(formErrors);
-    if (formErrors.length !== 0) {
-      setErrors(formErrors);
-    }
-
-    if (Object.keys(formErrors).length === 0) {
-      // call axios to post data here
-      const newWareHouse = {
-        warehouse_name: wareHouseName,
-        address: streetAddress,
-        city: city,
-        country: country,
-        contact_name: contactName,
-        contact_position: position,
-        contact_phone: "+1 (646) 123-1234",
-        contact_email: "paujla@instock.com",
-      };
-
-      const response = await axios.post(
-        `${process.env.REACT_APP_BACKEND_URL}/warehouses/`,
-        newWareHouse
-      );
-
-      if (response.status === 201) {
-        console.log("New warehouse added successfully");
-        console.log("response", response);
-        // Reset form fields
-        setWareHouseName("");
-        setStreetAddress("");
-        setCity("");
-        setCountry("");
-        setContactName("");
-        setPosition("");
-        setPhoneNumber("");
-        setEmail("");
-
-        // Clear errors
-        setErrors({});
-        navigate("/");
-      } else if (response.status === 404) {
-        alert("Error adding new warhouse.");
+      // Check the values from the form. If empty, set the error message
+      if (wareHouseName.trim() === "") {
+        nameRef.current.focus();
+        formErrors.wareHouseName = errorMessage;
       }
+      if (streetAddress.trim() === "") {
+        addressRef.current.focus();
+        formErrors.streetAddress = errorMessage;
+      }
+      if (city.trim() === "") {
+        cityRef.current.focus();
+        formErrors.city = errorMessage;
+      }
+      if (country.trim() === "") {
+        countryRef.current.focus();
+        formErrors.country = errorMessage;
+      }
+      if (contactName.trim() === "") {
+        contactRef.current.focus();
+        formErrors.contactName = errorMessage;
+      }
+      if (position.trim() === "") {
+        positionRef.current.focus();
+        formErrors.position = errorMessage;
+      }
+      if (phoneNumber.trim() === "") {
+        phoneRef.current.focus();
+        formErrors.phoneNumber = errorMessage;
+      }
+      if (email.trim() === "") {
+        emailRef.current.focus();
+        formErrors.email = errorMessage;
+      }
+
+      // Update state with form errors
+      if (formErrors.length !== 0) {
+        setErrors(formErrors);
+      }
+
+      // If there are no errors, submit the form
+      if (Object.keys(formErrors).length === 0) {
+        const newWareHouse = {
+          warehouse_name: wareHouseName,
+          address: streetAddress,
+          city: city,
+          country: country,
+          contact_name: contactName,
+          contact_position: position,
+          contact_phone: "+1 (646) 123-1234",
+          contact_email: "paujla@instock.com",
+        };
+
+        // POST request to backend API
+        const response = await axios.post(
+          `${process.env.REACT_APP_BACKEND_URL}/warehouses/`,
+          newWareHouse
+        );
+
+        if (response.status === 201) {
+          alert("New warehouse added successfully");
+
+          // Reset form fields and clear errors
+          resetForm();
+
+          navigate("/");
+        } else if (response.status === 404) {
+          alert("Error adding new warhouse.");
+        }
+      }
+    } catch (error) {
+      console.error("Error adding new warehouse:", error);
     }
-  }catch(error) {
-    console.error("Error adding new warehouse:", error);
-  }
+  };
+
+  // Function to reset form fields and clear errors
+  const resetForm = () => {
+    setWareHouseName("");
+    setStreetAddress("");
+    setCity("");
+    setCountry("");
+    setContactName("");
+    setPosition("");
+    setPhoneNumber("");
+    setEmail("");
+
+    // Clear errors
+    setErrors({});
   };
 
   return (
@@ -350,7 +368,6 @@ function AddWarehousePage() {
                 Cancel
               </button>
             </Link>
-            {/* <Link to="/"> */}
             <button
               id="addWarehouse"
               className="add-warehouse__cta"
@@ -358,7 +375,6 @@ function AddWarehousePage() {
             >
               + Add Warehouse
             </button>
-            {/* </Link> */}
           </div>
         </form>
       </div>
