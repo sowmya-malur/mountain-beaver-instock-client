@@ -2,6 +2,7 @@
 @use "../../styles/partials/variables" as *;
 @use "../../styles/partials/typography" as *;
 
+// Add New Warehouse styling
 .add-warehouse{
 
     &__arrow-back {
@@ -16,10 +17,16 @@
         padding: $mobile-margin;
     }
 
+    &__title {
+        font-size: $mobile-font-size-header;
+        line-height: $mobile-header-line-height;
+    }
+
     &__sub-title {
         padding-top: $mobile-padding-top;
         padding-bottom: $mobile-padding-bottom;
-        // margin-bottom: $mobile-margin;
+        font-size: $mobile-font-size-sub-header;
+        line-height: $mobile-sub-header-line-height;
     }
     
     &__details {
@@ -54,11 +61,13 @@
         padding: 0 1rem 0.25rem 1rem; 
         margin-bottom: $mobile-margin;
         font-family: $font-family;
-
+        font-size: $mobile-font-size-label-button;
     }
 
     &__label {
         padding-bottom: 0.25rem; 
+        font-size: $mobile-font-size-label-button;
+
     }
 
     &__buttons-container {
@@ -75,6 +84,8 @@
         border: 0.063rem solid $color-borders;
         padding: 0 1rem 0.25rem 1rem;
         width: 8.75rem;
+        font-size: $mobile-font-size-label-button;
+
     }
 
     &__cta {
@@ -85,5 +96,7 @@
         width: 8.75rem; //from style guide
         border: 0.063rem solid $color-borders;
         padding: 0 1rem 0.25rem 1rem;
+        font-size: $mobile-font-size-label-button;
+
     }
 }
