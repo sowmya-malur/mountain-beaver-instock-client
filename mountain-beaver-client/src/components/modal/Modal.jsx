@@ -2,6 +2,16 @@ import React from "react";
 import "./Modal.scss";
 import axios from "axios";
 
+/*
+Component Modal
+Props:
+  -name: name of item (ex. television)
+  -type: warehouse or inventory
+  -id: id of warehouse or inventory
+  -setActive: change the bolean of showing modal in parent component
+  -fethList: the feth list function of warehouse or inventory
+*/
+
 function Modal({ name, type, id, setActive, fetchList }) {
   const url = `http://localhost:8080/${type}/${id}`;
   const handleCancle = (e) => {
@@ -25,7 +35,11 @@ function Modal({ name, type, id, setActive, fetchList }) {
         </div>
 
         <div className="modal__middle">
-          <h2 className="modal__title">{`Delete ${name} ${type}?`}</h2>
+          <h2 className="modal__title">
+            {type === "warehouse"
+              ? `Delete ${name} ${type}?`
+              : `Delete ${name} ${type} item?`}
+          </h2>
           <p className="modal__dec">{`Please confirm that you'd like to delete ${name} from the ${type} list. You won't be able to undo this action.`}</p>
         </div>
 
