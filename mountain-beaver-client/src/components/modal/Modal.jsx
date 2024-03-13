@@ -1,8 +1,16 @@
 import React from "react";
 import "./Modal.scss";
+import axios from "axios";
 
-function Modal({ name, type, id, setActive }) {
-  const handleCancle = () => {
+function Modal({ name, type, id, setActive, fetchList }) {
+  const url = `http://localhost:8080/${type}/${id}`;
+  const handleCancle = (e) => {
+    e.preventDefault();
+    setActive(false);
+  };
+  const handleDelete = async () => {
+    await axios.delete(url);
+    await fetchList();
     setActive(false);
   };
   return (
@@ -25,7 +33,12 @@ function Modal({ name, type, id, setActive }) {
           <button className="modal__button" onClick={handleCancle}>
             Cancel
           </button>
-          <button className="modal__button modal__button--del">Delete</button>
+          <button
+            className="modal__button modal__button--del"
+            onClick={handleDelete}
+          >
+            Delete
+          </button>
         </div>
       </div>
     </div>
