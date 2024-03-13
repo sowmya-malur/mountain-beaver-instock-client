@@ -3,12 +3,17 @@
 @use "../../styles/partials/typography" as *;
 
 .header {
-  background-color: $Background-graphite;
+  background-color: $color-background-dark;
   text-align: center;
   display: flex;
   flex-direction: column;
   align-items: center;
   padding: 0 1.5rem;
+
+  // to overlap the main section on the header
+  position: relative;
+  z-index: -1;
+  
   @include tablet {
     display: flex;
     flex-direction: row;
@@ -29,7 +34,7 @@
   &__list {
     display: flex;
     align-items: center;
-    color: $Primary-white;
+    color: $color-global;
     list-style: none;
     gap: 7rem;
     @include tablet {
@@ -46,7 +51,7 @@
     width: 7rem;
     transition: background-color 0.3s, padding 0.3s;
     &:hover {
-      background-color: $Primary-black;
+      background-color: $color-primary-text;
       border-radius: 15rem;
       border: 0.5rem transparent;
     }

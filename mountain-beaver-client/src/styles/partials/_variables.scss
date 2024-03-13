@@ -2,21 +2,89 @@
 $tablet-breakpoint: 768px;
 $desktop-breakpoint: 1280px;
 
-// colors
+//Primary colors
+$color-primary-text: #13182c; //Black
+$color-primary-cta: #2e66e5; //Indigo
+$color-global: #ffffff; //White
 
-// Primary colors
-$Primary-black: #13182c; // Black
-$Primary-indigo: #2e66e5; // Indigo
-$Primary-white: #ffffff; // White
+//Secondary colors
+$color-secondary-text: #5c667e; //Slate
+$color-borders: #bdc5d5; //Cloud
 
-// Secondary colors
-$Secondary-slate: #5c667e; // Slate
-$Secondary-cloud: #bdc5d5; // Cloud
+//Background colors
+$color-background-dark: #232940; //Graphite
+$color-cta-hover: #232940; //Graphite - Top navigation header background,CTA button hover state background
+$color-background-light: #f7f8f9; //Light grey - Page background,table column header background, CTA background
 
-// Background colors
-$Background-graphite: #232940; // Graphite
-$Background-light-grey: #f7f8f9; // Light Grey
+//Supporting colors
+$color-success: #158463;
+$color-error: #c94515;
 
-// Supporting colors
-$Supporting-green: #158463; // Green
-$Supporting-red: #c94515; // Red
+// text styles variables
+$font-weight-regular: 400;
+$font-weight-semi-bold: 600;
+
+$font-family: "TitilliumWeb", sans-serif;
+
+// mobile font sizes
+$mobile-font-size-header: 1.75rem; // 28px
+$mobile-header-line-height: 2.25rem; // 36px
+
+$mobile-font-size-sub-header: 1.25rem; // 20px
+$mobile-sub-header-line-height: 1.75rem; // 28px
+
+$mobile-font-size-label-button: 0.813rem; // 13px
+$mobile-label-button-line-height: 1.25rem; // 20px
+
+$mobile-font-size-table-header: 0.688rem; // 11px
+$mobile-table-header-line-height: 1rem; // 16px
+
+$mobile-font-size-body-large: 0.938rem; // 15px
+$mobile-body-large-line-height: 1.625rem; // 26px
+
+$mobile-font-size-body-medium: 0.813rem; // 13px
+$mobile-body-medium-line-height: 1.25rem; // 20px
+
+$mobile-font-size-body-small: 0.688rem; // 11px
+$mobile-body-small-line-height: 1rem; // 16px
+
+// Add tablet font sizes here
+$tablet-font-size-header: 2rem; // 32px
+$tablet-header-line-height: 2.5rem; // 40px
+
+$tablet-font-size-sub-header: 1.5rem; // 24px
+$tablet-sub-header-line-height: 2rem; // 32px
+
+$tablet-font-size-label-button: 0.875rem; // 14px
+$tablet-label-button-line-height: 1.375rem; // 22px
+
+$tablet-font-size-table-header: 0.75rem; // 12px
+$tablet-table-header-line-height: 1.125rem; // 18px
+
+$tablet-font-size-body-large: 1rem; // 16px
+$tablet-body-large-line-height: 1.75rem; // 28px
+
+$tablet-font-size-body-medium: 0.875rem; // 14px
+$tablet-body-medium-line-height: 1.375rem; // 22px
+
+$tablet-font-size-body-small: 0.75rem; // 12px
+$tablet-body-small-line-height: 1.125rem; // 18px
+
+// mobile padding variables
+$mobile-margin: 1rem; // 16px
+$mobile-padding-top: 1.5rem; // 24px
+$mobile-padding-bottom: 1rem; // 16px
+
+// tablet padding variables
+$tablet-padding-top: 1.5rem; // 24;
+$tablet-padding-bottom: 2rem; // 32px;
+$tablet-margin: 1.5rem; // 24px
+
+// desktop padding variables
+$desktop-margin: calc(3*$tablet-margin);
+
+$border-radius: 1.25rem; //20px
+$element-mobile-height: 2.25rem; //36px
+$element-tablet-height: 2.375; //38px
+
+
