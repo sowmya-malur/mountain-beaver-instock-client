@@ -1,14 +1,19 @@
 import React from "react";
 import "./Modal.scss";
 
-function Modal({ name, type, id }) {
+function Modal({ name, type, id, setActive }) {
+  const handleCancle = () => {
+    setActive(false);
+  };
   return (
     <div className="modal">
       <div className="modal__layer" />
 
       <div className="modal__window">
         <div className="modal__top">
-          <button className="modal__del">X</button>
+          <button className="modal__del" onClick={handleCancle}>
+            X
+          </button>
         </div>
 
         <div className="modal__middle">
@@ -17,7 +22,9 @@ function Modal({ name, type, id }) {
         </div>
 
         <div className="modal__bottom">
-          <button className="modal__button">Cancel</button>
+          <button className="modal__button" onClick={handleCancle}>
+            Cancel
+          </button>
           <button className="modal__button modal__button--del">Delete</button>
         </div>
       </div>
