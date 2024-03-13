@@ -14,23 +14,17 @@ function App() {
 
   const [warehouseId, setWarehouseId] = useState(null);
 
-  useEffect(() => {
-    const fetchWarehouseId = async () => {
-      try {
-        const response = await axios.get('http://localhost:8080/warehouses/');
-        setWarehouseId(response.data.warehouseId); 
-      } catch (error) {
-        console.error('Failed to fetch Warehouse ID:', error);
-      }
-    };
-    fetchWarehouseId();
-  }, []);
+
+  const [Inventory, setInventoryID] = useState(null);
+
+
   return (
     <div className="App">
       <BrowserRouter className="body-copy">
         <Header />
         <Routes>
-//           <Route path="/" element={<WarehousesPage />} /> 
+              <Route path="/" element={<HomePage/>} /> 
+//           <Route path="/warehouses" element={<WarehousesPage />} /> 
 //           <Route path="/inventory" element={<InventoryPage />} />
         </Routes>
         <Footer />
