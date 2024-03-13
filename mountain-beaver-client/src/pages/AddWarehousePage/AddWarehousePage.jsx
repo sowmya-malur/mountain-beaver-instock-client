@@ -13,7 +13,9 @@ function AddWarehousePage() {
         </Link>
         <h1 className="add-warehouse__title">Add New Warehouse</h1>
       </div>
+      
       <form className="add-warehouse__form">
+      <div className="two-column-container">
         <div className="add-warehouse__details">
           <h2 className="add-warehouse__sub-title">Warehouse Details</h2>
           <label htmlFor="warehouseName" className="add-warehouse__label">Warehouse Name</label>
@@ -72,18 +74,21 @@ function AddWarehousePage() {
           <label htmlFor="email" className="add-warehouse__label">Email</label>
           <input type="text" name="email" id="email" placeholder="Email" className="add-warehouse__field"/>
         </div>
+        </div>
         <div className="add-warehouse__buttons-container">
-          <Link to="/">
+          <Link to="/" className="add-warehouse__wrapper">
             <button id="cancel" className="add-warehouse__secondary">
               Cancel
             </button>
           </Link>
-          <Link to="/"><button id="addWarehouse" className="add-warehouse__cta">
+          <Link to="/" >
+            <button id="addWarehouse" className="add-warehouse__cta">
             + Add Warehouse
           </button>
           </Link>
         </div>
       </form>
+     
     </section>
   );
 }

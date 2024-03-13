@@ -4,7 +4,16 @@
 
 // Add New Warehouse styling
 .add-warehouse{
+    margin: $mobile-margin;
+    box-shadow: 1px 1px 5px 0 rgba(0, 0, 0, 0.3);
 
+    @include tablet {
+        margin: $tablet-margin;
+    }
+
+    @include desktop {
+        margin: $desktop-margin;
+    }
     &__arrow-back {
         display:flex;
     }
@@ -14,12 +23,24 @@
         flex-direction: row;
         gap: 0.625rem;
         border-bottom: 0.063rem solid $color-borders;
+
         padding: $mobile-margin;
+
+        @include tablet {
+            padding: $tablet-margin;
+        }
     }
 
     &__title {
         font-size: $mobile-font-size-header;
+        font-weight: $font-weight-semi-bold;
         line-height: $mobile-header-line-height;
+
+        @include tablet {
+            font-size: $tablet-font-size-header;
+            line-height: $tablet-header-line-height;
+
+        }
     }
 
     &__sub-title {
@@ -27,6 +48,13 @@
         padding-bottom: $mobile-padding-bottom;
         font-size: $mobile-font-size-sub-header;
         line-height: $mobile-sub-header-line-height;
+        font-weight: $font-weight-semi-bold;
+
+        @include tablet {
+            padding-top: 0;
+            padding-bottom: $tablet-padding-bottom;
+            font-size: $tablet-font-size-sub-header;
+        }
     }
     
     &__details {
@@ -35,6 +63,13 @@
         padding-bottom: 1rem;
         padding-left: $mobile-margin;
         padding-right: $mobile-margin;
+
+        @include tablet {
+            flex:1;
+            margin-top: 1.5rem;
+            padding-left: $tablet-margin;
+            padding-right: $tablet-margin;
+        }
     }
 
     &__contact {
@@ -43,15 +78,19 @@
         border-top: 0.063rem solid $color-borders;
         padding-left: $mobile-margin;
         padding-right: $mobile-margin;
+
+        @include tablet {
+            flex:1;
+            border-top:none;
+            border-left: 0.063rem solid $color-borders;
+            margin-top: $tablet-margin;
+            padding-left: $tablet-margin;
+            padding-right: $tablet-margin;
+        }
     }
 
     &__form {
         padding-top:0;
-
-        @include tablet {
-            display: flex;
-            flex-direction: row;
-        }
     }
 
     &__field {
@@ -62,30 +101,61 @@
         margin-bottom: $mobile-margin;
         font-family: $font-family;
         font-size: $mobile-font-size-label-button;
+
+        @include tablet {
+            font-size: $tablet-font-size-label-button;
+            height: $element-tablet-height;
+            margin-bottom: $tablet-margin;
+
+        }
     }
 
     &__label {
         padding-bottom: 0.25rem; 
         font-size: $mobile-font-size-label-button;
+        font-weight: $font-weight-semi-bold;
 
+        @include tablet {
+            font-size: $tablet-font-size-label-button;
+        }
     }
 
     &__buttons-container {
        padding: $mobile-margin;
        display: flex;
        justify-content: space-between;
+       flex:0.5;
+       gap: 1rem;
+
+       @include tablet {
+        justify-content: flex-end;
+        padding: $tablet-margin;
+       }
     }
     
+    &__wrapper {
+        flex:1;
+        @include tablet {
+            flex:0;
+        }
+
+    }
+
     &__secondary {
         color: $color-secondary-text;
-        background-color: $color-background-light;
+        background-color: $color-global;
         border-radius: $border-radius;
         height: $element-mobile-height;
         border: 0.063rem solid $color-borders;
         padding: 0 1rem 0.25rem 1rem;
-        width: 8.75rem;
         font-size: $mobile-font-size-label-button;
-
+        width: 8.688rem; // 139px;
+    
+        @include tablet {
+            width:auto;
+            font-size: $tablet-font-size-label-button;
+            height: $element-tablet-height;
+        }
     }
 
     &__cta {
@@ -93,10 +163,26 @@
         background-color: $color-primary-cta;
         border-radius: $border-radius;
         height: $element-mobile-height;
-        width: 8.75rem; //from style guide
         border: 0.063rem solid $color-borders;
         padding: 0 1rem 0.25rem 1rem;
         font-size: $mobile-font-size-label-button;
+        width: 8.75rem; //140px
 
+        @include tablet {
+            font-size: $tablet-font-size-label-button;
+            width: auto;
+            height: $element-tablet-height;
+
+        }
+    }
+}
+
+.two-column-container {
+    display: flex;
+    flex-direction: column;
+
+    @include tablet {
+        flex-direction: row;
+        justify-content: space-between;
     }
 }
