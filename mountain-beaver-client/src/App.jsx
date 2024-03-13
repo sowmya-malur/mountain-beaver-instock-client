@@ -1,9 +1,19 @@
 import './App.scss';
 
+// Import Components
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import HomePage from "./pages/HomePage/HomePage";
+
 function App() {
   return (
-    <div className="App">
-     <h1>Hello</h1>
+    <div>
+      <BrowserRouter>
+        {/* Placeholder for Header */}
+        <Routes>
+          <Route path="/" element={<HomePage />} />
+        </Routes>
+        {/* Placeholder for Footer */}
+      </BrowserRouter>
     </div>
   );
 }

@@ -1,0 +1,89 @@
+@use "../../styles/partials/mixin" as *;
+@use "../../styles/partials/variables" as *;
+@use "../../styles/partials/typography" as *;
+
+.add-warehouse{
+
+    &__arrow-back {
+        display:flex;
+    }
+   
+    &__page-title {
+        display: flex;
+        flex-direction: row;
+        gap: 0.625rem;
+        border-bottom: 0.063rem solid $color-borders;
+        padding: $mobile-margin;
+    }
+
+    &__sub-title {
+        padding-top: $mobile-padding-top;
+        padding-bottom: $mobile-padding-bottom;
+        // margin-bottom: $mobile-margin;
+    }
+    
+    &__details {
+        display:flex;
+        flex-direction: column;
+        padding-bottom: 1rem;
+        padding-left: $mobile-margin;
+        padding-right: $mobile-margin;
+    }
+
+    &__contact {
+        display:flex;
+        flex-direction: column;
+        border-top: 0.063rem solid $color-borders;
+        padding-left: $mobile-margin;
+        padding-right: $mobile-margin;
+    }
+
+    &__form {
+        padding-top:0;
+
+        @include tablet {
+            display: flex;
+            flex-direction: row;
+        }
+    }
+
+    &__field {
+        border-radius: $border-radius;
+        height: $element-mobile-height;
+        border: 0.063rem solid $color-borders;
+        padding: 0 1rem 0.25rem 1rem; 
+        margin-bottom: $mobile-margin;
+        font-family: $font-family;
+
+    }
+
+    &__label {
+        padding-bottom: 0.25rem; 
+    }
+
+    &__buttons-container {
+       padding: $mobile-margin;
+       display: flex;
+       justify-content: space-between;
+    }
+    
+    &__secondary {
+        color: $color-secondary-text;
+        background-color: $color-background-light;
+        border-radius: $border-radius;
+        height: $element-mobile-height;
+        border: 0.063rem solid $color-borders;
+        padding: 0 1rem 0.25rem 1rem;
+        width: 8.75rem;
+    }
+
+    &__cta {
+        color: $color-global;
+        background-color: $color-primary-cta;
+        border-radius: $border-radius;
+        height: $element-mobile-height;
+        width: 8.75rem; //from style guide
+        border: 0.063rem solid $color-borders;
+        padding: 0 1rem 0.25rem 1rem;
+    }
+}
