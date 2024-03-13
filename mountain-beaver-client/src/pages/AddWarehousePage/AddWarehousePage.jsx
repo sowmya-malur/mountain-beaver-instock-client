@@ -109,10 +109,20 @@ function AddWarehousePage() {
       if (phoneNumber.trim() === "") {
         phoneRef.current.focus();
         formErrors.phoneNumber = errorMessage;
+      } else if (!/^\+?[1-9]\d{1,14}$/.test(phoneNumber.trim())) {
+        // Verify for format: +1 (xxx) xxx-xxxx
+        phoneRef.current.focus();
+        formErrors.phoneNumber = "Invalid phone number format.";
       }
       if (email.trim() === "") {
         emailRef.current.focus();
         formErrors.email = errorMessage;
+      } else if (
+        // Verify for format: @
+        !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email.trim())
+      ) {
+        emailRef.current.focus();
+        formErrors.email = "Invalid email format";
       }
 
       // Update state with form errors
@@ -129,8 +139,8 @@ function AddWarehousePage() {
           country: country,
           contact_name: contactName,
           contact_position: position,
-          contact_phone: "+1 (646) 123-1234",
-          contact_email: "paujla@instock.com",
+          contact_phone: phoneNumber,
+          contact_email: email,
         };
 
         // POST request to backend API
