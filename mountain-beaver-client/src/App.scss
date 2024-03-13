@@ -12,6 +12,7 @@ body {
   font-family: $font-family;
   font-weight: $font-weight-regular;
   font-size: $mobile-font-size-body-medium;
+  background-color: $color-background-light;
 
   @include tablet {
     font-size: $tablet-font-size-body-medium;
