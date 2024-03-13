@@ -61,20 +61,20 @@
   &__bottom {
     position: absolute;
     width: 100%;
-    bottom: 2rem;
+    bottom: 8%;
     padding: 0 1rem;
     display: flex;
-    justify-content: space-evenly;
+    justify-content: space-between;
   }
   &__button {
     font-weight: 600;
     color: $Secondary-slate;
-    width: 40%;
+    width: 47%;
     height: 2.5rem;
     border-radius: 50px;
     border: 1px solid $Secondary-slate;
     background-color: $Primary-white;
-    transition: ease-in-out 0.2s;
+    transition: ease-in 0.2s;
     &:hover {
       background-color: $Secondary-slate;
       color: $Primary-white;
@@ -89,6 +89,7 @@
       &:hover {
         background-color: $Primary-white;
         color: $Supporting-red;
+        border: 3px solid $Supporting-red;
       }
     }
   }
