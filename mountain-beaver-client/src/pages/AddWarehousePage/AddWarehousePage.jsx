@@ -67,10 +67,7 @@ function AddWarehousePage() {
 
     let formErrors = {};
 
-    // get the values from the form
-    const wareHouseName = form.wareHouseName.value;
-    const streetAddress = form.streetAddress.value;
-
+    // Check the values from the form if empty, set the error message
     if (wareHouseName.trim() === "") {
       nameRef.current.focus();
       formErrors.wareHouseName = errorMessage;
@@ -82,6 +79,26 @@ function AddWarehousePage() {
     if (city.trim() === "") {
       cityRef.current.focus();
       formErrors.city = errorMessage;
+    }
+    if (country.trim() === "") {
+      countryRef.current.focus();
+      formErrors.country = errorMessage;
+    }
+    if (contactName.trim() === "") {
+      contactRef.current.focus();
+      formErrors.contactName = errorMessage;
+    }
+    if (position.trim() === "") {
+      positionRef.current.focus();
+      formErrors.position = errorMessage;
+    }
+    if (phoneNumber.trim() === "") {
+      phoneRef.current.focus();
+      formErrors.phoneNumber = errorMessage;
+    }
+    if (email.trim() === "") {
+      emailRef.current.focus();
+      formErrors.email = errorMessage;
     }
 
     console.log(formErrors);
@@ -184,8 +201,19 @@ function AddWarehousePage() {
               name="country"
               id="country"
               placeholder="Country"
-              className="add-warehouse__field"
+              className={`add-warehouse__field ${
+                errors.country && "add-warehouse__field--error"
+              }`}
+              value={country}
+              onChange={handleChange}
+              ref={countryRef}
             />
+             {errors.country && (
+              <div className="add-warehouse__error-message">
+                <img src={erroricon} alt="error icon"/>
+                {errors.country}
+              </div>
+            )}
           </div>
           <div className="add-warehouse__contact">
             <h2 className="add-warehouse__sub-title">Contact Details</h2>
@@ -197,8 +225,19 @@ function AddWarehousePage() {
               name="contactName"
               id="contactName"
               placeholder="Contact Name"
-              className="add-warehouse__field"
+              className={`add-warehouse__field ${
+                errors.contactName && "add-warehouse__field--error"
+              }`}
+              value={contactName}
+              onChange={handleChange}
+              ref={contactRef}
             />
+            {errors.contactName && (
+              <div className="add-warehouse__error-message">
+                <img src={erroricon} alt="error icon"/>
+                {errors.contactName}
+              </div>
+            )}
             <label htmlFor="position" className="add-warehouse__label">
               Position
             </label>
@@ -207,8 +246,19 @@ function AddWarehousePage() {
               name="position"
               id="position"
               placeholder="Position"
-              className="add-warehouse__field"
+              className={`add-warehouse__field ${
+                errors.position && "add-warehouse__field--error"
+              }`}
+              value={position}
+              onChange={handleChange}
+              ref={positionRef}
             />
+            {errors.position && (
+              <div className="add-warehouse__error-message">
+                <img src={erroricon} alt="error icon"/>
+                {errors.position}
+              </div>
+            )}
             <label htmlFor="phoneNumber" className="add-warehouse__label">
               Phone Number
             </label>
@@ -217,8 +267,19 @@ function AddWarehousePage() {
               name="phoneNumber"
               id="phoneNumber"
               placeholder="Phone Number"
-              className="add-warehouse__field"
+              className={`add-warehouse__field ${
+                errors.phoneNumber && "add-warehouse__field--error"
+              }`}
+              value={phoneNumber}
+              onChange={handleChange}
+              ref={phoneRef}
             />
+             {errors.phoneNumber && (
+              <div className="add-warehouse__error-message">
+                <img src={erroricon} alt="error icon"/>
+                {errors.phoneNumber}
+              </div>
+            )}
             <label htmlFor="email" className="add-warehouse__label">
               Email
             </label>
@@ -227,8 +288,19 @@ function AddWarehousePage() {
               name="email"
               id="email"
               placeholder="Email"
-              className="add-warehouse__field"
+              className={`add-warehouse__field ${
+                errors.email && "add-warehouse__field--error"
+              }`}
+              value={email}
+              onChange={handleChange}
+              ref={emailRef}
             />
+            {errors.email && (
+              <div className="add-warehouse__error-message">
+                <img src={erroricon} alt="error icon"/>
+                {errors.email}
+              </div>
+            )}
           </div>
         </div>
         <div className="add-warehouse__buttons-container">
