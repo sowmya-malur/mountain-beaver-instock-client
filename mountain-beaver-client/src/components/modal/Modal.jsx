@@ -25,7 +25,7 @@ function Modal({ name, type, id, setActive, fetchList }) {
         </div>
 
         <div className="modal__middle">
-          <h2 className="modal__title">{`Delete ${name} ${type} item?`}</h2>
+          <h2 className="modal__title">{`Delete ${name} ${type}?`}</h2>
           <p className="modal__dec">{`Please confirm that you'd like to delete ${name} from the ${type} list. You won't be able to undo this action.`}</p>
         </div>
 
