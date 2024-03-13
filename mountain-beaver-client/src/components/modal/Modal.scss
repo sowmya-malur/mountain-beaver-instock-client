@@ -3,20 +3,93 @@
 
 .modal {
   width: 100%;
-  height: 100%;
+  height: 100vh;
+  position: absolute;
+  top: 0;
+
   &__layer {
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    background-color: $Background-graphite;
-    opacity: 0.8;
-    top: 0;
+    @include tablet {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      background-color: $Background-graphite;
+      opacity: 0.8;
+      top: 0;
+    }
   }
   &__window {
     background-color: $Primary-white;
     width: 100%;
     height: 100%;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+  }
+  &__top {
+    width: 100%;
+    display: flex;
+    justify-content: flex-end;
+    padding: 1rem;
+  }
+  &__del {
+    font-size: 1.5rem;
+    width: 2rem;
+    height: 2rem;
+    background-color: transparent;
+    border: none;
+    &:hover {
+      outline: 3px solid $Primary-indigo;
+    }
+  }
+  &__middle {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    padding: 0 1rem;
+  }
+  &__title {
+    width: 100%;
+    font-size: 2rem;
+    line-height: 2.5rem;
+    margin-block-end: 1.5rem;
+  }
+  &__dec {
+    width: 100%;
+    font-size: 1.15rem;
+    line-height: 2rem;
+  }
+  &__bottom {
     position: absolute;
-    top: 0;
+    width: 100%;
+    bottom: 2rem;
+    padding: 0 1rem;
+    display: flex;
+    justify-content: space-evenly;
+  }
+  &__button {
+    font-weight: 600;
+    color: $Secondary-slate;
+    width: 40%;
+    height: 2.5rem;
+    border-radius: 50px;
+    border: 1px solid $Secondary-slate;
+    background-color: $Primary-white;
+    transition: ease-in-out 0.2s;
+    &:hover {
+      background-color: $Secondary-slate;
+      color: $Primary-white;
+    }
+    &:active {
+      scale: 0.95;
+    }
+    &--del {
+      border-color: $Supporting-red;
+      background-color: $Supporting-red;
+      color: $Primary-white;
+      &:hover {
+        background-color: $Primary-white;
+        color: $Supporting-red;
+      }
+    }
   }
 }

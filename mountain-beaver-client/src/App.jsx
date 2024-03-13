@@ -10,7 +10,10 @@ function App() {
       <BrowserRouter className="body-copy">
         <Header />
         <Routes>
-          <Route path="/" element={<Modal />} />
+          <Route
+            path="/"
+            element={<Modal name={"television"} type={"warehouse"} />}
+          />
           {/* <Route path="/" element={<WarehousesPage />} /> Pass videos as prop if needed */}
           {/* <Route path="/inventory" element={<InventoryPage />} /> */}
         </Routes>
