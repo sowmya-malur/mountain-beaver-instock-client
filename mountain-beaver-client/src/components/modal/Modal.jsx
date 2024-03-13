@@ -13,8 +13,8 @@ Props:
 */
 
 function Modal({ name, type, id, setActive, fetchList }) {
-  const url = `http://localhost:8080/${type}/${id}`;
-  const handleCancle = (e) => {
+  const url = `${process.env.REACT_APP_URL}/${type}/${id}`;
+  const handleCancel = (e) => {
     e.preventDefault();
     setActive(false);
   };
@@ -29,7 +29,7 @@ function Modal({ name, type, id, setActive, fetchList }) {
 
       <div className="modal__window">
         <div className="modal__top">
-          <button className="modal__del" onClick={handleCancle}>
+          <button className="modal__del" onClick={handleCancel}>
             X
           </button>
         </div>
@@ -44,7 +44,7 @@ function Modal({ name, type, id, setActive, fetchList }) {
         </div>
 
         <div className="modal__bottom">
-          <button className="modal__button" onClick={handleCancle}>
+          <button className="modal__button" onClick={handleCancel}>
             Cancel
           </button>
           <button
