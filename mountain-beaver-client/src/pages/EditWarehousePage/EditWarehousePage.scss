@@ -1,0 +1,224 @@
+@use "../../styles/partials/mixin" as *;
+@use "../../styles/partials/variables" as *;
+@use "../../styles/partials/typography" as *;
+
+// Add New Warehouse styling
+.edit-warehouse {
+  margin: $mobile-margin;
+  background-color: $color-global;
+  box-shadow: 1px 1px 5px 0 rgba(0, 0, 0, 0.3);
+  position: relative;
+  z-index: 1;
+  top: -3.2rem;
+  border-radius: 0.6rem;
+
+  @include tablet {
+    margin: $tablet-margin;
+    top: -7rem;
+  }
+
+  @include desktop {
+    margin: $desktop-margin;
+    top: -10rem;
+  }
+  &__arrow-back {
+    display: flex;
+  }
+
+  &__page-title {
+    display: flex;
+    flex-direction: row;
+    gap: 0.625rem;
+    border-bottom: 0.063rem solid $color-borders;
+
+    padding: $mobile-margin;
+
+    @include tablet {
+      padding: $tablet-margin;
+    }
+  }
+
+  &__title {
+    font-size: $mobile-font-size-header;
+    font-weight: $font-weight-semi-bold;
+    line-height: $mobile-header-line-height;
+
+    @include tablet {
+      font-size: $tablet-font-size-header;
+      line-height: $tablet-header-line-height;
+    }
+  }
+
+  &__sub-title {
+    padding-top: $mobile-padding-top;
+    padding-bottom: $mobile-padding-bottom;
+    font-size: $mobile-font-size-sub-header;
+    line-height: $mobile-sub-header-line-height;
+    font-weight: $font-weight-semi-bold;
+
+    @include tablet {
+      padding-top: 0;
+      padding-bottom: $tablet-padding-bottom;
+      font-size: $tablet-font-size-sub-header;
+    }
+  }
+
+  &__details {
+    display: flex;
+    flex-direction: column;
+    padding-bottom: 1rem;
+    padding-left: $mobile-margin;
+    padding-right: $mobile-margin;
+
+    @include tablet {
+      flex: 1;
+      margin-top: 1.5rem;
+      padding-left: $tablet-margin;
+      padding-right: $tablet-margin;
+    }
+  }
+
+  &__contact {
+    display: flex;
+    flex-direction: column;
+    border-top: 0.063rem solid $color-borders;
+    padding-left: $mobile-margin;
+    padding-right: $mobile-margin;
+
+    @include tablet {
+      flex: 1;
+      border-top: none;
+      border-left: 0.063rem solid $color-borders;
+      margin-top: $tablet-margin;
+      padding-left: $tablet-margin;
+      padding-right: $tablet-margin;
+    }
+  }
+
+  &__form {
+    padding-top: 0;
+  }
+
+  &__field {
+    border-radius: $border-radius;
+    height: $element-mobile-height;
+    border: 0.063rem solid $color-borders;
+    padding: 0 1rem 0.25rem 1rem;
+    font-family: $font-family;
+    font-size: $mobile-font-size-label-button;
+
+    @include tablet {
+      font-size: $tablet-font-size-label-button;
+      height: $element-tablet-height;
+      
+    }
+    &--error {
+      border: 0.063rem solid $color-error;
+    }
+
+    ::placeholder {
+      color: $color-secondary-text;
+    }
+    &:hover,
+    &:focus {
+      border-color: $color-primary-cta;
+    }
+  }
+
+  &__error-message {
+    color: $color-error;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    font-size: $mobile-font-size-body-small;
+    padding-top: 0.25rem;
+    @include tablet {
+      font-size: $tablet-font-size-body-small;
+    }
+  }
+
+  &__label {
+    margin-top: $mobile-margin;
+    padding-bottom: 0.25rem;
+    font-size: $mobile-font-size-label-button;
+    font-weight: $font-weight-semi-bold;
+
+    @include tablet {
+      font-size: $tablet-font-size-label-button;
+      margin-top: $tablet-margin;
+    }
+  }
+
+  &__buttons-container {
+    padding: $mobile-margin;
+    display: flex;
+    justify-content: space-between;
+    gap: 1rem;
+
+    @include tablet {
+      justify-content: flex-end;
+      padding: $tablet-margin;
+    }
+  }
+
+  &__wrapper {
+    flex: 1;
+    @include tablet {
+      flex: 0;
+    }
+  }
+
+  &__secondary {
+    color: $color-secondary-text;
+    background-color: $color-global;
+    border-radius: $border-radius;
+    height: $element-mobile-height;
+    border: 0.063rem solid $color-borders;
+    padding: 0 1rem 0.25rem 1rem;
+    font-size: $mobile-font-size-label-button;
+    width: 8.688rem; // 139px;
+    cursor: pointer;
+
+    @include tablet {
+      width: auto;
+      font-size: $tablet-font-size-label-button;
+      height: $element-tablet-height;
+    }
+    &:hover,
+    &:focus {
+      border-color: $color-primary-cta;
+      color: $color-primary-cta;
+    }
+  }
+
+  &__cta {
+    color: $color-global;
+    background-color: $color-primary-cta;
+    border-radius: $border-radius;
+    height: $element-mobile-height;
+    border: 0.063rem solid $color-borders;
+    padding: 0 1rem 0.25rem 1rem;
+    font-size: $mobile-font-size-label-button;
+    width: 8.75rem; //140px
+    cursor: pointer;
+    @include tablet {
+      font-size: $tablet-font-size-label-button;
+      width: auto;
+      height: $element-tablet-height;
+    }
+    &:hover,
+    &:focus {
+      background-color: $color-cta-hover;
+    }
+  }
+}
+
+.two-column-container {
+  display: flex;
+  flex-direction: column;
+
+  @include tablet {
+    flex-direction: row;
+    justify-content: space-between;
+  }
+}
