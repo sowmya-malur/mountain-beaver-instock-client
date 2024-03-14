@@ -14,7 +14,7 @@
     border-radius: 0.6rem;
     box-shadow: 1px 1px 5px 0 rgba(0, 0, 0, 0.3);
     margin: $mobile-margin;
-    padding-bottom: 2rem;
+
     @include tablet {
       margin: $tablet-margin;
       top: -8.5rem;
@@ -98,7 +98,7 @@
     padding: 0 1rem 0.25rem 1rem;
   }
   ::placeholder {
-    color: $color-primary-text;
+    color: $color-secondary-text;
     text-wrap: wrap;
   }
   &__details-input-desc {
@@ -116,6 +116,9 @@
     left: 89%;
     top: -3.2rem;
     height: 2rem;
+  }
+  &__details-input--error {
+    border-color: $color-error !important;
   }
   &__avail {
     padding: 0 1rem;
@@ -201,7 +204,7 @@
     font-size: $mobile-font-size-label-button;
     font-weight: 600;
     @include tablet {
-      width: 10%;
+      width: 8rem;
       font-size: $tablet-font-size-label-button;
     }
   }
@@ -216,7 +219,7 @@
     font-weight: 600;
 
     @include tablet {
-      width: 10%;
+      width: 8rem;
       font-size: $tablet-font-size-label-button;
     }
   }
