@@ -104,17 +104,24 @@
     height: $element-mobile-height;
     border: 0.063rem solid $color-borders;
     padding: 0 1rem 0.25rem 1rem;
-    margin-bottom: $mobile-margin;
     font-family: $font-family;
     font-size: $mobile-font-size-label-button;
 
     @include tablet {
       font-size: $tablet-font-size-label-button;
       height: $element-tablet-height;
-      margin-bottom: $tablet-margin;
+      
     }
     &--error {
       border: 0.063rem solid $color-error;
+    }
+
+    ::placeholder {
+      color: $color-secondary-text;
+    }
+    &:hover,
+    &:focus {
+      border-color: $color-primary-cta;
     }
   }
 
@@ -122,14 +129,23 @@
     color: $color-error;
     display: flex;
     flex-direction: row;
+    align-items: center;
+    font-size: $mobile-font-size-body-small;
+    padding-top: 0.25rem;
+    @include tablet {
+      font-size: $tablet-font-size-body-small;
+    }
   }
+
   &__label {
+    margin-top: $mobile-margin;
     padding-bottom: 0.25rem;
     font-size: $mobile-font-size-label-button;
     font-weight: $font-weight-semi-bold;
 
     @include tablet {
       font-size: $tablet-font-size-label-button;
+      margin-top: $tablet-margin;
     }
   }
 
@@ -168,6 +184,11 @@
       font-size: $tablet-font-size-label-button;
       height: $element-tablet-height;
     }
+    &:hover,
+    &:focus {
+      border-color: $color-primary-cta;
+      color: $color-primary-cta;
+    }
   }
 
   &__cta {
@@ -184,6 +205,10 @@
       font-size: $tablet-font-size-label-button;
       width: auto;
       height: $element-tablet-height;
+    }
+    &:hover,
+    &:focus {
+      background-color: $color-cta-hover;
     }
   }
 }
