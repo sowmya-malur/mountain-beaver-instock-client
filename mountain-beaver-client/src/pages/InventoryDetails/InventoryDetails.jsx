@@ -24,7 +24,7 @@ function InventoryDetails({ inventoryId }) {
       const getInventory = async () => {
         // Fetch inventory data from backend API
         const inventoryResponse = await axios.get(
-          `${process.env.REACT_APP_BACKEND_URL}/inventory/${inventoryId}`
+          `${process.env.REACT_APP_BACKEND_URL}/api/inventory/${inventoryId}`
         );
 
         // If request is successful and data is received, set inventory state
