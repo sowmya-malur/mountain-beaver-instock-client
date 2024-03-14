@@ -7,7 +7,7 @@ const WarehouseDetailsPage = () => {
 
     return (
         <div>
-            <h2>Inventory Details</h2>
+            <h2>Warehouse Details</h2>
             
             
             <WarehouseDetails warehouseId={warehouseId} />
