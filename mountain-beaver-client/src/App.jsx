@@ -12,7 +12,8 @@ function App() {
     <div className="App">
       <BrowserRouter className="body-copy">
         <Header />
-        <EditInventoryItem />
+        {/* <EditInventoryItem /> */}
+        <Routes>
           <Route path="/" element={<HomePage />} />
           {/* <Route path="/" element={<WarehousesPage />} /> Pass videos as prop if needed */}
           {/* <Route path="/inventory" element={<InventoryPage />} /> */}
