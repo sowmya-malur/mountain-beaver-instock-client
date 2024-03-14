@@ -7,7 +7,7 @@ const InventoryList = () => {
   useEffect(() => {
     const fetchInventories = async () => {
       try {
-        const response = await axios.get(`${process.env.REACT_APP_BACKEND_URL}/inventory/`)
+        const response = await axios.get(`${process.env.REACT_APP_BACKEND_URL}/api/inventories/`)
         setInventories(response.data); 
       } catch (error) {
         console.error(`Error fetching inventories`, error);

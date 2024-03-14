@@ -165,7 +165,7 @@ function AddWarehousePage() {
 
         // POST request to backend API
         const response = await axios.post(
-          `${process.env.REACT_APP_BACKEND_URL}/warehouses/`,
+          `${process.env.REACT_APP_BACKEND_URL}/api/warehouses/`,
           newWareHouse
         );
 

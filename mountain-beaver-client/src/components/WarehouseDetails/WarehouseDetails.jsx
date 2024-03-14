@@ -13,7 +13,7 @@ const WarehouseDetails = () => {
     useEffect(() => {
         const fetchWarehouseDetails = async () => {
             try {
-                const response = await axios.get(`${process.env.REACT_APP_BACKEND_URL}/warehouses/${warehouseId}`);
+                const response = await axios.get(`${process.env.REACT_APP_BACKEND_URL}/api/warehouses/${warehouseId}`);
                 setCurrentWarehouse(response.data);
             } catch (error) {
                 console.error("Error fetching warehouse details:", error);
