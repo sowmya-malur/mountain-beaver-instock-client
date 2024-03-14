@@ -21,6 +21,16 @@ function AddWarehousePage() {
   const [phoneNumber, setPhoneNumber] = useState("");
   const [email, setEmail] = useState("");
   const [errors, setErrors] = useState({});
+  const [activeFields, setActiveFields] = useState({
+    wareHouseName: false,
+    streetAddress: false,
+    city: false,
+    country: false,
+    contactName: false,
+    position: false,
+    phoneNumber: false,
+    email: false,
+  });
 
   // Set refs for all the form fields to focus
   const formRef = useRef();
@@ -71,6 +81,16 @@ function AddWarehousePage() {
     if (value.trim() !== "") {
       setErrors({});
     }
+  };
+
+  // Event handler for focusing on a form field
+  const handleFocus = (field) => {
+    setActiveFields((prevState) => ({ ...prevState, [field]: true }));
+  };
+
+   // Event handler for blurring out of a form field
+   const handleBlur = (field) => {
+    setActiveFields((prevState) => ({ ...prevState, [field]: false }));
   };
 
   // Event handler for form submission
@@ -126,7 +146,7 @@ function AddWarehousePage() {
       }
 
       // Update state with form errors
-      if (formErrors.length !== 0) {
+      if (Object.keys(formErrors).length !== 0) {
         setErrors(formErrors);
       }
 
@@ -157,7 +177,7 @@ function AddWarehousePage() {
 
           navigate("/");
         } else if (response.status === 404) {
-          alert("Error adding new warhouse.");
+          alert("Error adding new warehouse.");
         }
       }
     } catch (error) {
@@ -207,10 +227,12 @@ function AddWarehousePage() {
                 id="wareHouseName"
                 placeholder="Warehouse Name"
                 className={`add-warehouse__field ${
-                  errors.wareHouseName && "add-warehouse__field--error"
+                  (errors.wareHouseName || activeFields.wareHouseName) && "add-warehouse__field--error"
                 }`}
                 value={wareHouseName}
                 onChange={handleChange}
+                onFocus={handleFocus}
+                onBlur={handleBlur}
                 ref={nameRef}
               />
               {errors.wareHouseName && (
@@ -228,10 +250,12 @@ function AddWarehousePage() {
                 id="streetAddress"
                 placeholder="Street Address"
                 className={`add-warehouse__field ${
-                  errors.streetAddress && "add-warehouse__field--error"
+                  (errors.streetAddress || activeFields.streetAddress) && "add-warehouse__field--error"
                 }`}
                 value={streetAddress}
                 onChange={handleChange}
+                onFocus={handleFocus}
+                onBlur={handleBlur}
                 ref={addressRef}
               />
               {errors.streetAddress && (
@@ -250,10 +274,12 @@ function AddWarehousePage() {
                 id="city"
                 placeholder="City"
                 className={`add-warehouse__field ${
-                  errors.city && "add-warehouse__field--error"
+                  (errors.city || activeFields.city) && "add-warehouse__field--error"
                 }`}
                 value={city}
                 onChange={handleChange}
+                onFocus={handleFocus}
+                onBlur={handleBlur}
                 ref={cityRef}
               />
               {errors.city && (
@@ -271,10 +297,12 @@ function AddWarehousePage() {
                 id="country"
                 placeholder="Country"
                 className={`add-warehouse__field ${
-                  errors.country && "add-warehouse__field--error"
+                  (errors.country || activeFields.country) && "add-warehouse__field--error"
                 }`}
                 value={country}
                 onChange={handleChange}
+                onFocus={handleFocus}
+                onBlur={handleBlur}
                 ref={countryRef}
               />
               {errors.country && (
@@ -295,10 +323,12 @@ function AddWarehousePage() {
                 id="contactName"
                 placeholder="Contact Name"
                 className={`add-warehouse__field ${
-                  errors.contactName && "add-warehouse__field--error"
+                  (errors.contactName || activeFields.contactName) && "add-warehouse__field--error"
                 }`}
                 value={contactName}
                 onChange={handleChange}
+                onFocus={handleFocus}
+                onBlur={handleBlur}
                 ref={contactRef}
               />
               {errors.contactName && (
@@ -316,10 +346,12 @@ function AddWarehousePage() {
                 id="position"
                 placeholder="Position"
                 className={`add-warehouse__field ${
-                  errors.position && "add-warehouse__field--error"
+                  (errors.position || activeFields.position) && "add-warehouse__field--error"
                 }`}
                 value={position}
                 onChange={handleChange}
+                onFocus={handleFocus}
+                onBlur={handleBlur}
                 ref={positionRef}
               />
               {errors.position && (
@@ -337,10 +369,12 @@ function AddWarehousePage() {
                 id="phoneNumber"
                 placeholder="Phone Number"
                 className={`add-warehouse__field ${
-                  errors.phoneNumber && "add-warehouse__field--error"
+                  (errors.phoneNumber || activeFields.phoneNumber) && "add-warehouse__field--error"
                 }`}
                 value={phoneNumber}
                 onChange={handleChange}
+                onFocus={handleFocus}
+                onBlur={handleBlur}
                 ref={phoneRef}
               />
               {errors.phoneNumber && (
@@ -358,10 +392,12 @@ function AddWarehousePage() {
                 id="email"
                 placeholder="Email"
                 className={`add-warehouse__field ${
-                  errors.email && "add-warehouse__field--error"
+                  (errors.email || activeFields.email) && "add-warehouse__field--error"
                 }`}
                 value={email}
                 onChange={handleChange}
+                onFocus={handleFocus}
+                onBlur={handleBlur}
                 ref={emailRef}
               />
               {errors.email && (

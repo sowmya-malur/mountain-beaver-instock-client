@@ -112,6 +112,10 @@
     ::placeholder {
       color: $color-secondary-text;
     }
+    &:hover,
+    &:focus {
+      border-color: $color-primary-cta;
+    }
   }
 
   &__error-message {
@@ -173,6 +177,11 @@
       font-size: $tablet-font-size-label-button;
       height: $element-tablet-height;
     }
+    &:hover,
+    &:focus {
+      border-color: $color-primary-cta;
+      color: $color-primary-cta;
+    }
   }
 
   &__cta {
@@ -189,6 +198,10 @@
       font-size: $tablet-font-size-label-button;
       width: auto;
       height: $element-tablet-height;
+    }
+    &:hover,
+    &:focus {
+      background-color: $color-cta-hover;
     }
   }
 }
