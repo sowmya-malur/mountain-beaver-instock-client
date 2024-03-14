@@ -14,10 +14,9 @@ function App() {
       <BrowserRouter>
         <Header />
         <EditInventoryItem />
-
-        {/* <Route path="/" element={<HomePage />} /> */}
-        {/* <Route path="/" element={<WarehousesPage />} />
-        <Route path="/inventory" element={<InventoryPage />} /> */}
+        <Route path="/" element={<HomePage />} />
+        <Route path="/" element={<WarehousesPage />} />
+        <Route path="/inventory" element={<InventoryPage />} />
         <Footer />
       </BrowserRouter>
     </div>
