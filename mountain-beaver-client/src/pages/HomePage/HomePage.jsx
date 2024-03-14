@@ -6,7 +6,7 @@ function HomePage() {
         <>
           <main className="main">
             {/* <AddWarehousePage/> */}
-            <InventoryDetails inventoryId={2}/>
+            <InventoryDetails inventoryId={25}/>
           </main>
         </>
     );
