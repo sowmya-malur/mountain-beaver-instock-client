@@ -7,7 +7,7 @@ const WarehouseList = () => {
   useEffect(() => {
     const fetchWarehouses = async () => {
       try {
-        const response = await axios.get(`http://localhost:8080/warehouses/`);
+        const response = await axios.get(`${process.env.REACT_APP_BACKEND_URL}/warehouses/`)
         setWarehouses(response.data); 
       } catch (error) {
         console.error(`Error fetching warehouses`, error);
@@ -25,11 +25,11 @@ const WarehouseList = () => {
         <table className='warehouse__table'>
           <thead>
             <tr>
-              <th className='warehouse__cell'>Warehouse<div class="chevron"></div></th>
-              <th className='warehouse__cell'>Address<i class="chevron"></i></th>
-              <th className='warehouse__cell'>Contact Name<i class="chevron"></i></th>
-              <th className='warehouse__cell'> Contact information<i class="chevron"></i></th>
-              <th className='warehouse__cell'>Actions<i class="chevron"></i></th> 
+              <th className='warehouse__cell'>Warehous</th>
+              <th className='warehouse__cell'>Address</th>
+              <th className='warehouse__cell'>Contact Name</th>
+              <th className='warehouse__cell'> Contact information</th>
+              <th className='warehouse__cell'>Actions</th> 
             </tr>
           </thead>
           <tbody>
