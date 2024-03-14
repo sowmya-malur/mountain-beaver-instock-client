@@ -1,22 +1,23 @@
 import "./App.scss";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import Footer from "./components/Footer/Footer";
+import Footer from "./components/footer/Footer";
 import Header from "./components/Header/Header";
-import EditInventoryItem from "./pages/Edit-inventory-item/Edit-inventory-item";
-
 // Import Components
 import HomePage from "./pages/HomePage/HomePage";
+import AddWarehousePage from "./pages/AddWarehousePage/AddWarehousePage";
+import EditInventoryItem from "./pages/EditInventoryItemPage/EditInventoryItemPage";
+import AddInventoryItemPage from "./pages/AddInventoryItemPage/AddInventoryItemPage";
 
 function App() {
   return (
     <div className="App">
-      <BrowserRouter className="body-copy">
+      <BrowserRouter>
         <Header />
         <EditInventoryItem />
-          <Route path="/" element={<HomePage />} />
-          {/* <Route path="/" element={<WarehousesPage />} /> Pass videos as prop if needed */}
-          {/* <Route path="/inventory" element={<InventoryPage />} /> */}
-        </Routes>
+
+        {/* <Route path="/" element={<HomePage />} /> */}
+        {/* <Route path="/" element={<WarehousesPage />} />
+        <Route path="/inventory" element={<InventoryPage />} /> */}
         <Footer />
       </BrowserRouter>
     </div>
