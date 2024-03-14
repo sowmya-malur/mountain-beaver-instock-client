@@ -88,8 +88,8 @@ function AddWarehousePage() {
     setActiveFields((prevState) => ({ ...prevState, [field]: true }));
   };
 
-   // Event handler for blurring out of a form field
-   const handleBlur = (field) => {
+  // Event handler for blurring out of a form field
+  const handleBlur = (field) => {
     setActiveFields((prevState) => ({ ...prevState, [field]: false }));
   };
 
@@ -227,7 +227,8 @@ function AddWarehousePage() {
                 id="wareHouseName"
                 placeholder="Warehouse Name"
                 className={`add-warehouse__field ${
-                  (errors.wareHouseName || activeFields.wareHouseName) && "add-warehouse__field--error"
+                  (errors.wareHouseName || activeFields.wareHouseName) &&
+                  "add-warehouse__field--error"
                 }`}
                 value={wareHouseName}
                 onChange={handleChange}
@@ -250,7 +251,8 @@ function AddWarehousePage() {
                 id="streetAddress"
                 placeholder="Street Address"
                 className={`add-warehouse__field ${
-                  (errors.streetAddress || activeFields.streetAddress) && "add-warehouse__field--error"
+                  (errors.streetAddress || activeFields.streetAddress) &&
+                  "add-warehouse__field--error"
                 }`}
                 value={streetAddress}
                 onChange={handleChange}
@@ -274,7 +276,8 @@ function AddWarehousePage() {
                 id="city"
                 placeholder="City"
                 className={`add-warehouse__field ${
-                  (errors.city || activeFields.city) && "add-warehouse__field--error"
+                  (errors.city || activeFields.city) &&
+                  "add-warehouse__field--error"
                 }`}
                 value={city}
                 onChange={handleChange}
@@ -297,7 +300,8 @@ function AddWarehousePage() {
                 id="country"
                 placeholder="Country"
                 className={`add-warehouse__field ${
-                  (errors.country || activeFields.country) && "add-warehouse__field--error"
+                  (errors.country || activeFields.country) &&
+                  "add-warehouse__field--error"
                 }`}
                 value={country}
                 onChange={handleChange}
@@ -323,7 +327,8 @@ function AddWarehousePage() {
                 id="contactName"
                 placeholder="Contact Name"
                 className={`add-warehouse__field ${
-                  (errors.contactName || activeFields.contactName) && "add-warehouse__field--error"
+                  (errors.contactName || activeFields.contactName) &&
+                  "add-warehouse__field--error"
                 }`}
                 value={contactName}
                 onChange={handleChange}
@@ -346,7 +351,8 @@ function AddWarehousePage() {
                 id="position"
                 placeholder="Position"
                 className={`add-warehouse__field ${
-                  (errors.position || activeFields.position) && "add-warehouse__field--error"
+                  (errors.position || activeFields.position) &&
+                  "add-warehouse__field--error"
                 }`}
                 value={position}
                 onChange={handleChange}
@@ -369,7 +375,8 @@ function AddWarehousePage() {
                 id="phoneNumber"
                 placeholder="Phone Number"
                 className={`add-warehouse__field ${
-                  (errors.phoneNumber || activeFields.phoneNumber) && "add-warehouse__field--error"
+                  (errors.phoneNumber || activeFields.phoneNumber) &&
+                  "add-warehouse__field--error"
                 }`}
                 value={phoneNumber}
                 onChange={handleChange}
@@ -392,7 +399,8 @@ function AddWarehousePage() {
                 id="email"
                 placeholder="Email"
                 className={`add-warehouse__field ${
-                  (errors.email || activeFields.email) && "add-warehouse__field--error"
+                  (errors.email || activeFields.email) &&
+                  "add-warehouse__field--error"
                 }`}
                 value={email}
                 onChange={handleChange}
