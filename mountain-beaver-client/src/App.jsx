@@ -8,15 +8,11 @@ import Header from "./components/Header/Header";
 import HomePage from "./pages/HomePage/HomePage";
 import EditInventoryItem from "./pages/EditInventoryItemPage/EditInventoryItemPage";
 import AddInventoryItemPage from "./pages/AddInventoryItemPage/AddInventoryItemPage";
-
+import WarehouseDetailsPage from './pages/WarehouseDetailsPage/WarehouseDetailsPage';
 import WarehousesPage from './pages/WarehousesPage/WarehousesPage';
 import InventoryPage from './pages/InventoryPage/InventoryPage';
+
 function App() {
-
-  const [warehouseId, setWarehouseId] = useState(null);
-
-
-  const [Inventory, setInventoryID] = useState(null);
 
 
   return (
@@ -33,6 +29,8 @@ function App() {
           <Route path="/inventory" element={<AddInventoryItemPage />} />
           <Route path="/inventory" element={<EditInventoryItem />} />
 
+           
+           <Route path="/warehouses/:warehouseId" element={<WarehouseDetailsPage />} />
         </Routes>
         <Footer />
       </BrowserRouter>
