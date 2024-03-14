@@ -3,10 +3,22 @@ import erroricon from "../../assets/icons/error-24px.svg";
 import "../EditWarehousePage/EditWarehousePage.scss";
 
 import { Link, useNavigate } from "react-router-dom";
-import { useState, useRef } from "react";
+import { useState, useRef, useEffect } from "react";
 import axios from "axios";
 
-function EditWarehousePage({ wareHouseId}) {
+function EditWarehousePage({ warehouse }) {
+  // TODO: will get warehouse object with id for the row that was clicked to edit from Warehouses Page
+  // const warehouse = {
+  //     id: 1,
+  //     warehouse_name: "Manhattan",
+  //     address: "503 Broadway",
+  //     city: "New York",
+  //     country: "USA",
+  //     contact_name: "Parmin Aujla",
+  //     contact_position: "Warehouse Manager",
+  //     contact_phone: "+1 (646) 123-1234",
+  //     contact_email: "paujla@instock.com",
+  //   };
   // Initialize hooks
   const navigate = useNavigate();
   const errorMessage = "This field is required";
@@ -21,6 +33,7 @@ function EditWarehousePage({ wareHouseId}) {
   const [phoneNumber, setPhoneNumber] = useState("");
   const [email, setEmail] = useState("");
   const [errors, setErrors] = useState({});
+  const [notFound, setNotFound] = useState(false);
   const [activeFields, setActiveFields] = useState({
     wareHouseName: false,
     streetAddress: false,
@@ -31,6 +44,19 @@ function EditWarehousePage({ wareHouseId}) {
     phoneNumber: false,
     email: false,
   });
+
+  useEffect(() => {
+    if (warehouse) {
+      setWareHouseName(warehouse.warehouse_name);
+      setStreetAddress(warehouse.address);
+      setCity(warehouse.city);
+      setCountry(warehouse.country);
+      setContactName(warehouse.contact_name);
+      setPosition(warehouse.contact_position);
+      setPhoneNumber(warehouse.contact_phone);
+      setEmail(warehouse.contact_email);
+    }
+  }, [warehouse]);
 
   // Set refs for all the form fields to focus
   const formRef = useRef();
@@ -129,20 +155,20 @@ function EditWarehousePage({ wareHouseId}) {
       if (phoneNumber.trim() === "") {
         phoneRef.current.focus();
         formErrors.phoneNumber = errorMessage;
-      } else if (!/^\+?[1-9]\d{1,14}$/.test(phoneNumber.trim())) {
+      } else if (
+        !/^\+\d{1}\s\(\d{3}\)\s\d{3}-\d{4}$/.test(phoneNumber.trim())
+      ) {
         // Verify for format: +1 (xxx) xxx-xxxx
         phoneRef.current.focus();
-        formErrors.phoneNumber = "Invalid phone number format.";
+        formErrors.phoneNumber =
+          "Invalid phone number format. Ex: +1 (xxx) xxx-xxxx";
       }
       if (email.trim() === "") {
         emailRef.current.focus();
         formErrors.email = errorMessage;
-      } else if (
-        // Verify for format: @
-        !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email.trim())
-      ) {
+      } else if (!/^[^\s@]+@[^\s@]+\.[a-zA-Z]{2,}$/.test(email.trim())) {
         emailRef.current.focus();
-        formErrors.email = "Invalid email format";
+        formErrors.email = "Invalid email format. Ex: example@example.com";
       }
 
       // Update state with form errors
@@ -152,7 +178,7 @@ function EditWarehousePage({ wareHouseId}) {
 
       // If there are no errors, submit the form
       if (Object.keys(formErrors).length === 0) {
-        const newWareHouse = {
+        const updateWareHouse = {
           warehouse_name: wareHouseName,
           address: streetAddress,
           city: city,
@@ -163,25 +189,29 @@ function EditWarehousePage({ wareHouseId}) {
           contact_email: email,
         };
 
-        // POST request to backend API
-        const response = await axios.post(
-          `${process.env.REACT_APP_BACKEND_URL}/api/warehouses/`,
-          newWareHouse
+        // PUT request to backend API
+        const response = await axios.put(
+          `${process.env.REACT_APP_BACKEND_URL}/api/warehouses/${warehouse.id}`,
+          updateWareHouse
         );
 
-        if (response.status === 201) {
-          alert("Warehouse updated successfully");
-
+        if (response.status === 200) {
+          console.log("Warehouse updated successfully"); //TODO:
+          setNotFound(false);
           // Reset form fields and clear errors
           resetForm();
-
           navigate("/");
-        } else if (response.status === 404) {
-          alert("Error updating new warehouse.");
         }
       }
     } catch (error) {
-      console.error("Error updating new warehouse:", error);
+      // Handle any errors during the API call
+      if (error.response && error.response.status === 404) {
+        // If inventory item not found, set notFound state to true
+        setNotFound(true);
+        console.error("Warehouse not found");
+      } else {
+        console.error("Error updating warehouse", error);
+      }
     }
   };
 
@@ -207,9 +237,8 @@ function EditWarehousePage({ wareHouseId}) {
           <Link to="/" className="edit-warehouse__arrow-back">
             <img src={backarrow} alt="back arrow icon" />
           </Link>
-          <h1 className="edit-warehouse__title">Add New Warehouse</h1>
+          <h1 className="edit-warehouse__title">Edit Warehouse</h1>
         </div>
-
         <form
           className="edit-warehouse__form"
           id="edit-warehouse-form"
@@ -431,6 +460,14 @@ function EditWarehousePage({ wareHouseId}) {
             </button>
           </div>
         </form>
+        {notFound ? (
+          <div className="edit-warehouse__error-message edit-warehouse__error-message--align">
+            <img src={erroricon} alt="error icon" />
+            <p>Warehouse not found</p>
+          </div>
+        ) : (
+          ""
+        )}
       </div>
     </section>
   );

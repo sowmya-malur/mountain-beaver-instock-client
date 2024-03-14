@@ -10,11 +10,12 @@
   position: relative;
   z-index: 1;
   top: -3.2rem;
-  border-radius: 0.6rem;
+  border-radius: 0.2rem;
 
   @include tablet {
     margin: $tablet-margin;
     top: -7rem;
+    // border-radius: 0.6rem;
   }
 
   @include desktop {
@@ -110,7 +111,6 @@
     @include tablet {
       font-size: $tablet-font-size-label-button;
       height: $element-tablet-height;
-      
     }
     &--error {
       border: 0.063rem solid $color-error;
@@ -134,6 +134,11 @@
     padding-top: 0.25rem;
     @include tablet {
       font-size: $tablet-font-size-body-small;
+    }
+
+    &--align {
+      padding: 0.5rem 0 1rem 0;
+      justify-content: center;
     }
   }
 
