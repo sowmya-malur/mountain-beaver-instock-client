@@ -4,6 +4,7 @@ import "./App.scss";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Footer from "./components/Footer/Footer";
 import Header from "./components/Header/Header";
+import EditInventoryItem from "./pages/Edit-inventory-item/Edit-inventory-item";
 
 // Import Components
 import HomePage from "./pages/HomePage/HomePage";
@@ -22,10 +23,12 @@ function App() {
     <div className="App">
       <BrowserRouter className="body-copy">
         <Header />
+        <EditInventoryItem />
         <Routes>
-              <Route path="/" element={<HomePage/>} /> 
-//           <Route path="/warehouses" element={<WarehousesPage />} /> 
-//           <Route path="/inventory" element={<InventoryPage />} />
+           
+           <Route path="/" element={<WarehousesPage />} /> 
+
+           <Route path="/inventory" element={<InventoryPage />} />
         </Routes>
         <Footer />
       </BrowserRouter>

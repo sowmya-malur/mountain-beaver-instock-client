@@ -9,32 +9,35 @@
   flex-direction: column;
   align-items: center;
   padding: 0 1.5rem;
-
-  // to overlap the main section on the header
   position: relative;
-  z-index: -1;
-  
+  z-index: 0;
+
   @include tablet {
     display: flex;
     flex-direction: row;
     align-items: baseline;
     justify-content: space-between;
     padding: 0 2rem;
+    @include desktop {
+      padding: 0 4rem;
+    }
   }
 
   &__logo {
     height: 2rem;
     margin-bottom: 0.8rem;
-    margin-top: 1rem;
+    margin-top: 2rem;
     @include tablet {
       height: 1.5rem;
       margin-top: 2rem;
+      margin-top: 1rem;
     }
   }
   &__list {
     display: flex;
     align-items: center;
     color: $color-global;
+    justify-content: space-around;
     list-style: none;
     gap: 7rem;
     @include tablet {
@@ -47,9 +50,12 @@
     line-height: 2rem;
     font-weight: 400;
     padding: 0.5rem 0;
-    margin-bottom: 1rem;
+    margin-bottom: 5rem;
     width: 7rem;
     transition: background-color 0.3s, padding 0.3s;
+    @include tablet {
+      margin-bottom: 8rem;
+    }
     &:hover {
       background-color: $color-primary-text;
       border-radius: 15rem;
