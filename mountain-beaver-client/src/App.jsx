@@ -8,15 +8,11 @@ import EditInventoryItem from "./pages/Edit-inventory-item/Edit-inventory-item";
 
 // Import Components
 import HomePage from "./pages/HomePage/HomePage";
-
+import WarehouseDetailsPage from './pages/WarehouseDetailsPage/WarehouseDetailsPage';
 import WarehousesPage from './pages/WarehousesPage/WarehousesPage';
 import InventoryPage from './pages/InventoryPage/InventoryPage';
+
 function App() {
-
-  const [warehouseId, setWarehouseId] = useState(null);
-
-
-  const [Inventory, setInventoryID] = useState(null);
 
 
   return (
@@ -26,9 +22,11 @@ function App() {
         <EditInventoryItem />
         <Routes>
            
-           <Route path="/" element={<WarehousesPage />} /> 
+           <Route path="/warehouses" element={<WarehousesPage />} /> 
 
            <Route path="/inventory" element={<InventoryPage />} />
+           
+           <Route path="/warehouses/:warehouseId" element={<WarehouseDetailsPage />} />
         </Routes>
         <Footer />
       </BrowserRouter>

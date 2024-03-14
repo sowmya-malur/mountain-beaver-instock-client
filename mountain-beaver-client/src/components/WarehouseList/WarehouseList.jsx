@@ -25,7 +25,7 @@ const WarehouseList = () => {
         <table className='warehouse__table'>
           <thead>
             <tr>
-              <th className='warehouse__cell'>Warehouse<div class="chevron"></div></th>
+              <th className='warehouse__cell'>Warehouse<i class="fa fa"></i></th>
               <th className='warehouse__cell'>Address<i class="chevron"></i></th>
               <th className='warehouse__cell'>Contact Name<i class="chevron"></i></th>
               <th className='warehouse__cell'> Contact information<i class="chevron"></i></th>
