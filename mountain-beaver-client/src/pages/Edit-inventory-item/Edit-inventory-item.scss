@@ -1,0 +1,223 @@
+@use "../../styles/partials/variables" as *;
+@use "../../styles/partials/mixin" as *;
+@use "../../styles/partials/typography" as *;
+
+.inv {
+  background-color: $color-background-light;
+
+  &__full-wrapper {
+    position: relative;
+    background-color: $color-global;
+    top: -5rem;
+    z-index: 1;
+    height: 100%;
+    border-radius: 0.6rem;
+    box-shadow: 1px 1px 5px 0 rgba(0, 0, 0, 0.3);
+    margin: $mobile-margin;
+    padding-bottom: 2rem;
+    @include tablet {
+      margin: $tablet-margin;
+      top: -8.5rem;
+    }
+    @include desktop {
+      margin: $desktop-margin;
+      top: -11.5rem;
+    }
+  }
+
+  &__title {
+    display: flex;
+    align-items: center;
+    height: 7rem;
+    padding: $mobile-margin;
+    border-bottom: 0.063rem solid $color-borders;
+
+    @include tablet {
+      padding: $tablet-margin;
+    }
+  }
+  &__logo {
+    margin-right: 0.5rem;
+    height: 1.8rem;
+    margin-top: 0.3rem;
+  }
+  &__text {
+    font-size: $mobile-font-size-header;
+    font-weight: $font-weight-semi-bold;
+    line-height: $mobile-header-line-height;
+    @include tablet {
+      font-size: $tablet-font-size-header;
+    }
+  }
+  &__container {
+    @include tablet {
+      display: flex;
+      width: 100%;
+    }
+  }
+  &__details {
+    padding: 0 1rem;
+    margin: $mobile-margin;
+    border-bottom: 0.063rem solid $color-borders;
+
+    @include tablet {
+      width: 100%;
+      border-bottom: none;
+      padding: 1rem;
+      border-right: 1px solid $color-borders;
+      margin-top: 1rem;
+    }
+  }
+  &__details-title {
+    padding-bottom: 2rem;
+    font-size: $mobile-font-size-sub-header;
+    line-height: $mobile-sub-header-line-height;
+    font-weight: $font-weight-semi-bold;
+    @include tablet {
+      padding-top: 0;
+      padding-bottom: $tablet-padding-bottom;
+      font-size: $tablet-font-size-sub-header;
+    }
+  }
+  &__details-label {
+    font-size: $mobile-font-size-label-button;
+    font-weight: $font-weight-semi-bold;
+    padding-bottom: 0.4rem;
+    @include tablet {
+      font-size: $tablet-font-size-label-button;
+    }
+  }
+  &__details-input {
+    width: 100%;
+    padding: 0.7rem;
+    border-radius: $border-radius;
+    height: $element-mobile-height;
+    border: 0.063rem solid $color-borders;
+    margin-bottom: $mobile-margin;
+    font-family: $font-family;
+    padding: 0 1rem 0.25rem 1rem;
+  }
+  ::placeholder {
+    color: $color-primary-text;
+    text-wrap: wrap;
+  }
+  &__details-input-desc {
+    width: 100%;
+    padding: 1rem;
+    padding-bottom: 5rem;
+    height: auto;
+    border: 0.063rem solid $color-borders;
+    border-radius: 1.3rem;
+    margin-bottom: 1rem;
+    font-family: $font-family;
+  }
+  &__details-input-logo-1 {
+    position: relative;
+    left: 89%;
+    top: -3.2rem;
+    height: 2rem;
+  }
+  &__avail {
+    padding: 0 1rem;
+    margin: $mobile-margin;
+    @include tablet {
+      width: 100%;
+      margin-top: 1rem;
+      padding: 1rem;
+    }
+  }
+  &__sub-title {
+    padding-bottom: 2rem;
+    @include tablet {
+      padding-bottom: 2rem;
+    }
+  }
+  &__avail-wrapper {
+    display: flex;
+    justify-content: flex-start;
+    padding-bottom: 1rem;
+    gap: 18%;
+  }
+  &__avail-cont {
+    display: flex;
+    gap: 0.7rem;
+    align-items: flex-end;
+  }
+  &__avail-shape {
+    border: solid 1px $color-borders;
+    border-radius: 50%;
+    width: 1.2rem;
+    height: 1.2rem;
+  }
+  &__avail-text {
+    color: $color-secondary-text;
+  }
+  &__avail-conta {
+    display: flex;
+    flex-direction: row-reverse;
+    gap: 0.7rem;
+    align-items: flex-end;
+  }
+  &__avail-shape-out {
+    border: solid 1.5px $color-primary-cta;
+    border-radius: 50%;
+    width: 1.2rem;
+    height: 1.2rem;
+    position: relative;
+  }
+  &__avail-dot {
+    position: absolute;
+    width: 0.6rem;
+    height: 0.6rem;
+    background-color: $color-primary-cta;
+    border-radius: 50%;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
+  &__avail-input-logo-2 {
+    position: relative;
+    left: 89%;
+    top: -3.2rem;
+    height: 2rem;
+  }
+  &__avail-button {
+    padding: 0 1rem;
+    display: flex;
+    gap: 2rem;
+    margin: $mobile-margin;
+    @include tablet {
+      display: flex;
+      justify-content: flex-end;
+    }
+  }
+  &__button-cancel {
+    width: 100%;
+    padding: 1rem;
+    border-radius: 2rem;
+    border: 1px solid $color-borders;
+    background-color: $color-global;
+    color: $color-secondary-text;
+    font-size: $mobile-font-size-label-button;
+    font-weight: 600;
+    @include tablet {
+      width: 10%;
+      font-size: $tablet-font-size-label-button;
+    }
+  }
+  &__button-save {
+    width: 100%;
+    padding: 1rem;
+    border-radius: 2rem;
+    background-color: $color-primary-cta;
+    color: $color-global;
+    border: none;
+    font-size: $mobile-font-size-label-button;
+    font-weight: 600;
+
+    @include tablet {
+      width: 10%;
+      font-size: $tablet-font-size-label-button;
+    }
+  }
+}
