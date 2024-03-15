@@ -35,32 +35,22 @@ const WarehouseDetails = () => {
             <table>
                 <thead>
                     <tr>
-                        <th>ID</th>
-                        <th>Warehouse Name</th>
-                        <th>Address</th>
-                        <th>City</th>
-                        <th>Country</th>
+                        <th>Warehouse Address</th>
                         <th>Contact Name</th>
-                        <th>Contact Position</th>
-                        <th>Contact Phone</th>
-                        <th>Contact Email</th>
-                        <th>Created At</th>
-                        <th>Updated At</th>
+                        <th>Contact Info</th>
                     </tr>
                 </thead>
                 <tbody> 
                     <tr>
-                        <td>{currentWarehouse.id}</td>
-                        <td>{currentWarehouse.warehouse_name}</td>
+
                         <td>{currentWarehouse.address}</td>
                         <td>{currentWarehouse.city}</td>
                         <td>{currentWarehouse.country}</td>
-                        <td>{currentWarehouse.contact_name}</td>
-                        <td>{currentWarehouse.contact_position}</td>
-                        <td>{currentWarehouse.contact_phone}</td>
-                        <td>{currentWarehouse.contact_email}</td>
-                        <td>{new Date(currentWarehouse.created_at).toLocaleString()}</td>
-                        <td>{new Date(currentWarehouse.updated_at).toLocaleString()}</td>
+                        <td>{currentWarehouse.contact_name}<br/>
+                        {currentWarehouse.contact_position}</td>
+                        <td>{currentWarehouse.contact_phone}<br/>
+                        {currentWarehouse.contact_email}</td>
+                       
                     </tr>
                 </tbody>
         </table>
