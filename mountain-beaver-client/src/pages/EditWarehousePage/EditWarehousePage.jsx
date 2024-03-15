@@ -56,7 +56,6 @@ function EditWarehousePage({ warehouse, handleClick }) {
       setPhoneNumber(warehouse.contact_phone);
       setEmail(warehouse.contact_email);
     }
-    
   }, [warehouse]);
 
   // Set refs for all the form fields to focus
@@ -120,10 +119,11 @@ function EditWarehousePage({ warehouse, handleClick }) {
     setActiveFields((prevState) => ({ ...prevState, [field]: false }));
   };
 
+  // Function to navigate back to "/"" page after reseting the component state.
   const handleBack = () => {
-          handleClick(false);
-          navigate("/");
-  }
+    handleClick(false);
+    navigate("/");
+  };
   // Event handler for form submission
   const handleSubmit = async (event) => {
     try {
@@ -207,7 +207,6 @@ function EditWarehousePage({ warehouse, handleClick }) {
           resetForm();
           handleClick(false);
           navigate("/");
-         
         }
       }
     } catch (error) {
@@ -244,9 +243,9 @@ function EditWarehousePage({ warehouse, handleClick }) {
           {/* <Link to="/" className="edit-warehouse__arrow-back">
             <img src={backarrow} alt="back arrow icon" />
           </Link> */}
-          
-            <img src={backarrow} alt="back arrow icon" onClick={handleBack}/>
-          
+
+          <img src={backarrow} alt="back arrow icon" onClick={handleBack} />
+
           <h1 className="edit-warehouse__title">Edit Warehouse</h1>
         </div>
         <form
@@ -457,9 +456,13 @@ function EditWarehousePage({ warehouse, handleClick }) {
           </div>
           <div className="edit-warehouse__buttons-container">
             {/* <Link to="/" className="edit-warehouse__wrapper"> */}
-              <button id="cancel" className="edit-warehouse__secondary" onClick={handleBack}>
-                Cancel
-              </button>
+            <button
+              id="cancel"
+              className="edit-warehouse__secondary"
+              onClick={handleBack}
+            >
+              Cancel
+            </button>
             {/* </Link> */}
             <button
               id="addWarehouse"

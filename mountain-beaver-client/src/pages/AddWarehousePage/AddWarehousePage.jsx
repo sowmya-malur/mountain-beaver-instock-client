@@ -6,7 +6,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { useState, useRef } from "react";
 import axios from "axios";
 
-function AddWarehousePage({handleClick}) {
+function AddWarehousePage({ handleClick }) {
   // Initialize hooks
   const navigate = useNavigate();
   const errorMessage = "This field is required";
@@ -129,17 +129,19 @@ function AddWarehousePage({handleClick}) {
       if (phoneNumber.trim() === "") {
         phoneRef.current.focus();
         formErrors.phoneNumber = errorMessage;
-      } else if (!/^\+\d{1}\s\(\d{3}\)\s\d{3}-\d{4}$/.test(phoneNumber.trim())) {
+      } else if (
+        !/^\+\d{1}\s\(\d{3}\)\s\d{3}-\d{4}$/.test(phoneNumber.trim())
+      ) {
         // Verify for format: +1 (xxx) xxx-xxxx
         phoneRef.current.focus();
-        formErrors.phoneNumber = "Invalid phone number format.";
+        formErrors.phoneNumber = "Invalid phone number format. Ex: +1 (xxx) xxx-xxxx";
       }
       if (email.trim() === "") {
         emailRef.current.focus();
         formErrors.email = errorMessage;
       } else if (!/^[^\s@]+@[^\s@]+\.[a-zA-Z]{2,}$/.test(email.trim())) {
         emailRef.current.focus();
-        formErrors.email = "Invalid email format";
+        formErrors.email = "Invalid email format. Ex: example@example.com";
       }
 
       // Update state with form errors
@@ -182,6 +184,12 @@ function AddWarehousePage({handleClick}) {
     }
   };
 
+  // Function to navigate back to "/"" page after reseting the component state.
+  const handleBack = () => {
+    handleClick(false);
+    navigate("/");
+  };
+
   // Function to reset form fields and clear errors
   const resetForm = () => {
     setWareHouseName("");
@@ -201,9 +209,9 @@ function AddWarehousePage({handleClick}) {
     <section className="add-warehouse">
       <div className="wrapper">
         <div className="add-warehouse__page-title">
-          <Link to="/" className="add-warehouse__arrow-back">
-            <img src={backarrow} alt="back arrow icon" />
-          </Link>
+          {/* <Link to="/" className="add-warehouse__arrow-back"> */}
+          <img src={backarrow} alt="back arrow icon" onClick={handleBack} />
+          {/* </Link> */}
           <h1 className="add-warehouse__title">Add New Warehouse</h1>
         </div>
 
@@ -414,11 +422,15 @@ function AddWarehousePage({handleClick}) {
             </div>
           </div>
           <div className="add-warehouse__buttons-container">
-            <Link to="/" className="add-warehouse__wrapper">
-              <button id="cancel" className="add-warehouse__secondary">
-                Cancel
-              </button>
-            </Link>
+            {/* <Link to="/" className="add-warehouse__wrapper"> */}
+            <button
+              id="cancel"
+              className="add-warehouse__secondary"
+              onClick={handleBack}
+            >
+              Cancel
+            </button>
+            {/* </Link> */}
             <button
               id="addWarehouse"
               className="add-warehouse__cta"
