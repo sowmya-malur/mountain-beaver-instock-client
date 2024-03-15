@@ -69,10 +69,10 @@ const InventoryList = () => {
         <td>{inventory.category}</td>
         <td>{inventory.status}</td>
         <td>{inventory.quantity}</td>
-        <img src={Del} onClick={() => handleClickDelete(inventory)}/>
-        <img src={Edit} onClick={() => {
+        <td><img src={Del} onClick={() => handleClickDelete(inventory)}/></td>
+        <td><img src={Edit} onClick={() => {
             setComponent('edit-inventory');
-            setSelectedInventory(inventory)}}></img>
+            setSelectedInventory(inventory)}}/></td>
         {/* <td>{new Date(inventory.created_at).toLocaleString()}</td>
         <td>{new Date(inventory.updated_at).toLocaleString()}</td> */}
       </tr>
