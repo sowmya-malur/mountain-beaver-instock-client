@@ -4,7 +4,7 @@ import ArrowDown from "../../assets/icons/arrow_drop_down-24px.svg";
 import erroricon from "../../assets/icons/error-24px.svg";
 import React, { useState } from "react";
 
-function EditInventoryItem() {
+function EditInventoryItem({ inventory }) {
   const [itemName, setItemName] = useState("");
   const [description, setDescription] = useState("");
   const [category, setCategory] = useState("");
@@ -37,7 +37,7 @@ function EditInventoryItem() {
       // Form is valid, proceed with submission
       console.log("Form submitted successfully");
     } else {
-      console.log("Form has errors, please correct them");
+      console.log("Form has errors, please correct them");  
     }
   };
 
