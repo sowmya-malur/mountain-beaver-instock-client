@@ -1,0 +1,9 @@
+@use "../../styles/partials/mixin" as *;
+
+.tableList {
+  width: 100%;
+  display: none;
+  @include tablet {
+    display: table;
+  }
+}
