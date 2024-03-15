@@ -120,6 +120,10 @@ function EditWarehousePage({ warehouse, handleClick }) {
     setActiveFields((prevState) => ({ ...prevState, [field]: false }));
   };
 
+  const handleBack = () => {
+          handleClick(false);
+          navigate("/");
+  }
   // Event handler for form submission
   const handleSubmit = async (event) => {
     try {
@@ -237,9 +241,12 @@ function EditWarehousePage({ warehouse, handleClick }) {
     <section className="edit-warehouse">
       <div className="wrapper">
         <div className="edit-warehouse__page-title">
-          <Link to="/" className="edit-warehouse__arrow-back">
+          {/* <Link to="/" className="edit-warehouse__arrow-back">
             <img src={backarrow} alt="back arrow icon" />
-          </Link>
+          </Link> */}
+          
+            <img src={backarrow} alt="back arrow icon" onClick={handleBack}/>
+          
           <h1 className="edit-warehouse__title">Edit Warehouse</h1>
         </div>
         <form
@@ -449,11 +456,11 @@ function EditWarehousePage({ warehouse, handleClick }) {
             </div>
           </div>
           <div className="edit-warehouse__buttons-container">
-            <Link to="/" className="edit-warehouse__wrapper">
-              <button id="cancel" className="edit-warehouse__secondary">
+            {/* <Link to="/" className="edit-warehouse__wrapper"> */}
+              <button id="cancel" className="edit-warehouse__secondary" onClick={handleBack}>
                 Cancel
               </button>
-            </Link>
+            {/* </Link> */}
             <button
               id="addWarehouse"
               className="edit-warehouse__cta"

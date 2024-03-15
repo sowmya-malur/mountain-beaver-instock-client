@@ -6,7 +6,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { useState, useRef } from "react";
 import axios from "axios";
 
-function AddWarehousePage() {
+function AddWarehousePage({handleClick}) {
   // Initialize hooks
   const navigate = useNavigate();
   const errorMessage = "This field is required";
@@ -171,7 +171,7 @@ function AddWarehousePage() {
 
           // Reset form fields and clear errors
           resetForm();
-
+          handleClick(false);
           navigate("/");
         } else if (response.status === 404) {
           alert("Error adding new warehouse.");
