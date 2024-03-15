@@ -2,6 +2,7 @@ import "../InventoryDetails/InventoryDetails.scss";
 
 import edit from "../../assets/icons/edit-24px.svg";
 import backarrow from "../../assets/icons/arrow_back-24px.svg";
+import erroricon from "../../assets/icons/error-24px.svg";
 
 import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
@@ -67,7 +68,10 @@ function InventoryDetails({ inventoryId }) {
                 <img src={backarrow} alt="back arrow icon" />
               </Link>
             </div>
-            <p className="inv-details__not-found">Item not found</p>
+            <div className="inv-details__error-message inv-details__error-message--align">
+            <img src={erroricon} alt="error icon" />
+            <p>Item not found</p>
+          </div>
           </>
         ) : (
           <>

@@ -164,4 +164,21 @@
   &__edit {
     cursor: pointer;
   }
+
+  &__error-message {
+    color: $color-error;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    font-size: $mobile-font-size-body-small;
+    
+    @include tablet {
+      font-size: $tablet-font-size-body-small;
+    }
+
+    &--align {
+      padding-top: 1rem;
+      justify-content: center;
+    }
+  }
 }
