@@ -129,7 +129,7 @@ function AddWarehousePage() {
       if (phoneNumber.trim() === "") {
         phoneRef.current.focus();
         formErrors.phoneNumber = errorMessage;
-      } else if (!/^\+?[1-9]\d{1,14}$/.test(phoneNumber.trim())) {
+      } else if (!/^\+\d{1}\s\(\d{3}\)\s\d{3}-\d{4}$/.test(phoneNumber.trim())) {
         // Verify for format: +1 (xxx) xxx-xxxx
         phoneRef.current.focus();
         formErrors.phoneNumber = "Invalid phone number format.";
@@ -137,10 +137,7 @@ function AddWarehousePage() {
       if (email.trim() === "") {
         emailRef.current.focus();
         formErrors.email = errorMessage;
-      } else if (
-        // Verify for format: @
-        !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email.trim())
-      ) {
+      } else if (!/^[^\s@]+@[^\s@]+\.[a-zA-Z]{2,}$/.test(email.trim())) {
         emailRef.current.focus();
         formErrors.email = "Invalid email format";
       }
@@ -165,7 +162,7 @@ function AddWarehousePage() {
 
         // POST request to backend API
         const response = await axios.post(
-          `${process.env.REACT_APP_BACKEND_URL}/warehouses/`,
+          `${process.env.REACT_APP_BACKEND_URL}/api/warehouses/`,
           newWareHouse
         );
 
