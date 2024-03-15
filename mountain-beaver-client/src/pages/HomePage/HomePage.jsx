@@ -1,3 +1,4 @@
+import WarehouseList from "../../components/WarehouseList/WarehouseList";
 import AddWarehousePage from "../AddWarehousePage/AddWarehousePage";
 import EditWarehousePage from "../EditWarehousePage/EditWarehousePage";
 import InventoryDetails from "../InventoryDetails/InventoryDetails";
@@ -18,9 +19,10 @@ function HomePage() {
     return (
         <>
           <main className="main">
+            <WarehouseList/>
             {/* <AddWarehousePage/> */}
             {/* <InventoryDetails inventoryId={71}/> */}
-            <EditWarehousePage warehouse={warehouse}/>
+            {/* <EditWarehousePage warehouse={warehouse}/> */}
           </main>
         </>
     );
