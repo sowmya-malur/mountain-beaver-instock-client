@@ -10,7 +10,7 @@ const InventoryList = () => {
     const fetchInventories = async () => {
       try {
         const response = await axios.get(
-          `${process.env.REACT_APP_BACKEND_URL}/inventory/`
+          `${process.env.REACT_APP_BACKEND_URL}/inventories`
         );
         setInventories(response.data);
       } catch (error) {
@@ -28,10 +28,17 @@ const InventoryList = () => {
         list={Inventories}
         titles={["INVENTORY ITEM", "CATEGORY", "STATUS", "QTY", "WAREHOUSE"]}
       />
-      <RegularList
+      {/* <RegularList
         list={Inventories}
-        titles={["INVENTORY ITEM", "CATEGORY", "STATUS", "QTY", "WAREHOUSE", "ACTIONS"]}
-      />
+        titles={[
+          "INVENTORY ITEM",
+          "CATEGORY",
+          "STATUS",
+          "QTY",
+          "WAREHOUSE",
+          "ACTIONS",
+        ]}
+      /> */}
     </div>
   );
 };
