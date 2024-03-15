@@ -14,18 +14,20 @@ const WarehouseList = () => {
   const [showModal, setShowModal] = useState(false); // State to control modal visibility
   const [selectedWarehouse, setSelectedWarehouse] = useState(null); // State to store the selected war
 
-  useEffect(() => {
-    const fetchWarehouses = async () => {
-      try {
-        const response = await axios.get(`${process.env.REACT_APP_BACKEND_URL}/api/warehouses/`)
-        setWarehouses(response.data); 
-      } catch (error) {
-        console.error(`Error fetching warehouses`, error);
-      }
-    };
+  const fetchWarehouses = async () => {
+    try {
+      const response = await axios.get(`${process.env.REACT_APP_BACKEND_URL}/api/warehouses/`)
+      setWarehouses(response.data); 
+      console.log("in fethwarehouse");
+    } catch (error) {
+      console.error(`Error fetching warehouses`, error);
+    }
+  };
 
+  useEffect(() => {
+    console.log("in useeffect");
     fetchWarehouses();
-  }, []);
+  }, [showComponent]);
 
   const handleClickDelete = (warehouse) => {
     setSelectedWarehouse(warehouse); // Set the selected warehouse for deletion
@@ -85,7 +87,10 @@ const WarehouseList = () => {
  
        {showModal && <Modal 
        name={selectedWarehouse.warehouse_name}
-       type="warehouse"
+       type="warehouses"
+       id={selectedWarehouse.id}
+       setActive={setShowModal}
+       fetchList={fetchWarehouses}
        />}
      </div>
     )}

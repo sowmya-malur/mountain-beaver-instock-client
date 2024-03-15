@@ -6,7 +6,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { useState, useRef, useEffect } from "react";
 import axios from "axios";
 
-function EditWarehousePage({ warehouse }) {
+function EditWarehousePage({ warehouse, handleClick }) {
   // TODO: will get warehouse object with id for the row that was clicked to edit from Warehouses Page
   // const warehouse = {
   //     id: 1,
@@ -56,6 +56,7 @@ function EditWarehousePage({ warehouse }) {
       setPhoneNumber(warehouse.contact_phone);
       setEmail(warehouse.contact_email);
     }
+    
   }, [warehouse]);
 
   // Set refs for all the form fields to focus
@@ -200,7 +201,9 @@ function EditWarehousePage({ warehouse }) {
           setNotFound(false);
           // Reset form fields and clear errors
           resetForm();
+          handleClick(false);
           navigate("/");
+         
         }
       }
     } catch (error) {

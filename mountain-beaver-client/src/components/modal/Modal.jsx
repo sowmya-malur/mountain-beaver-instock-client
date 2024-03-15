@@ -13,7 +13,9 @@ Props:
 */
 
 function Modal({ name, type, id, setActive, fetchList }) {
-  const url = `${process.env.REACT_APP_URL}/${type}/${id}`;
+  // const url = `${process.env.REACT_APP_URL}/api/${type}/${id}`;
+  const url = `http://localhost:8080/api/${type}/${id}`;
+
   const handleCancel = (e) => {
     e.preventDefault();
     setActive(false);
