@@ -2,19 +2,19 @@ import React from "react";
 import "./Modal.scss";
 import axios from "axios";
 
-/*
-Component Modal
-Props:
-  -name: name of item (ex. television)
-  -type: warehouse or inventory
-  -id: id of warehouse or inventory
-  -setActive: change the bolean of showing modal in parent component
-  -fethList: the feth list function of warehouse or inventory
-*/
-
+/**
+ * Modal Component
+ * Renders modal for deleting either warehouse or inventory.
+ * @param {String} name - name of the warehouse.
+ * @param {String} type - type of database either "warehouses" or "inventories"
+ * @param {Number} id - Id of the currently selected warehouse or inventory to be deleted.
+ * @param {Number} id - Id of the currently selected warehouse or inventory to be deleted.
+ * @param {function} setActive - function to showModal.
+ * @param {function} fetchList - fetch function of warehouses or inventories to display updated list after deleting .
+ * @returns {JSX.Element} Modal component.
+ */
 function Modal({ name, type, id, setActive, fetchList }) {
-  // const url = `${process.env.REACT_APP_URL}/api/${type}/${id}`;
-  const url = `http://localhost:8080/api/${type}/${id}`;
+  const url = `${process.env.REACT_APP_BACKEND_URL}/api/${type}/${id}`;
 
   const handleCancel = (e) => {
     e.preventDefault();
