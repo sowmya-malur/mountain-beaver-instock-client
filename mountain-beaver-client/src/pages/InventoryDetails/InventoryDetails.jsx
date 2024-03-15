@@ -9,14 +9,16 @@ import { Link } from "react-router-dom";
 import { useState, useEffect } from "react";
 import axios from "axios";
 
-function InventoryDetails({ inventoryId }) {
+function InventoryDetails({ inventoryId, handleClick}) {
   const navigate = useNavigate();
 
   const [inventory, setInventory] = useState({});
   const [notFound, setNotFound] = useState(false);
 
-  const handleClick = () => {
+  const handleEditClick = () => {
     console.log("in click");
+    handleClick(false);
+    navigate("");
     // TODO: Add functionality to call edit inventory item page by passing the id
     // navigate("/EditInventoryItem/inventoryId"); //TODO: to test integration
   };
@@ -56,6 +58,12 @@ function InventoryDetails({ inventoryId }) {
     }
   };
 
+   // Function to navigate back to "/"" page after reseting the component state.
+   const handleBack = () => {
+    handleClick(false);
+    navigate("/inventory");
+  };
+
   return (
     <section className="inv-details">
       <div className="inv-details__full-wrapper">
@@ -64,9 +72,9 @@ function InventoryDetails({ inventoryId }) {
           <>
             <div className="inv-details__page-title">
               {/* TODO: Link to Warehouse Details page */}
-              <Link to="/" className="inv-details__arrow-back">
-                <img src={backarrow} alt="back arrow icon" />
-              </Link>
+              {/* <Link to="/" className="inv-details__arrow-back"> */}
+                <img src={backarrow} alt="back arrow icon" onClick={handleBack}/>
+              {/* </Link> */}
             </div>
             <div className="inv-details__error-message inv-details__error-message--align">
             <img src={erroricon} alt="error icon" />
@@ -78,12 +86,12 @@ function InventoryDetails({ inventoryId }) {
             <div className="inv-details__page-title">
               {/* TODO: Link to Warehouse Details page */}
               <div className="inv-details__inner-container">
-                <Link to="/" className="inv-details__arrow-back">
-                  <img src={backarrow} alt="back arrow icon" />
-                </Link>
+                {/* <Link to="/" className="inv-details__arrow-back"> */}
+                  <img src={backarrow} alt="back arrow icon" onClick={handleBack} />
+                {/* </Link> */}
                 <h1 className="inv-details__title">{inventory.item_name}</h1>
               </div>
-              <img src={edit} alt="edit icon" onClick={handleClick} className="inv-details__edit"/>
+              <img src={edit} alt="edit icon" onClick={handleEditClick} className="inv-details__edit"/>
             </div>
             <div className="inv-details__container">
               <div className="inv-details__column">

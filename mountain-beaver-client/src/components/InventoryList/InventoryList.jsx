@@ -94,10 +94,10 @@ const InventoryList = () => {
     )}
     {showComponent === 'add-inventory' && <AddInventoryItemPage handleClick={() => setComponent(false)} />}
     {showComponent === 'edit-inventory' && <EditInventoryItem handleClick={() => setComponent(false)} inventory={selectedInventory}/>}
-    {showComponent === "details-warehouse" && (
+    {showComponent === "details-inventory" && (
         <InventoryDetails
           handleClick={() => setComponent(false)}
-          inventoryIdId={selectedInventory.id}
+          inventoryId={selectedInventory.id}
         />
       )}
     </>
