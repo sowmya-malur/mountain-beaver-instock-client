@@ -35,14 +35,20 @@
         flex-direction: row;
         gap: 0.625rem;
         border-bottom: 0.063rem solid $color-borders;
-    
+        justify-content: space-between;
         padding: $mobile-margin;
     
         @include tablet {
           padding: $tablet-margin;
         }
       }
-    
+      
+      &__inner-container {
+        display: flex;
+        flex-direction: row;
+        gap: 0.625rem;
+      }
+
       &__title {
         font-size: $mobile-font-size-header;
         font-weight: $font-weight-semi-bold;
@@ -53,4 +59,71 @@
           line-height: $tablet-header-line-height;
         }
       }
+
+      &__heading {
+        color: $color-secondary-text;
+        font-size: $mobile-font-size-table-header;
+        line-height: $mobile-table-header-line-height;
+        margin-top: $mobile-margin;
+        @include tablet {
+          font-size: $tablet-font-size-table-header;
+          line-height: $tablet-table-header-line-height;
+          margin-top:0;
+        }
+      }
+
+      &__container{
+        margin:0 $mobile-margin 0 $mobile-margin;
+        @include tablet {
+          margin: $tablet-margin;
+        }
+      }
+
+      &__info {
+        line-height: $mobile-body-medium-line-height;
+        padding-top: 0.25rem;
+
+        @include tablet {
+          line-height: $tablet-body-medium-line-height;
+        }
+      }
+
+      &__status{
+        margin-top: 0.25rem;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        font-weight: $font-weight-semi-bold;
+        font-size: $mobile-font-size-table-header;
+        line-height: $mobile-table-header-line-height;
+        height: 1.5rem;
+        padding-left: 0.5rem;
+        padding-right: 0.5rem;
+        width: fit-content;
+        border-radius: $border-radius;
+        
+        @include tablet {
+          font-size: $tablet-font-size-table-header;
+          line-height: $tablet-table-header-line-height;
+          height: 1.625rem;
+        }
+
+        &--in-stock {
+          color: $color-success;
+          background-color: rgba(21, 132, 99, 0.07);
+        }
+
+        &--out-of-stock {
+          color: $color-error;
+          background-color: rgba(201, 69, 21, 0.07);
+
+        }
+      }
+
+      &__qty-container {
+        display: flex;
+        justify-content: flex-start;
+        gap: 4rem;
+      }
+
 }

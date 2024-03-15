@@ -49,6 +49,14 @@ function InventoryDetails({ inventoryId }) {
     getInventory();
   }, [inventoryId]);
 
+  const upperCaseOf = (str) =>{
+    if(str) {
+      return str.toUpperCase();
+    }
+  }
+  
+  // console.log(upperCase(inventory.status));
+
   return (
     <section className="inv-details">
       <div className="inv-details__full-wrapper">
@@ -67,24 +75,35 @@ function InventoryDetails({ inventoryId }) {
           <>
             <div className="inv-details__page-title">
               {/* TODO: Link to Warehouse Details page */}
-              <Link to="/" className="inv-details__arrow-back">
-                <img src={backarrow} alt="back arrow icon" />
-              </Link>
-              <h1 className="inv-details__title">{inventory.item_name}</h1>
+              <div className="inv-details__inner-container">
+                <Link to="/" className="inv-details__arrow-back">
+                  <img src={backarrow} alt="back arrow icon" />
+                </Link>
+                <h1 className="inv-details__title">{inventory.item_name}</h1>
+              </div>
               <img src={edit} alt="edit icon" onClick={handleClick} />
             </div>
-            <p className="inv-details__heading">ITEM DESCRIPTION:</p>
-            <p className="inv-details__info">{inventory.description}</p>
-            <p className="inv-details__heading">CATEGORY:</p>
-            <p className="inv-details__info">{inventory.category}</p>
+            <div className="inv-details__container">
+              <p className="inv-details__heading">ITEM DESCRIPTION:</p>
+              <p className="inv-details__info">{inventory.description}</p>
+              <p className="inv-details__heading">CATEGORY:</p>
+              <p className="inv-details__info">{inventory.category}</p>
 
-            <p className="inv-details__heading">STATUS:</p>
-            <p className="inv-details__status">{inventory.status}</p>
-            <p className="inv-details__heading">QUANTITY:</p>
-            <p className="inv-details__info">{inventory.quantity}</p>
-
-            <p className="inv-details__heading">WAREHOUSE:</p>
-            <p className="inv-details__info">{inventory.warehouse_name}</p>
+              <div className="inv-details__qty-container">
+                <div>
+              <p className="inv-details__heading">STATUS:</p>
+              <div className={`inv-details__status ${upperCaseOf(inventory.status) === "IN STOCK" ? "inv-details__status--in-stock" : "inv-details__status--out-of-stock"}`}>
+                {upperCaseOf(inventory.status)}
+              </div>
+              </div>
+              <div>
+              <p className="inv-details__heading">QUANTITY:</p>
+              <p className="inv-details__info">{inventory.quantity}</p>
+              </div>
+              </div>
+              <p className="inv-details__heading">WAREHOUSE:</p>
+              <p className="inv-details__info">{inventory.warehouse_name}</p>
+            </div>
           </>
         )}
       </div>
