@@ -5,6 +5,7 @@ import Edit from "../../assets/icons/edit-24px.svg";
 import Modal from "../Modal/Modal";
 import AddInventoryItemPage from '../../pages/AddInventoryItemPage/AddInventoryItemPage';
 import EditInventoryItem from '../../pages/EditInventoryItemPage/EditInventoryItemPage';
+import InventoryDetails from '../../pages/InventoryDetails/InventoryDetails';
 
 const InventoryList = () => {
 
@@ -13,18 +14,18 @@ const InventoryList = () => {
   const [Inventories, setInventories] = useState([]);
   const [selectedInventory, setSelectedInventory] = useState(null);
 
-  useEffect(() => {
-    const fetchInventories = async () => {
-      try {
-        const response = await axios.get(`${process.env.REACT_APP_BACKEND_URL}/api/inventories/`)
-        setInventories(response.data); 
-      } catch (error) {
-        console.error(`Error fetching inventories`, error);
-      }
-    };
+  const fetchInventories = async () => {
+    try {
+      const response = await axios.get(`${process.env.REACT_APP_BACKEND_URL}/api/inventories/`)
+      setInventories(response.data); 
+    } catch (error) {
+      console.error(`Error fetching inventories`, error);
+    }
+  };
 
+  useEffect(() => {
     fetchInventories();
-  }, []);
+  }, [showComponent]);
 
   const handleClickDelete = (inventory) => {
     setSelectedInventory(inventory); // Set the selected warehouse for deletion
@@ -64,7 +65,10 @@ const InventoryList = () => {
   <tbody>
     {Inventories.map((inventory) => (
       <tr key={inventory.id}>
-        <td>{inventory.item_name}</td> {/* Corrected to include Item Name */}
+        <td onClick={() => {
+                          setComponent("details-inventory");
+                          setSelectedInventory(inventory);
+                        }}>{inventory.item_name}</td> {/* Corrected to include Item Name */}
         <td>{inventory.description}</td>
         <td>{inventory.category}</td>
         <td>{inventory.status}</td>
@@ -73,8 +77,6 @@ const InventoryList = () => {
         <td><img src={Edit} onClick={() => {
             setComponent('edit-inventory');
             setSelectedInventory(inventory)}}/></td>
-        {/* <td>{new Date(inventory.created_at).toLocaleString()}</td>
-        <td>{new Date(inventory.updated_at).toLocaleString()}</td> */}
       </tr>
     ))}
   </tbody>
@@ -82,12 +84,22 @@ const InventoryList = () => {
       ) : (
         <p>No Inventories found.</p>
       )}
-       {showModal && <Modal />}
+       {showModal && <Modal 
+       name={selectedInventory.item_name}
+       type="inventories"
+       id={selectedInventory.id}
+       setActive={setShowModal}
+       fetchList={fetchInventories}/>}
     </div>
     )}
     {showComponent === 'add-inventory' && <AddInventoryItemPage handleClick={() => setComponent(false)} />}
     {showComponent === 'edit-inventory' && <EditInventoryItem handleClick={() => setComponent(false)} inventory={selectedInventory}/>}
-
+    {showComponent === "details-warehouse" && (
+        <InventoryDetails
+          handleClick={() => setComponent(false)}
+          inventoryIdId={selectedInventory.id}
+        />
+      )}
     </>
     
   );

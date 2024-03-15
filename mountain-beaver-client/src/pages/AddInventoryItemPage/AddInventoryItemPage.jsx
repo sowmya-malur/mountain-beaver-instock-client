@@ -3,8 +3,12 @@ import Arrow from "../../assets/icons/arrow_back-24px.svg";
 import ArrowDown from "../../assets/icons/arrow_drop_down-24px.svg";
 import ErrorIcon from "../../assets/icons/error-24px.svg";
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
-function AddInventoryItemPage() {
+function AddInventoryItemPage({handleClick}) {
+    // Initialize hooks
+    const navigate = useNavigate();
+
   const [itemName, setItemName] = useState("");
   const [description, setDescription] = useState("");
   const [category, setCategory] = useState("");
@@ -44,6 +48,8 @@ function AddInventoryItemPage() {
       // Here you can submit the form data to the backend
       // Reset the form fields after submission
       resetForm();
+      handleClick(false);
+      navigate("/inventory");
     } else {
       console.log("Form has errors, please correct them");
     }
@@ -59,11 +65,17 @@ function AddInventoryItemPage() {
     setErrors({});
   };
 
+  // Function to navigate back to "/"" page after reseting the component state.
+  const handleBack = () => {
+    handleClick(false);
+    navigate("/inventory");
+  };
+
   return (
     <section className="inv">
       <div className="inv__full-wrapper">
         <div className="inv__title">
-          <img src={Arrow} alt="arrow back logo" className="inv__logo" />
+          <img src={Arrow} alt="arrow back logo" className="inv__logo" onClick={handleBack}/>
           <h1 className="inv__text"> Add New Inventory Item</h1>
         </div>
         <div className="inv__container">
@@ -212,7 +224,7 @@ function AddInventoryItemPage() {
           </div>
         </div>
         <div className="inv__avail-button">
-          <button className="inv__button-cancel">Cancel</button>
+          <button className="inv__button-cancel"  onClick={handleBack}>Cancel</button>
           <button className="inv__button-save" onClick={handleSubmit}>
             Save
           </button>
