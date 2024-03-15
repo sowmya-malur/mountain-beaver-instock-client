@@ -82,9 +82,13 @@ $tablet-margin: 1.5rem; // 24px
 
 // desktop padding variables
 $desktop-margin: calc(3 * $tablet-margin);
+$desktop-inner-margin: calc(2 * $tablet-margin);
+
+// elements styling
 $border-radius: 1.25rem; //20px
 $element-mobile-height: 2.25rem; //36px
 $element-tablet-height: 2.375; //38px
+
 
 
 

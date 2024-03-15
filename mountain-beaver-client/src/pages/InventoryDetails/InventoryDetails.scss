@@ -2,55 +2,183 @@
 @use "../../styles/partials/mixin" as *;
 @use "../../styles/partials/typography" as *;
 
-.inv-details{
-    background-color: $color-background-light;
+.inv-details {
+  background-color: $color-background-light;
 
-    &__full-wrapper {
-        position: relative;
-        background-color: $color-global;
-        top: -5rem;
-        z-index: 1;
-        height: 100%;
-        border-radius: 0.2rem;
-        box-shadow: 1px 1px 5px 0 rgba(0, 0, 0, 0.3);
-        margin: $mobile-margin;
-        padding-bottom: 2rem;
+  &__full-wrapper {
+    position: relative;
+    background-color: $color-global;
+    top: -5rem;
+    z-index: 1;
+    height: 100%;
+    border-radius: 0.2rem;
+    box-shadow: 0.0625rem 0.0625rem 0.3125rem 0 rgba(0, 0, 0, 0.3);
+    margin: $mobile-margin;
+    padding-bottom: 2rem;
 
-        @include tablet {
-          margin: $tablet-margin;
-          top: -8.5rem;
-        }
-        @include desktop {
-          margin: $desktop-margin;
-          top: -11.5rem;
-        }
-      }
+    @include tablet {
+      margin: $tablet-margin;
+      top: -8.5rem;
+    }
+    @include desktop {
+      margin: $desktop-margin;
+      top: -11.5rem;
+    }
+  }
 
-      &__arrow-back {
-        display: flex;
+  &__arrow-back {
+    display: flex;
+  }
+
+  &__page-title {
+    display: flex;
+    flex-direction: row;
+    gap: 0.625rem;
+    border-bottom: 0.063rem solid $color-borders;
+    justify-content: space-between;
+    padding: $mobile-margin;
+
+    @include tablet {
+      padding: $tablet-margin;
+    }
+
+    @include desktop {
+      padding: $desktop-inner-margin;
+    }
+  }
+
+  &__inner-container {
+    display: flex;
+    flex-direction: row;
+    gap: 0.625rem;
+  }
+
+  &__title {
+    font-size: $mobile-font-size-header;
+    font-weight: $font-weight-semi-bold;
+    line-height: $mobile-header-line-height;
+
+    @include tablet {
+      font-size: $tablet-font-size-header;
+      line-height: $tablet-header-line-height;
+    }
+  }
+
+  &__heading {
+    color: $color-secondary-text;
+    font-size: $mobile-font-size-table-header;
+    line-height: $mobile-table-header-line-height;
+    margin-top: $mobile-margin;
+
+    @include tablet {
+      font-size: $tablet-font-size-table-header;
+      line-height: $tablet-table-header-line-height;
+      margin-top: 0;
+    }
+
+    &--spacing {
+      @include tablet {
+        margin-top: $tablet-margin;
       }
+    }
+  }
+
+  &__container {
+    margin: 0 $mobile-margin 0 $mobile-margin;
+    display: flex;
+    flex-direction: column;
+    @include tablet {
+      margin: 0;
+      flex-direction: row;
+      justify-content: space-between;
+    }
+  }
+
+  &__info {
+    line-height: $mobile-body-medium-line-height;
+    padding-top: 0.25rem;
+
+    @include tablet {
+      line-height: $tablet-body-medium-line-height;
+    }
+  }
+
+  &__status {
+    margin-top: 0.25rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    font-weight: $font-weight-semi-bold;
+    font-size: $mobile-font-size-table-header;
+    line-height: $mobile-table-header-line-height;
+    height: 1.5rem;
+    padding-left: 0.5rem;
+    padding-right: 0.5rem;
+    width: fit-content;
+    border-radius: $border-radius;
+    overflow: hidden;
+
+    @include tablet {
+      font-size: $tablet-font-size-table-header;
+      line-height: $tablet-table-header-line-height;
+      height: 1.625rem;
+    }
+
+    &--in-stock {
+      color: $color-success;
+      background-color: rgba(21, 132, 99, 0.07);
+    }
+
+    &--out-of-stock {
+      color: $color-error;
+      background-color: rgba(201, 69, 21, 0.07);
+    }
+  }
+
+  &__qty-container {
+    display: flex;
+    justify-content: flex-start;
+    gap: 4rem;
+  }
+
+  &__column {
+    @include tablet {
+      flex:1;
+      padding-left: $tablet-margin;
+      padding-right: $tablet-margin;
+      margin-top: 2rem;
+    }
+
+    @include desktop {
+      padding-left: $desktop-inner-margin;
+      padding-right: $desktop-inner-margin;
+    }
     
-      &__page-title {
-        display: flex;
-        flex-direction: row;
-        gap: 0.625rem;
-        border-bottom: 0.063rem solid $color-borders;
-    
-        padding: $mobile-margin;
-    
-        @include tablet {
-          padding: $tablet-margin;
-        }
+    &--divider {
+      @include tablet {
+        border-left: 0.063rem solid $color-borders;
       }
+    }
+  }
+
+  &__edit {
+    cursor: pointer;
+  }
+
+  &__error-message {
+    color: $color-error;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    font-size: $mobile-font-size-body-small;
     
-      &__title {
-        font-size: $mobile-font-size-header;
-        font-weight: $font-weight-semi-bold;
-        line-height: $mobile-header-line-height;
-    
-        @include tablet {
-          font-size: $tablet-font-size-header;
-          line-height: $tablet-header-line-height;
-        }
-      }
+    @include tablet {
+      font-size: $tablet-font-size-body-small;
+    }
+
+    &--align {
+      padding-top: 1rem;
+      justify-content: center;
+    }
+  }
 }

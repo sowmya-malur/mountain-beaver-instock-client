@@ -19,8 +19,8 @@ function HomePage() {
         <>
           <main className="main">
             {/* <AddWarehousePage/> */}
-            {/* <InventoryDetails inventoryId={71}/> */}
-            <EditWarehousePage warehouse={warehouse}/>
+            <InventoryDetails inventoryId={200}/>
+            {/* <EditWarehousePage warehouse={warehouse}/> */}
           </main>
         </>
     );
