@@ -7,8 +7,8 @@ function Header() {
       <img className="header__logo" src={logo} alt="instock-logo" />
       <nav className="header__nav">
         <ul className="header__list">
-          <Link className="header__link" to="api/warehouses">Warehouses</Link>
-          <Link className="header__link"  to="api/inventories">Inventory</Link>
+          <Link className="header__link" to="/">Warehouses</Link>
+          <Link className="header__link"  to="/inventory">Inventory</Link>
         </ul>
       </nav>
     </header>
