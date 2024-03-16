@@ -69,8 +69,7 @@ function InventoryDetails() {
         {notFound ? (
           <>
             <div className="inv-details__page-title">
-              {/* TODO: Link to Warehouse Details page */}
-              <Link to="/" className="inv-details__arrow-back">
+              <Link to={`/warehouses/${warehouseId}`} className="inv-details__arrow-back">
                 <img src={backarrow} alt="back arrow icon" />
               </Link>
             </div>
@@ -82,9 +81,8 @@ function InventoryDetails() {
         ) : (
           <>
             <div className="inv-details__page-title">
-              {/* TODO: Link to Warehouse Details page */}
               <div className="inv-details__inner-container">
-                <Link to="/" className="inv-details__arrow-back">
+                <Link to={`/warehouses/${warehouseId}`} className="inv-details__arrow-back">
                   <img src={backarrow} alt="back arrow icon" />
                 </Link>
                 <h1 className="inv-details__title">{inventory.item_name}</h1>
