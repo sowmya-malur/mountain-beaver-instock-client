@@ -2,28 +2,19 @@ import backarrow from "../../assets/icons/arrow_back-24px.svg";
 import erroricon from "../../assets/icons/error-24px.svg";
 import "../EditWarehousePage/EditWarehousePage.scss";
 
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import { useState, useRef, useEffect } from "react";
 import axios from "axios";
 
-function EditWarehousePage({ warehouse }) {
-  // TODO: will get warehouse object with id for the row that was clicked to edit from Warehouses Page
-  // const warehouse = {
-  //     id: 1,
-  //     warehouse_name: "Manhattan",
-  //     address: "503 Broadway",
-  //     city: "New York",
-  //     country: "USA",
-  //     contact_name: "Parmin Aujla",
-  //     contact_position: "Warehouse Manager",
-  //     contact_phone: "+1 (646) 123-1234",
-  //     contact_email: "paujla@instock.com",
-  //   };
+function EditWarehousePage() {
+  
   // Initialize hooks
   const navigate = useNavigate();
+  const { warehouseId } = useParams();
   const errorMessage = "This field is required";
 
   // Set states for all the form fields and errors
+  const[warehouse, setWarehouse] = useState({});
   const [wareHouseName, setWareHouseName] = useState("");
   const [streetAddress, setStreetAddress] = useState("");
   const [city, setCity] = useState("");
@@ -46,17 +37,44 @@ function EditWarehousePage({ warehouse }) {
   });
 
   useEffect(() => {
-    if (warehouse) {
-      setWareHouseName(warehouse.warehouse_name);
-      setStreetAddress(warehouse.address);
-      setCity(warehouse.city);
-      setCountry(warehouse.country);
-      setContactName(warehouse.contact_name);
-      setPosition(warehouse.contact_position);
-      setPhoneNumber(warehouse.contact_phone);
-      setEmail(warehouse.contact_email);
+
+    try{
+    async function getWarehouse() {
+
+      // Fetch warehouse data from backend API for the given warehouse id
+      const warehouseResponse = await axios.get(`${process.env.REACT_APP_BACKEND_URL}/warehouses/${warehouseId}`);
+      console.log(warehouseResponse); //TODO: delete
+
+        // If request is successful and data is received, set warehouse state
+        if(warehouseResponse.response === 200){
+          setWarehouse(warehouseResponse.data);
+        }
+      } catch (error) {
+        if (error.response && error.response.status === 404) {
+          // If inventory item not found, set notFound state to true
+          setNotFound(true);
+          setErrorMessage("Inventory item not found");
+          console.error("Inventory item not found");
+        } else {
+          setErrorMessage(
+            "Error fetching inventory data. Please try again later."
+          );
+          console.error("Error fetching inventory data:", error);
+        }
     }
-  }, [warehouse]);
+
+    getWarehouse();
+    // if (warehouse) {
+    //   setWareHouseName(warehouse.warehouse_name);
+    //   setStreetAddress(warehouse.address);
+    //   setCity(warehouse.city);
+    //   setCountry(warehouse.country);
+    //   setContactName(warehouse.contact_name);
+    //   setPosition(warehouse.contact_position);
+    //   setPhoneNumber(warehouse.contact_phone);
+    //   setEmail(warehouse.contact_email);
+    // }
+  }, [warehouseId]);
 
   // Set refs for all the form fields to focus
   const formRef = useRef();
@@ -191,7 +209,7 @@ function EditWarehousePage({ warehouse }) {
 
         // PUT request to backend API
         const response = await axios.put(
-          `${process.env.REACT_APP_BACKEND_URL}/api/warehouses/${warehouse.id}`,
+          `${process.env.REACT_APP_BACKEND_URL}/warehouses/${warehouse.id}`,
           updateWareHouse
         );
 
