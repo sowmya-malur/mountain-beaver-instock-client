@@ -15,15 +15,15 @@ function HomePage() {
     contact_phone: "+1 (646) 123-1234",
     contact_email: "paujla@instock.com",
   };
-    return (
-        <>
-          <main className="main">
-            {/* <AddWarehousePage/> */}
-            <InventoryDetails inventoryId={200}/>
-            {/* <EditWarehousePage warehouse={warehouse}/> */}
-          </main>
-        </>
-    );
+  return (
+    <>
+      <main className="main">
+        {/* <AddWarehousePage /> */}
+        <InventoryDetails inventoryId={200} />
+        {/* <EditWarehousePage warehouse={warehouse}/> */}
+      </main>
+    </>
+  );
 }
 
 export default HomePage;
