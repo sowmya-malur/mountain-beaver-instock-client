@@ -1,0 +1,12 @@
+@use "../../styles/partials/variables" as *;
+
+.footer {
+  background-color: $color-background-light;
+  display: flex;
+  justify-content: center;
+  color: $color-secondary-text;
+  font-size: 0.8125rem;
+  width: 100%;
+  padding-bottom: 1rem;
+  margin-bottom: 5rem;
+}
