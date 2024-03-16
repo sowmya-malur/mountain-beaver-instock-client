@@ -1,7 +1,0 @@
-@use "../../styles/partials/mixin" as *;
-
-.mobileList {
-  @include tablet {
-    display: none;
-  }
-}
