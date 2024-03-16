@@ -9,8 +9,8 @@ import { useState, useRef } from "react";
 import axios from "axios";
 
 /**
- * 
- * @returns 
+ * Add Warehouse component
+ * @returns {JSX}
  */
 function AddWarehousePage() {
   // Initialize hooks
@@ -171,18 +171,19 @@ function AddWarehousePage() {
 
         // POST request to backend API
         const response = await axios.post(
-          `${process.env.REACT_APP_BACKEND_URL}/warehouse/`,
+          `${process.env.REACT_APP_BACKEND_URL}/warehouses/`,
           newWareHouse
         );
 
         if (response.status === 201) {
+          setErrors({});
           alert("New warehouse added successfully");
 
           // Reset form fields and clear errors
           resetForm();
 
           navigate("/");
-        } 
+        }
       }
     } catch (error) {
       if (error.response && error.response.status === 400) {
