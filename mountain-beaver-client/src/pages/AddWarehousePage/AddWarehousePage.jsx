@@ -1,11 +1,17 @@
+import "../AddWarehousePage/AddWarehousePage.scss";
+
+// Import icons
 import backarrow from "../../assets/icons/arrow_back-24px.svg";
 import erroricon from "../../assets/icons/error-24px.svg";
-import "../AddWarehousePage/AddWarehousePage.scss";
 
 import { Link, useNavigate } from "react-router-dom";
 import { useState, useRef } from "react";
 import axios from "axios";
 
+/**
+ * 
+ * @returns 
+ */
 function AddWarehousePage() {
   // Initialize hooks
   const navigate = useNavigate();
