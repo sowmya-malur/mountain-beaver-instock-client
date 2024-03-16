@@ -11,6 +11,7 @@ const WarehouseList = () => {
           `${process.env.REACT_APP_BACKEND_URL}/warehouses`
         );
         setWarehouses(response.data);
+     
       } catch (error) {
         console.error(`Error fetching warehouses`, error);
       }

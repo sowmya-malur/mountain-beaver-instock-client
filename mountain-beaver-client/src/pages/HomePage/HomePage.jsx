@@ -1,4 +1,6 @@
+import InventoryList from "../../components/InventoryList/InventoryList";
 import AddWarehousePage from "../AddWarehousePage/AddWarehousePage";
+import EditInventoryItem from "../EditInventoryItemPage/EditInventoryItemPage";
 import EditWarehousePage from "../EditWarehousePage/EditWarehousePage";
 import InventoryDetails from "../InventoryDetails/InventoryDetails";
 // TODO: Placeholder content to test the app. Replace with WareHousesPage
