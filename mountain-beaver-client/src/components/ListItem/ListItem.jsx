@@ -19,37 +19,33 @@ export default function MobileItem({ titles, data, id, to }) {
     <div className="Item">
       <div className="Item__content">
         <div className="Item__row">
-          <div className="Item__block">
+          <div className="Item__block Item__block--name">
             <h4 className="Item__type">{titles[0]}</h4>
             <div className="Item__link">
-              <span className="Item__data Item__data--name data ">
-                {data[0]}
-              </span>
+              <span className="Item__data Item__data--name">{data[0]}</span>
               <img className="Item__logo" src={Arow} alt="arrow" />
             </div>
           </div>
-          <div className="Item__block">
+          <div className="Item__block Item__block--type">
             <h4 className="Item__type">{titles[1]}</h4>
             <span className="Item__data ">{data[1]}</span>
           </div>
         </div>
         <div className="Item__row">
-          <div className="Item__block">
+          <div className="Item__block Item__block--stock">
             <h4 className="Item__type">{titles[2]}</h4>
             {data[2] === "In Stock" ? (
               <span className="Item__status">{data[2]}</span>
             ) : (
-              <span className="Item__status Item__status--out">
-                {data[2]}
-              </span>
+              <span className="Item__status Item__status--out">{data[2]}</span>
             )}
           </div>
-          <div className="Item__block">
+          <div className="Item__block Item__block--number">
             <h4 className="Item__type">{titles[3]}</h4>
             <span className="Item__data">{data[3]}</span>
           </div>
           {titles[4] ? (
-            <div className="Item__block">
+            <div className="Item__block Item__block--location">
               <h4 className="Item__type">{titles[4]}</h4>
               <span className="Item__data">{data[4]}</span>
             </div>
@@ -58,7 +54,6 @@ export default function MobileItem({ titles, data, id, to }) {
           )}
         </div>
       </div>
-
       <div className="Item__buttons">
         <button onClick={handleDel} className="Item__button">
           <img src={trash} alt="delete" />

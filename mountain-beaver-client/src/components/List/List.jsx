@@ -4,7 +4,7 @@ import "./List.scss";
 
 export default function MobileList({ list, titles }) {
   return (
-    <div className="mobileList">
+    <div className="List">
       {list.map((item) => {
         return (
           <ListItem
