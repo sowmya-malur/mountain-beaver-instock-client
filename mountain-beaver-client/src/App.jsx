@@ -19,7 +19,6 @@ function App() {
     <div className="App">
       <BrowserRouter>
         <Header />
-
         <Routes>
           <Route path="/" element={<HomePage />} />
           <Route path="/warehouses" element={<WarehousesPage />} />
@@ -50,5 +49,4 @@ function App() {
     </div>
   );
 }
-
 export default App;
