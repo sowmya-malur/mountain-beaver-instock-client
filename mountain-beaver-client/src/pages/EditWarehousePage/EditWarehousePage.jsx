@@ -42,7 +42,6 @@ function EditWarehousePage() {
         const warehouseResponse = await axios.get(
           `${process.env.REACT_APP_BACKEND_URL}/warehouses/${warehouseId}`
         );
-        console.log(warehouseResponse); //TODO: delete
   
         // If request is successful and data is received, set warehouse state
         if (warehouseResponse.status === 200) {
@@ -64,17 +63,11 @@ function EditWarehousePage() {
          }
       } catch (error) {
         if (error.response && error.response.status === 404) {
-          // If inventory item not found, set notFound state to true
-          console.log("error 404");
+          // If warehouse record not found, set notFound state to true         
           setNotFound(true);
-          setErrors({ exception: "Warehouse not found" });
-          console.error("Warehouse not found");
+          setErrors({ exception: "Error fetching warehouse data. Warehouse not found." });
+          console.error("Error fetching warehouse data. Warehouse not found.");
         } else {
-          // setErrorMessage(
-          //   "Error fetching warehouse data. Please try again later."
-          // );
-          console.log("error ");
-  
           setErrors({
             exception: "Error fetching warehouse data. Please try again later.",
           });
@@ -228,7 +221,6 @@ function EditWarehousePage() {
         );
 
         if (response.status === 200) {
-          console.log("Warehouse updated successfully"); //TODO:
           setNotFound(false);
           // Reset form fields and clear errors
           resetForm();
@@ -238,11 +230,15 @@ function EditWarehousePage() {
     } catch (error) {
       // Handle any errors during the API call
       if (error.response && error.response.status === 404) {
-        // If inventory item not found, set notFound state to true
+        // If warehouse record not found, set notFound state to true
         setNotFound(true);
-        console.error("Warehouse not found");
+        setErrors({ exception: "Error updating warehouse data. Warehouse not found." });
+        console.error("Error updating warehouse data. Warehouse not found.");
       } else {
-        console.error("Error updating warehouse", error);
+        setErrors({
+          exception: "Error updating warehouse data. Please try again later.",
+        });
+        console.error("Error updating warehouse.", error);
       }
     }
   };
@@ -495,7 +491,7 @@ function EditWarehousePage() {
         {notFound ? (
           <div className="edit-warehouse__error-message edit-warehouse__error-message--align">
             <img src={erroricon} alt="error icon" />
-            <p>Warehouse not found</p>
+            <p>{errors.exception}</p>
           </div>
         ) : (
           ""
