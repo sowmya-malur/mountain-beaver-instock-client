@@ -1,7 +1,7 @@
 import React from "react";
 import "./App.scss";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import Footer from "./components/Footer/Footer";
+import Footer from "./components/footer/Footer";
 import Header from "./components/Header/Header";
 // Import Components
 import HomePage from "./pages/HomePage/HomePage";
@@ -19,7 +19,6 @@ function App() {
     <div className="App">
       <BrowserRouter>
         <Header />
-
         <Routes>
           <Route path="/" element={<HomePage />} />
           <Route path="/warehouses" element={<WarehousesPage />} />
@@ -53,5 +52,4 @@ function App() {
     </div>
   );
 }
-
 export default App;
