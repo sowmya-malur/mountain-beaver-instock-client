@@ -10,9 +10,10 @@ const InventoryList = () => {
     const fetchInventories = async () => {
       try {
         const response = await axios.get(
-          `${process.env.REACT_APP_BACKEND_URL}/inventory/`
+          `${process.env.REACT_APP_BACKEND_URL}/api/inventories/`
         );
         setInventories(response.data);
+        console.log(response.data);
       } catch (error) {
         console.error(`Error fetching inventories`, error);
       }

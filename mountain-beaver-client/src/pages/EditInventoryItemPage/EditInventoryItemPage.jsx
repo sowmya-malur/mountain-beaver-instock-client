@@ -2,16 +2,52 @@ import "./EditInventoryItemPage.scss";
 import Arrow from "../../assets/icons/arrow_back-24px.svg";
 import ArrowDown from "../../assets/icons/arrow_drop_down-24px.svg";
 import erroricon from "../../assets/icons/error-24px.svg";
-import React, { useState } from "react";
 
-function EditInventoryItem({ inventory }) {
+import React, { useRef, useState, useEffect } from "react";
+import { Link, useNavigate, useParams} from "react-router-dom";
+import axios from "axios";
+
+function EditInventoryItem() {
+
+  // Initialize hooks
+  const navigate = useNavigate();
+
+  // Accessing the parameter from the route path
+  const { inventoryId } = useParams();
+
+  const [inventory, setInventory] = useState({});
   const [itemName, setItemName] = useState("");
   const [description, setDescription] = useState("");
   const [category, setCategory] = useState("");
   const [warehouse, setWarehouse] = useState("");
+  const [quantity, setQuantity] = useState("");
+  const [stock, setStock] = useState("");
   const [errors, setErrors] = useState({});
 
   const errorMessage = "This field is required";
+
+  // Get inventory data for the given inventory id.
+  useEffect(() => {
+    async function getSingleInventory() {
+      const response = await axios.get(
+        `${process.env.REACT_APP_BACKEND_URL}/api/inventories/${inventoryId}`
+      );
+      console.log("response:", response);
+      setInventory(response.data);
+      
+      if(inventory){
+        setItemName(inventory.item_name);
+        setDescription(inventory.description);
+        setCategory(inventory.category);
+        setStock(inventory.status);
+        setQuantity(inventory.quantity);
+        setWarehouse(inventory.warehouse_name);
+  }
+    }
+
+    // call function to get the inventory data for the given id
+    getSingleInventory();
+  }, [inventoryId]);
 
   const validateForm = () => {
     const formErrors = {};
@@ -36,16 +72,30 @@ function EditInventoryItem({ inventory }) {
     if (validateForm()) {
       // Form is valid, proceed with submission
       console.log("Form submitted successfully");
+      resetForm();
+      navigate("/inventory");
     } else {
-      console.log("Form has errors, please correct them");  
+      console.log("Form has errors, please correct them");
     }
+  };
+
+   // Function to reset form fields and clear errors
+   const resetForm = () => {
+    setItemName("");
+    setDescription("");
+    setCategory("");
+    setStock("");
+    setQuantity("");
+
+    // Clear errors
+    setErrors({});
   };
 
   return (
     <section className="inv">
       <div className="inv__full-wrapper">
         <div className="inv__title">
-          <img src={Arrow} alt="arrow back logo" className="inv__logo" />
+        <Link to="/" ><img src={Arrow} alt="arrow back logo" className="inv__logo" /></Link>
           <h1 className="inv__text"> Edit Inventory Item</h1>
         </div>
         <div className="inv__container">
@@ -67,7 +117,6 @@ function EditInventoryItem({ inventory }) {
               className={`inv__details-input ${
                 errors.itemName ? "inv__details-input--error" : ""
               }`}
-              placeholder="Television"
               value={itemName}
               onChange={(e) => setItemName(e.target.value)}
             />
@@ -89,7 +138,6 @@ function EditInventoryItem({ inventory }) {
               className={`inv__details-input-desc ${
                 errors.description && "inv__details-input--error"
               }`}
-              placeholder='This 50", 4K LED TV provides a crystal-clear picture and vivid colors.'
               value={description}
               onChange={(e) => setDescription(e.target.value)}
             />
@@ -110,7 +158,6 @@ function EditInventoryItem({ inventory }) {
               className={`inv__details-input ${
                 errors.category && "inv__details-input--error"
               }`}
-              placeholder="Electronics"
               value={category}
               onChange={(e) => setCategory(e.target.value)}
             />
@@ -167,7 +214,7 @@ function EditInventoryItem({ inventory }) {
           </div>
         </div>
         <div className="inv__avail-button">
-          <button className="inv__button-cancel">Cancel</button>
+        <Link to="/"><button className="inv__button-cancel">Cancel</button></Link>
           <button className="inv__button-save" onClick={handleSubmit}>
             Save
           </button>
