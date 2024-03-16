@@ -204,7 +204,7 @@ function EditInventoryItem() {
 
                 <h3 className="inv__details-label">Category</h3>
                 {/* Added a ootb select element for dropdown */}
-                <select
+                {/* <select
                   className="inv__details-dropdown"
                   value={category}
                   onChange={(e) => setCategory(e.target.value)}
@@ -215,8 +215,8 @@ function EditInventoryItem() {
                   <option value="Electronics">Electronics</option>
                   <option value="Gear">Gear</option>
                   <option value="Health">Health</option>
-                </select>
-                {/* <input
+                </select> */}
+                <input
               type="text"
               className={`inv__details-input ${
                 errors.category && "inv__details-input--error"
@@ -229,7 +229,10 @@ function EditInventoryItem() {
               className="inv__details-input-logo-1"
               src={ArrowDown}
               alt="Arrow down"
-            /> */}
+              onClick={() => {
+                
+              }}
+            />
               </div>
               <div className="inv__avail">
                 <h2 className="inv__details-title">Item Availability</h2>
