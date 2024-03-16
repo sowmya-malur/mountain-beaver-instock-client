@@ -129,17 +129,18 @@ function AddWarehousePage() {
       if (phoneNumber.trim() === "") {
         phoneRef.current.focus();
         formErrors.phoneNumber = errorMessage;
-      } else if (!/^\+\d{1}\s\(\d{3}\)\s\d{3}-\d{4}$/.test(phoneNumber.trim())) {
+      } else if (
+        !/^\+\d{1}\s\(\d{3}\)\s\d{3}-\d{4}$/.test(phoneNumber.trim())
+      ) {
         // Verify for format: +1 (xxx) xxx-xxxx
         phoneRef.current.focus();
-        formErrors.phoneNumber = "Invalid phone number format. Ex: +1 (xxx) xxx-xxxx";
-        ;
+        formErrors.phoneNumber =
+          "Invalid phone number format. Ex: +1 (xxx) xxx-xxxx";
       }
       if (email.trim() === "") {
         emailRef.current.focus();
         formErrors.email = errorMessage;
-      } else if (!/^[^\s@]+@[^\s@]+\.[a-zA-Z]{2,}$/.test(email.trim())
-      ) {
+      } else if (!/^[^\s@]+@[^\s@]+\.[a-zA-Z]{2,}$/.test(email.trim())) {
         emailRef.current.focus();
         formErrors.email = "Invalid email format. Ex: example@example.com";
       }
@@ -164,7 +165,7 @@ function AddWarehousePage() {
 
         // POST request to backend API
         const response = await axios.post(
-          `${process.env.REACT_APP_BACKEND_URL}/warehouses/`,
+          `${process.env.REACT_APP_BACKEND_URL}/warehouse/`,
           newWareHouse
         );
 
@@ -175,12 +176,23 @@ function AddWarehousePage() {
           resetForm();
 
           navigate("/");
-        } else if (response.status === 404) {
-          alert("Error adding new warehouse.");
-        }
+        } 
       }
     } catch (error) {
-      console.error("Error adding new warehouse:", error);
+      if (error.response && error.response.status === 400) {
+        setErrors({
+          exception: error.response.data.errorMessage, // missing fields or format error
+        });
+      } else if (error.response && error.response.status === 500) {
+        setErrors({
+          exception: error.response.data.errorMessage, // Internal server error
+        });
+      } else {
+        setErrors({
+          exception: "Error adding new warehouse data", // Generic error message
+        });
+      }
+      console.error("Error adding new warehouse data.", error);
     }
   };
 
@@ -430,6 +442,15 @@ function AddWarehousePage() {
             </button>
           </div>
         </form>
+
+        {errors.exception ? (
+          <div className="add-warehouse__error-message add-warehouse__error-message--align">
+            <img src={erroricon} alt="error icon" />
+            <p>{errors.exception}</p>
+          </div>
+        ) : (
+          ""
+        )}
       </div>
     </section>
   );

@@ -135,6 +135,11 @@
     @include tablet {
       font-size: $tablet-font-size-body-small;
     }
+
+    &--align {
+      padding: 0.5rem 0 1rem 0;
+      justify-content: center;
+    }
   }
 
   &__label {
