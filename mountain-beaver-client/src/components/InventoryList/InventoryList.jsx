@@ -29,10 +29,17 @@ const InventoryList = () => {
         list={Inventories}
         titles={["INVENTORY ITEM", "CATEGORY", "STATUS", "QTY", "WAREHOUSE"]}
       />
-      <RegularList
+      {/* <RegularList
         list={Inventories}
-        titles={["INVENTORY ITEM", "CATEGORY", "STATUS", "QTY", "WAREHOUSE", "ACTIONS"]}
-      />
+        titles={[
+          "INVENTORY ITEM",
+          "CATEGORY",
+          "STATUS",
+          "QTY",
+          "WAREHOUSE",
+          "ACTIONS",
+        ]}
+      /> */}
     </div>
   );
 };
