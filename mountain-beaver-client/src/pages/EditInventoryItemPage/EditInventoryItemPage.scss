@@ -223,4 +223,19 @@
       font-size: $tablet-font-size-label-button;
     }
   }
+
+  // added to style to drop down element
+  &__details-dropdown {
+    padding: 8px;
+    border: 1px solid $color-borders;
+    border-radius: $border-radius;
+    background-color: $color-background-light;
+    outline: none; /* Remove default outline */
+
+    &:focus {
+      border-color: $color-primary-cta; /* Change border color when focused */
+    }
+  }
+  
+  
 }
