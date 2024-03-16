@@ -8,7 +8,7 @@ const WarehouseList = () => {
     const fetchWarehouses = async () => {
       try {
         const response = await axios.get(
-          `${process.env.REACT_APP_BACKEND_URL}/warehouses`
+          `${process.env.REACT_APP_BACKEND_URL}/api/warehouses`
         );
         setWarehouses(response.data);
       } catch (error) {
