@@ -7,14 +7,13 @@ import { useState, useRef, useEffect } from "react";
 import axios from "axios";
 
 function EditWarehousePage() {
-  
   // Initialize hooks
   const navigate = useNavigate();
   const { warehouseId } = useParams();
   const errorMessage = "This field is required";
 
   // Set states for all the form fields and errors
-  const[warehouse, setWarehouse] = useState({});
+  const [warehouse, setWarehouse] = useState({}); // to display the warehouse record to be edited
   const [wareHouseName, setWareHouseName] = useState("");
   const [streetAddress, setStreetAddress] = useState("");
   const [city, setCity] = useState("");
@@ -23,8 +22,8 @@ function EditWarehousePage() {
   const [position, setPosition] = useState("");
   const [phoneNumber, setPhoneNumber] = useState("");
   const [email, setEmail] = useState("");
-  const [errors, setErrors] = useState({});
-  const [notFound, setNotFound] = useState(false);
+  const [errors, setErrors] = useState({}); // state to track errors
+  const [notFound, setNotFound] = useState(false); // state to track if warehouse with the id is found or not
   const [activeFields, setActiveFields] = useState({
     wareHouseName: false,
     streetAddress: false,
@@ -36,45 +35,60 @@ function EditWarehousePage() {
     email: false,
   });
 
-  useEffect(() => {
-
-    try{
-    async function getWarehouse() {
-
-      // Fetch warehouse data from backend API for the given warehouse id
-      const warehouseResponse = await axios.get(`${process.env.REACT_APP_BACKEND_URL}/warehouses/${warehouseId}`);
-      console.log(warehouseResponse); //TODO: delete
-
+  useEffect(()=>{
+    const getWarehouse = async () => {
+      try {
+        // Fetch warehouse data from backend API for the given warehouse id
+        const warehouseResponse = await axios.get(
+          `${process.env.REACT_APP_BACKEND_URL}/warehouses/${warehouseId}`
+        );
+        console.log(warehouseResponse); //TODO: delete
+  
         // If request is successful and data is received, set warehouse state
-        if(warehouseResponse.response === 200){
-          setWarehouse(warehouseResponse.data);
+        if (warehouseResponse.status === 200) {
+          const warehouseData = warehouseResponse.data;
+        setWarehouse(warehouseData);
+
+        // Only set other state variables if warehouseData exists
+        if (warehouseData) {
+          setWareHouseName(warehouseData.warehouse_name);
+          setStreetAddress(warehouseData.address);
+          setCity(warehouseData.city);
+          setCountry(warehouseData.country);
+          setContactName(warehouseData.contact_name);
+          setPosition(warehouseData.contact_position);
+          setPhoneNumber(warehouseData.contact_phone);
+          setEmail(warehouseData.contact_email);
         }
+  
+         }
       } catch (error) {
         if (error.response && error.response.status === 404) {
           // If inventory item not found, set notFound state to true
+          console.log("error 404");
           setNotFound(true);
-          setErrorMessage("Inventory item not found");
-          console.error("Inventory item not found");
+          setErrors({ exception: "Warehouse not found" });
+          console.error("Warehouse not found");
         } else {
-          setErrorMessage(
-            "Error fetching inventory data. Please try again later."
-          );
-          console.error("Error fetching inventory data:", error);
+          // setErrorMessage(
+          //   "Error fetching warehouse data. Please try again later."
+          // );
+          console.log("error ");
+  
+          setErrors({
+            exception: "Error fetching warehouse data. Please try again later.",
+          });
+          console.error("Error fetching warehouse data:", error);
         }
-    }
+      }
+    };
 
+    // call to async func
     getWarehouse();
-    // if (warehouse) {
-    //   setWareHouseName(warehouse.warehouse_name);
-    //   setStreetAddress(warehouse.address);
-    //   setCity(warehouse.city);
-    //   setCountry(warehouse.country);
-    //   setContactName(warehouse.contact_name);
-    //   setPosition(warehouse.contact_position);
-    //   setPhoneNumber(warehouse.contact_phone);
-    //   setEmail(warehouse.contact_email);
-    // }
-  }, [warehouseId]);
+
+  },[warehouseId]);
+
+  
 
   // Set refs for all the form fields to focus
   const formRef = useRef();
