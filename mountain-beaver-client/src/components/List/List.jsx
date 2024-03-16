@@ -1,13 +1,13 @@
 import React from "react";
-import MobileItem from "../MobileItem/MobileItem";
-import "./MobileList.scss";
+import ListItem from "../ListItem/ListItem";
+import "./List.scss";
 
 export default function MobileList({ list, titles }) {
   return (
     <div className="mobileList">
       {list.map((item) => {
         return (
-          <MobileItem
+          <ListItem
             titles={titles}
             data={[
               item.item_name,
