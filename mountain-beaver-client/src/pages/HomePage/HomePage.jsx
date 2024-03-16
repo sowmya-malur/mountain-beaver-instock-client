@@ -17,28 +17,15 @@ function HomePage() {
     contact_phone: "+1 (646) 123-1234",
     contact_email: "paujla@instock.com",
   };
-
-  const inventory = {
-      warehouse_id: 1,
-      item_name: "Keyboard",
-      description: "This 50\", 4K LED TV provides a crystal-clear picture and vivid colors.",
-      category: "Electronics",
-      status: "Out of Stock",
-      quantity: 0
-  };
-  
-    return (
-        <>
-          <main className="main">
-            {/* <AddWarehousePage/> */}
-            {/* <InventoryDetails inventoryId={200}/> */}
-            {/* <EditWarehousePage warehouse={warehouse}/> */}
-            <EditInventoryItem inventoryId={2}/> 
-            
-             {/* <InventoryList/> */}
-          </main>
-        </>
-    );
+  return (
+    <>
+      <main className="main">
+        {/* <AddWarehousePage /> */}
+        <InventoryDetails inventoryId={200} />
+        {/* <EditWarehousePage warehouse={warehouse}/> */}
+      </main>
+    </>
+  );
 }
 
 export default HomePage;
