@@ -35,37 +35,38 @@ function EditWarehousePage() {
     email: false,
   });
 
-  useEffect(()=>{
+  useEffect(() => {
     const getWarehouse = async () => {
       try {
         // Fetch warehouse data from backend API for the given warehouse id
         const warehouseResponse = await axios.get(
           `${process.env.REACT_APP_BACKEND_URL}/warehouses/${warehouseId}`
         );
-  
+
         // If request is successful and data is received, set warehouse state
         if (warehouseResponse.status === 200) {
           const warehouseData = warehouseResponse.data;
-        setWarehouse(warehouseData);
+          setWarehouse(warehouseData);
 
-        // Only set other state variables if warehouseData exists
-        if (warehouseData) {
-          setWareHouseName(warehouseData.warehouse_name);
-          setStreetAddress(warehouseData.address);
-          setCity(warehouseData.city);
-          setCountry(warehouseData.country);
-          setContactName(warehouseData.contact_name);
-          setPosition(warehouseData.contact_position);
-          setPhoneNumber(warehouseData.contact_phone);
-          setEmail(warehouseData.contact_email);
+          // Only set other state variables if warehouseData exists
+          if (warehouseData) {
+            setWareHouseName(warehouseData.warehouse_name);
+            setStreetAddress(warehouseData.address);
+            setCity(warehouseData.city);
+            setCountry(warehouseData.country);
+            setContactName(warehouseData.contact_name);
+            setPosition(warehouseData.contact_position);
+            setPhoneNumber(warehouseData.contact_phone);
+            setEmail(warehouseData.contact_email);
+          }
         }
-  
-         }
       } catch (error) {
         if (error.response && error.response.status === 404) {
-          // If warehouse record not found, set notFound state to true         
+          // If warehouse record not found, set notFound state to true
           setNotFound(true);
-          setErrors({ exception: "Error fetching warehouse data. Warehouse not found." });
+          setErrors({
+            exception: "Error fetching warehouse data. Warehouse not found.",
+          });
           console.error("Error fetching warehouse data. Warehouse not found.");
         } else {
           setErrors({
@@ -78,10 +79,7 @@ function EditWarehousePage() {
 
     // call to async func
     getWarehouse();
-
-  },[warehouseId]);
-
-  
+  }, [warehouseId]);
 
   // Set refs for all the form fields to focus
   const formRef = useRef();
@@ -232,7 +230,9 @@ function EditWarehousePage() {
       if (error.response && error.response.status === 404) {
         // If warehouse record not found, set notFound state to true
         setNotFound(true);
-        setErrors({ exception: "Error updating warehouse data. Warehouse not found." });
+        setErrors({
+          exception: "Error updating warehouse data. Warehouse not found.",
+        });
         console.error("Error updating warehouse data. Warehouse not found.");
       } else {
         setErrors({
