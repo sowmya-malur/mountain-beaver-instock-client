@@ -20,7 +20,7 @@ function EditInventoryItem() {
   const [description, setDescription] = useState("");
   const [category, setCategory] = useState("");
   const [warehouse, setWarehouse] = useState("");
-  const [quantity, setQuantity] = useState("");
+  const [ , setQuantity] = useState(0);
   const [stock, setStock] = useState("");
   const [errors, setErrors] = useState({});
 
@@ -30,7 +30,7 @@ function EditInventoryItem() {
   useEffect(() => {
     async function getSingleInventory() {
       const response = await axios.get(
-        `${process.env.REACT_APP_BACKEND_URL}/api/inventories/${inventoryId}`
+        `${process.env.REACT_APP_BACKEND_URL}/inventories/${inventoryId}`
       );
       console.log("response:", response);
       setInventory(response.data);
@@ -85,14 +85,16 @@ function EditInventoryItem() {
     setDescription("");
     setCategory("");
     setStock("");
-    setQuantity("");
-
+    setQuantity(0);
+    setWarehouse("");
     // Clear errors
     setErrors({});
   };
 
   return (
-    <section className="inv">
+<>
+{inventory && (
+  <section className="inv">
       <div className="inv__full-wrapper">
         <div className="inv__title">
         <Link to="/" ><img src={Arrow} alt="arrow back logo" className="inv__logo" /></Link>
@@ -221,6 +223,9 @@ function EditInventoryItem() {
         </div>
       </div>
     </section>
+)}
+</>
+    
   );
 }
 
