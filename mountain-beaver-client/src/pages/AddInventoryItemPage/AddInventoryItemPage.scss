@@ -223,4 +223,25 @@
       font-size: $tablet-font-size-label-button;
     }
   }
+
+  &__error-container {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    padding-top: 0.25rem;
+    &--align {
+      padding: 0.5rem 0 1rem 0;
+      justify-content: center;
+    }
+  }
+  &__error-message {
+    color: $color-error;
+    font-size: $mobile-font-size-body-small;
+    @include tablet {
+      font-size: $tablet-font-size-body-small;
+    }
+
+   
+  }
+
 }
