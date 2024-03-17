@@ -4,10 +4,16 @@ import List from "../List/List";
 import "./InventoryList.scss";
 import SearchLogo from "../../assets/icons/search-24px.svg";
 import sort from "../../assets/icons/sort-24px.svg";
+import { useNavigate } from "react-router-dom";
 
 const InventoryList = () => {
   const [Inventories, setInventories] = useState([]);
   const url = `${process.env.REACT_APP_BACKEND_URL}/inventories/`;
+  const navigate = useNavigate();
+
+  const handleAdd = () => {
+    navigate("/inventory/add");
+  };
 
   const fetchInventories = async () => {
     try {
@@ -37,7 +43,9 @@ const InventoryList = () => {
             />
             <img src={SearchLogo} alt="" className="inventory__logo" />
 
-            <button className="inventory__button">+Add New Item</button>
+            <button onClick={handleAdd} className="inventory__button">
+              +Add New Item
+            </button>
           </div>
         </div>
         <div className="inventory__titles">

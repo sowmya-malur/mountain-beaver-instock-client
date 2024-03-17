@@ -21,6 +21,9 @@ function InventoryDetails() {
     // TODO: Add functionality to call edit inventory item page by passing the id
     // navigate("/EditInventoryItem/inventoryId"); //TODO: to test integration
   };
+  const handleBack = () => {
+    navigate(-1);
+  };
 
   useEffect(() => {
     const getInventory = async () => {
@@ -65,9 +68,9 @@ function InventoryDetails() {
           <>
             <div className="inv-details__page-title">
               {/* TODO: Link to Warehouse Details page */}
-              <Link to="/inventory" className="inv-details__arrow-back">
+              <div onClick={handleBack} className="inv-details__arrow-back">
                 <img src={backarrow} alt="back arrow icon" />
-              </Link>
+              </div>
             </div>
             <div className="inv-details__error-message inv-details__error-message--align">
               <img src={erroricon} alt="error icon" />
@@ -79,9 +82,9 @@ function InventoryDetails() {
             <div className="inv-details__page-title">
               {/* TODO: Link to Warehouse Details page */}
               <div className="inv-details__inner-container">
-                <Link to="/inventory" className="inv-details__arrow-back">
+                <div onClick={handleBack} className="inv-details__arrow-back">
                   <img src={backarrow} alt="back arrow icon" />
-                </Link>
+                </div>
                 <h1 className="inv-details__title">{inventory.item_name}</h1>
               </div>
               <img

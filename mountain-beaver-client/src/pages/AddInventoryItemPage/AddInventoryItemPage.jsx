@@ -3,6 +3,7 @@ import Arrow from "../../assets/icons/arrow_back-24px.svg";
 import ArrowDown from "../../assets/icons/arrow_drop_down-24px.svg";
 import ErrorIcon from "../../assets/icons/error-24px.svg";
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 function AddInventoryItemPage() {
   const [itemName, setItemName] = useState("");
@@ -14,6 +15,11 @@ function AddInventoryItemPage() {
   const [errors, setErrors] = useState({});
 
   const errorMessage = "This field is required";
+  const navigate = useNavigate();
+
+  const handleBack = () => {
+    navigate(-1);
+  };
 
   const validateForm = () => {
     const formErrors = {};
@@ -63,7 +69,12 @@ function AddInventoryItemPage() {
     <section className="inv">
       <div className="inv__full-wrapper">
         <div className="inv__title">
-          <img src={Arrow} alt="arrow back logo" className="inv__logo" />
+          <img
+            src={Arrow}
+            alt="arrow back logo"
+            className="inv__logo"
+            onClick={handleBack}
+          />
           <h1 className="inv__text"> Add New Inventory Item</h1>
         </div>
         <div className="inv__container">
