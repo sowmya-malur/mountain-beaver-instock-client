@@ -10,16 +10,21 @@ import { useState, useEffect } from "react";
 import axios from "axios";
 
 function InventoryDetails() {
+  // Initialize hooks
   const navigate = useNavigate();
+  const { warehouseId, inventoryId } = useParams();
 
+  // Initialize use states
   const [inventory, setInventory] = useState({});
-  const [notFound, setNotFound] = useState(false);
+  const [notFound, setNotFound] = useState(false); // if the item is found or not
+ const [errorMessage, setErrorMessage] = useState(""); // sets user-friendly error messages
   const { inventoryId } = useParams();
 
   const handleClick = () => {
     navigate(`/inventory/${inventoryId}/edit`);
     // TODO: Add functionality to call edit inventory item page by passing the id
     // navigate("/EditInventoryItem/inventoryId"); //TODO: to test integration
+
   };
   const handleBack = () => {
     navigate(-1);
@@ -32,7 +37,6 @@ function InventoryDetails() {
         const inventoryResponse = await axios.get(
           `${process.env.REACT_APP_BACKEND_URL}/inventories/${inventoryId}`
         );
-
         // If request is successful and data is received, set inventory state
         if (inventoryResponse.status === 200) {
           setInventory(inventoryResponse.data);
@@ -43,8 +47,12 @@ function InventoryDetails() {
         if (error.response && error.response.status === 404) {
           // If inventory item not found, set notFound state to true
           setNotFound(true);
+          setErrorMessage("Inventory item not found");
           console.error("Inventory item not found");
         } else {
+          setErrorMessage(
+            "Error fetching inventory data. Please try again later."
+          );
           console.error("Error fetching inventory data:", error);
         }
       }
@@ -67,6 +75,7 @@ function InventoryDetails() {
         {notFound ? (
           <>
             <div className="inv-details__page-title">
+
               {/* TODO: Link to Warehouse Details page */}
               <div onClick={handleBack} className="inv-details__arrow-back">
                 <img src={backarrow} alt="back arrow icon" />
@@ -74,13 +83,12 @@ function InventoryDetails() {
             </div>
             <div className="inv-details__error-message inv-details__error-message--align">
               <img src={erroricon} alt="error icon" />
-              <p>Item not found</p>
+              <p>{errorMessage}</p>
             </div>
           </>
         ) : (
           <>
             <div className="inv-details__page-title">
-              {/* TODO: Link to Warehouse Details page */}
               <div className="inv-details__inner-container">
                 <div onClick={handleBack} className="inv-details__arrow-back">
                   <img src={backarrow} alt="back arrow icon" />
