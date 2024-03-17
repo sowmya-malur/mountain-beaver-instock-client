@@ -6,7 +6,7 @@ import SearchLogo from "../../assets/icons/search-24px.svg";
 import sort from "../../assets/icons/sort-24px.svg";
 import { useNavigate } from "react-router-dom";
 
-const InventoryList = () => {
+const InventoryList = ({ titles }) => {
   const [Inventories, setInventories] = useState([]);
   const url = `${process.env.REACT_APP_BACKEND_URL}/inventories/`;
   const navigate = useNavigate();
@@ -18,15 +18,16 @@ const InventoryList = () => {
   const fetchInventories = async () => {
     try {
       const response = await axios.get(`${url}`);
-      const list = response.data.map(item => {
+      const list = response.data.map((item) => {
         return [
           item.item_name,
           item.category,
           item.status,
           item.quantity,
           item.warehouse_name,
-        ]
-      })
+          item.id,
+        ];
+      });
       setInventories(list);
     } catch (error) {
       console.error(`Error fetching inventories`, error);
@@ -74,10 +75,14 @@ const InventoryList = () => {
             <h4>QTY</h4>
             <img src={sort} alt="sort" />
           </div>
-          <div className="inventory__title inventory__title--warehouse">
-            <h4>WAREHOUSE</h4>
-            <img src={sort} alt="sort" />
-          </div>
+          {titles[4] ? (
+            <div className="inventory__title inventory__title--warehouse">
+              <h4>WAREHOUSE</h4>
+              <img src={sort} alt="sort" />
+            </div>
+          ) : (
+            <></>
+          )}
           <div className="inventory__title inventory__title--ations">
             <h4>ACTIONS</h4>
             <img src={sort} alt="sort" />
@@ -85,7 +90,7 @@ const InventoryList = () => {
         </div>
         <List
           list={Inventories}
-          titles={["INVENTORY ITEM", "CATEGORY", "STATUS", "QTY", "WAREHOUSE"]}
+          titles={titles}
           fetchList={fetchInventories}
           url={url}
           to={"inventory"}

@@ -1,6 +1,6 @@
 import "../InventoryDetails/InventoryDetails.scss";
 
-import edit from "../../assets/icons/edit-24px.svg";
+import edit from "../../assets/icons/edit.png";
 import backarrow from "../../assets/icons/arrow_back-24px.svg";
 import erroricon from "../../assets/icons/error-24px.svg";
 
@@ -91,12 +91,15 @@ function InventoryDetails() {
                 </div>
                 <h1 className="inv-details__title">{inventory.item_name}</h1>
               </div>
-              <img
-                src={edit}
-                alt="edit icon"
-                onClick={handleClick}
-                className="inv-details__edit"
-              />
+              <div className="inv-details__edit">
+                <img
+                  src={edit}
+                  alt="edit icon"
+                  onClick={handleClick}
+                  className="inv-details__editIcon"
+                />
+                <span className="inv-details__editText">Edit</span>
+              </div>
             </div>
             <div className="inv-details__container">
               <div className="inv-details__column">

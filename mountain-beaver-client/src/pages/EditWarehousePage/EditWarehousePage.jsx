@@ -35,6 +35,10 @@ function EditWarehousePage() {
     email: false,
   });
 
+  const handleBack = () => {
+    navigate(-1);
+  };
+
   useEffect(() => {
     const getWarehouse = async () => {
       try {
@@ -262,9 +266,9 @@ function EditWarehousePage() {
     <section className="edit-warehouse">
       <div className="wrapper">
         <div className="edit-warehouse__page-title">
-          <Link to="/" className="edit-warehouse__arrow-back">
+          <div onClick={handleBack} className="edit-warehouse__arrow-back">
             <img src={backarrow} alt="back arrow icon" />
-          </Link>
+          </div>
           <h1 className="edit-warehouse__title">Edit Warehouse</h1>
         </div>
         <form

@@ -1,0 +1,209 @@
+@use "../../styles/partials/variables" as *;
+@use "../../styles/partials/mixin" as *;
+@use "../../styles/partials/typography" as *;
+
+.wInventory {
+  background-color: $color-background-light;
+  &__wrapper {
+    position: relative;
+    background-color: $color-global;
+    top: -5rem;
+    z-index: 1;
+    height: 100%;
+    border-radius: 0.6rem;
+    box-shadow: 1px 1px 5px 0 rgba(0, 0, 0, 0.3);
+    margin: $mobile-margin;
+
+    @include tablet {
+      margin: $tablet-margin;
+      top: -8.5rem;
+    }
+    @include desktop {
+      margin: $desktop-margin;
+      top: -11.5rem;
+    }
+  }
+  &__container {
+    display: flex;
+    flex-direction: column;
+    border-bottom: 0.063rem solid $color-borders;
+    padding: 0 1rem;
+    @include tablet {
+      height: 6rem;
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      justify-content: space-between;
+    }
+  }
+  &__topTitle {
+    font-size: $mobile-font-size-header;
+    font-weight: $font-weight-semi-bold;
+    line-height: $mobile-header-line-height;
+    padding-top: 1rem;
+    padding-bottom: 1rem;
+  }
+  &__input-wrapper {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    padding: 2rem 1rem;
+    @include tablet {
+      display: flex;
+      flex-direction: row;
+    }
+  }
+  &__input {
+    border-radius: $border-radius;
+    height: $element-mobile-height;
+    border: 0.063rem solid $color-borders;
+    padding: 0 1rem 0.25rem 1rem;
+    font-family: $font-family;
+    font-size: $mobile-font-size-label-button;
+    @include tablet {
+      width: 100%;
+    }
+  }
+  &__logo {
+    position: relative;
+    height: 1.5rem;
+    bottom: 1.8rem;
+    left: 39%;
+    @include tablet {
+      top: 0.4rem;
+      left: -10%;
+      height: 1.2rem;
+    }
+  }
+  &__button {
+    color: $color-global;
+    background-color: $color-primary-cta;
+    border-radius: $border-radius;
+    height: $element-mobile-height;
+    border: 0.063rem solid $color-borders;
+    padding: 0 1rem 0.25rem 1rem;
+    font-size: $mobile-font-size-label-button;
+    width: 100%;
+    cursor: pointer;
+    margin-bottom: 2rem;
+    @include tablet {
+      width: 12.75rem;
+    }
+  }
+  &__titles {
+    display: none;
+    height: 3rem;
+    @include tablet {
+      display: flex;
+      align-items: center;
+      padding-left: 2rem;
+    }
+  }
+  &__title {
+    color: $color-secondary-text;
+    font-size: 1rem;
+    display: flex;
+    width: fit-content;
+
+    &--name {
+      width: 20vw;
+    }
+    &--type {
+      width: 15vw;
+    }
+    &--status {
+      width: 16vw;
+      @include desktop {
+        width: 18vw;
+      }
+    }
+    &--qty {
+      width: 8vw;
+      max-width: 16rem;
+      margin-right: 5vw;
+      @include desktop {
+        width: 5vw;
+      }
+    }
+    &--warehouse {
+      width: 20%;
+      max-width: 13rem;
+      @include desktop {
+        width: 16%;
+        max-width: 17rem;
+      }
+    }
+  }
+  &__logoContainer {
+    width: fit-content;
+    display: flex;
+    &:hover {
+      cursor: pointer;
+    }
+  }
+  &__locationName {
+    font-size: 2rem;
+  }
+  &__edit {
+    @include tablet {
+      width: 5rem;
+      background-color: $color-primary-cta;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding-right: 1rem;
+      height: 2.5rem;
+      border-radius: 30px;
+    }
+    &:hover {
+      cursor: pointer;
+    }
+  }
+  &__editIcon {
+    width: 3rem;
+    @include tablet {
+      width: fit-content;
+    }
+  }
+  &__editText {
+    display: none;
+    color: $color-global;
+    @include tablet {
+      display: inline-block;
+    }
+  }
+  &__warehouseInfo {
+    padding: 1rem 10vw 2rem 2rem;
+    color: $color-secondary-text;
+    border-bottom: 1px solid $color-borders;
+    @include tablet {
+      border-bottom: none;
+      display: flex;
+      padding-bottom: 0;
+    }
+  }
+  &__data {
+    color: $color-primary-text;
+    &--address {
+      display: inline-block;
+      @include tablet {
+        display: block;
+      }
+    }
+  }
+  &__infoBlock {
+    display: flex;
+    width: 100%;
+    max-width: 23rem;
+    justify-content: space-between;
+    &--top {
+      margin-bottom: 2rem;
+      @include tablet {
+        max-width: 25vw;
+        margin-right: 5vw;
+        border-right: 2px solid $color-borders;
+      }
+    }
+  }
+}
