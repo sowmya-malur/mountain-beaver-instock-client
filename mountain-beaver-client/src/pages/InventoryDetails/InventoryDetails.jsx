@@ -17,11 +17,17 @@ function InventoryDetails() {
   // Initialize use states
   const [inventory, setInventory] = useState({});
   const [notFound, setNotFound] = useState(false); // if the item is found or not
-  const [errorMessage, setErrorMessage] = useState(""); // sets user-friendly error messages
+ const [errorMessage, setErrorMessage] = useState(""); // sets user-friendly error messages
+  const { inventoryId } = useParams();
 
   const handleClick = () => {
-    // Navigate to edit inventory page passing the warehouseId and inventoryId
-    navigate(`/inventory/${warehouseId}/${inventoryId}/edit`);
+    navigate(`/inventory/${inventoryId}/edit`);
+    // TODO: Add functionality to call edit inventory item page by passing the id
+    // navigate("/EditInventoryItem/inventoryId"); //TODO: to test integration
+
+  };
+  const handleBack = () => {
+    navigate(-1);
   };
 
   useEffect(() => {
@@ -69,9 +75,11 @@ function InventoryDetails() {
         {notFound ? (
           <>
             <div className="inv-details__page-title">
-              <Link to={`/warehouses/${warehouseId}`} className="inv-details__arrow-back">
+
+              {/* TODO: Link to Warehouse Details page */}
+              <div onClick={handleBack} className="inv-details__arrow-back">
                 <img src={backarrow} alt="back arrow icon" />
-              </Link>
+              </div>
             </div>
             <div className="inv-details__error-message inv-details__error-message--align">
               <img src={erroricon} alt="error icon" />
@@ -82,9 +90,9 @@ function InventoryDetails() {
           <>
             <div className="inv-details__page-title">
               <div className="inv-details__inner-container">
-                <Link to={`/warehouses/${warehouseId}`} className="inv-details__arrow-back">
+                <div onClick={handleBack} className="inv-details__arrow-back">
                   <img src={backarrow} alt="back arrow icon" />
-                </Link>
+                </div>
                 <h1 className="inv-details__title">{inventory.item_name}</h1>
               </div>
               <img

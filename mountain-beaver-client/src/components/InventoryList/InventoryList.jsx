@@ -1,37 +1,38 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
-import MobileList from "../MobileList/MobileList";
-import RegularList from "../RegularList/RegularList";
+import List from "../List/List";
 import "./InventoryList.scss";
 import SearchLogo from "../../assets/icons/search-24px.svg";
-
+import sort from "../../assets/icons/sort-24px.svg";
+import { useNavigate } from "react-router-dom";
 
 const InventoryList = () => {
   const [Inventories, setInventories] = useState([]);
+  const url = `${process.env.REACT_APP_BACKEND_URL}/inventories/`;
+  const navigate = useNavigate();
+
+  const handleAdd = () => {
+    navigate("/inventory/add");
+  };
+
+  const fetchInventories = async () => {
+    try {
+      const response = await axios.get(`${url}`);
+      setInventories(response.data);
+    } catch (error) {
+      console.error(`Error fetching inventories`, error);
+    }
+  };
 
   useEffect(() => {
-    
-    const fetchInventories = async () => {
-      try {
-        const response = await axios.get(
-          `${process.env.REACT_APP_BACKEND_URL}/api/inventories/`
-        );
-        setInventories(response.data);
-        console.log(response.data);
-      } catch (error) {
-        console.error(`Error fetching inventories`, error);
-      }
-    };
-
-    fetchInventories();
+    fetchInventories(); // eslint-disable-next-line
   }, []);
 
   return (
-
     <div className="inventory">
       <div className="inventory__wrapper">
         <div className="inventory__container">
-          <h2 className="inventory__title">Inventory</h2>
+          <h2 className="inventory__topTitle">Inventory</h2>
           <div className="inventory__input-wrapper">
             <input
               type="text"
@@ -42,81 +43,47 @@ const InventoryList = () => {
             />
             <img src={SearchLogo} alt="" className="inventory__logo" />
 
-            <button className="inventory__button">+Add New Item</button>
+            <button onClick={handleAdd} className="inventory__button">
+              +Add New Item
+            </button>
           </div>
         </div>
-
-        <MobileList
+        <div className="inventory__titles">
+          <div className="inventory__title inventory__title--name">
+            <h4>INVENTORY ITEM</h4>
+            <img src={sort} alt="sort" />
+          </div>
+          <div className="inventory__title inventory__title--type">
+            <h4>CATEGORY</h4>
+            <img src={sort} alt="sort" />
+          </div>
+          <div className="inventory__title inventory__title--status">
+            <h4>STATUS</h4>
+            <img src={sort} alt="sort" />
+          </div>
+          <div className="inventory__title inventory__title--qty">
+            <h4>QTY</h4>
+            <img src={sort} alt="sort" />
+          </div>
+          <div className="inventory__title inventory__title--warehouse">
+            <h4>WAREHOUSE</h4>
+            <img src={sort} alt="sort" />
+          </div>
+          <div className="inventory__title inventory__title--ations">
+            <h4>ACTIONS</h4>
+            <img src={sort} alt="sort" />
+          </div>
+        </div>
+        <List
           list={Inventories}
           titles={["INVENTORY ITEM", "CATEGORY", "STATUS", "QTY", "WAREHOUSE"]}
+          fetchList={fetchInventories}
+          url={url}
+          to={"inventory"}
         />
       </div>
-    <div>
-      <h2>Inventories List</h2>
-
-       {Inventories.length > 0 ? (
-        <table>
-  <thead>
-    <tr>
-      <th>Item Name</th> {/* Assuming you intended to display this */}
-      <th>Description</th>
-      <th>Category</th>
-      <th>Status</th>
-      <th>Quantity</th>
-      <th>Created At</th>
-      <th>Updated At</th>
-    </tr>
-  </thead>
-  <tbody>
-    {Inventories.map((inventory) => (
-      <tr key={inventory.id}>
-        <td>{inventory.item_name}</td> {/* Corrected to include Item Name */}
-        <td>{inventory.description}</td>
-        <td>{inventory.category}</td>
-        <td>{inventory.status}</td>
-        <td>{inventory.quantity}</td>
-        <td>{new Date(inventory.created_at).toLocaleString()}</td>
-        <td>{new Date(inventory.updated_at).toLocaleString()}</td>
-      </tr>
-    ))}
-  </tbody>
-</table>
-      ) : (
-        <p>No Inventories found.</p>
-      )}
-
-      <MobileList
-        list={Inventories}
-        titles={["INVENTORY ITEM", "CATEGORY", "STATUS", "QTY", "WAREHOUSE"]}
-      />
-      {/* <RegularList
-        list={Inventories}
-        titles={[
-          "INVENTORY ITEM",
-          "CATEGORY",
-          "STATUS",
-          "QTY",
-          "WAREHOUSE",
-          "ACTIONS",
-        ]}
-      /> */}
-    </div>
     </div>
   );
 };
 
 export default InventoryList;
-
-{
-  /* <RegularList
-        list={Inventories}
-        titles={[
-          "INVENTORY ITEM",
-          "CATEGORY",
-          "STATUS",
-          "QTY",
-          "WAREHOUSE",
-          "ACTIONS",
-        ]}
-      /> */
-}

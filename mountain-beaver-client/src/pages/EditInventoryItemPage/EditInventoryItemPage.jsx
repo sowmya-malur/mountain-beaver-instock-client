@@ -8,6 +8,7 @@ import React, { useRef, useState, useEffect } from "react";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import axios from "axios";
 
+
 function EditInventoryItem() {
   // Initialize hooks
   const navigate = useNavigate();
@@ -26,6 +27,11 @@ function EditInventoryItem() {
   const [quantity, setQuantity] = useState(0);
   const [stock, setStock] = useState("");
   const [errors, setErrors] = useState({});
+  const navigate = useNavigate();
+
+  const handleBack = () => {
+    navigate(-1);
+  };
 
   const errorMessage = "This field is required";
 
@@ -155,6 +161,7 @@ function EditInventoryItem() {
                     src={erroricon}
                     alt="error icon"
                     className="inv__error-icon"
+                    onClick={handleBack}
                   />
                 )}
                 {errors.itemName && (

@@ -1,13 +1,13 @@
 import React from "react";
-import MobileItem from "../MobileItem/MobileItem";
-import "./MobileList.scss";
+import ListItem from "../ListItem/ListItem";
+import "./List.scss";
 
-export default function MobileList({ list, titles }) {
+export default function MobileList({ list, titles, fetchList, url, to }) {
   return (
-    <div className="mobileList">
+    <div className="List">
       {list.map((item) => {
         return (
-          <MobileItem
+          <ListItem
             titles={titles}
             data={[
               item.item_name,
@@ -16,8 +16,11 @@ export default function MobileList({ list, titles }) {
               item.quantity,
               item.warehouse_name,
             ]}
+            warehouseId={item.warehouse_id}
             id={item.id}
-            to={"inventory"}
+            to={to}
+            fetchList={fetchList}
+            url={url}
             key={item.id}
           />
         );
