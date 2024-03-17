@@ -12,8 +12,9 @@ const WarehouseInventoryList = ({ warehouseId }) => {
     []
   );
   const [currentWarehouse, setCurrentWarehouse] = useState({});
-
-  const url = `${process.env.REACT_APP_BACKEND_URL}/inventories/`;
+  const [sort_by, setSort_by] = useState("");
+  const [order, setOrder] = useState(true);
+  const url = `${process.env.REACT_APP_BACKEND_URL}/inventories`;
   const titles = ["INVENTORY ITEM", "CATEGORY", "STATUS", "QTY"];
   const navigate = useNavigate();
 
@@ -23,6 +24,14 @@ const WarehouseInventoryList = ({ warehouseId }) => {
 
   const handleClick = () => {
     navigate(`/warehouses/${warehouseId}/edit`);
+  };
+  const handleSort = (name) => {
+    if (sort_by !== name) {
+      setSort_by(name);
+      setOrder(true);
+    } else {
+      setOrder(!order);
+    }
   };
 
   const fetchWarehouseDetails = async () => {
@@ -39,7 +48,15 @@ const WarehouseInventoryList = ({ warehouseId }) => {
   const fetchWarehouseInventory = async () => {
     try {
       const response = await axios.get(
-        `${process.env.REACT_APP_BACKEND_URL}/warehouses/${warehouseId}/inventories`
+        `${
+          sort_by
+            ? `${
+                process.env.REACT_APP_BACKEND_URL
+              }/warehouses/${warehouseId}/inventories?sort_by=${sort_by}&order_by=${
+                order ? "asc" : "desc"
+              }`
+            : `${process.env.REACT_APP_BACKEND_URL}/warehouses/${warehouseId}/inventories`
+        }`
       );
       const list = response.data.map((item) => {
         return [
@@ -60,7 +77,7 @@ const WarehouseInventoryList = ({ warehouseId }) => {
   useEffect(() => {
     fetchWarehouseDetails();
     fetchWarehouseInventory(); // eslint-disable-next-line
-  }, [warehouseId]); // Rerun effect if warehouseId changes
+  }, [warehouseId, sort_by, order]); // Rerun effect if warehouseId changes
 
   return (
     <div className="wInventory">
@@ -109,23 +126,42 @@ const WarehouseInventoryList = ({ warehouseId }) => {
         <div className="wInventory__titles">
           <div className="wInventory__title wInventory__title--name">
             <h4>INVENTORY ITEM</h4>
-            <img src={sort} alt="sort" />
+            <img
+              src={sort}
+              alt="sort"
+              className="wInventory__sort"
+              onClick={() => handleSort("item_name")}
+            />
           </div>
           <div className="wInventory__title wInventory__title--type">
             <h4>CATEGORY</h4>
-            <img src={sort} alt="sort" />
+            <img
+              src={sort}
+              alt="sort"
+              className="wInventory__sort"
+              onClick={() => handleSort("category")}
+            />
           </div>
           <div className="wInventory__title wInventory__title--status">
             <h4>STATUS</h4>
-            <img src={sort} alt="sort" />
+            <img
+              src={sort}
+              alt="sort"
+              className="wInventory__sort"
+              onClick={() => handleSort("status")}
+            />
           </div>
           <div className="wInventory__title wInventory__title--qty">
             <h4>QTY</h4>
-            <img src={sort} alt="sort" />
+            <img
+              src={sort}
+              alt="sort"
+              className="wInventory__sort"
+              onClick={() => handleSort("quantity")}
+            />
           </div>
           <div className="wInventory__title wInventory__title--ations">
             <h4>ACTIONS</h4>
-            <img src={sort} alt="sort" />
           </div>
         </div>
         <List
