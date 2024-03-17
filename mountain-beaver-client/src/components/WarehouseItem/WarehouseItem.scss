@@ -2,7 +2,7 @@
 @use "../../styles/partials/mixin" as *;
 @use "../../styles/partials/typography" as *;
 
-.Item {
+.wItem {
   position: relative;
   border-bottom: 1px solid $color-borders;
   width: 100%;
@@ -12,7 +12,8 @@
   }
   @include tablet {
     display: flex;
-    height: 4rem;
+    height: 5rem;
+    align-items: flex-start;
     padding: 0.2rem 1rem 0rem 1rem;
   }
 
@@ -32,44 +33,34 @@
     @include tablet {
       width: fit-content;
       display: flex;
-      min-width: 15rem;
     }
   }
 
   &__block {
     padding-bottom: 1rem;
     height: 4rem;
-    @include tablet {
-      margin-right: 5vw;
-    }
+
     &--name {
-      @include tablet {
-        width: 15vw;
+      min-width: 17vw;
+    }
+    &--address {
+      min-width: 14vw;
+    }
+    &--contactName {
+      min-width: 20vw;
+      @include desktop {
+        min-width: 21vw;
       }
     }
-    &--type {
-      @include tablet {
-        width: 10vw;
-      }
-    }
-    &--stock {
-      @include tablet {
-        width: 9vw;
-      }
-    }
-    &--location {
-      @include tablet {
-        width: fit-content;
-      }
-    }
-    &--number {
-      @include tablet {
-        width: 6vw;
-        display: flex;
-        justify-content: flex-end;
+    &--info {
+      width: 18vw;
+      margin-right: 4vw;
+      @include desktop {
+        max-width: 15vw;
       }
     }
   }
+
   &__link {
     display: flex;
     align-items: center;
@@ -92,12 +83,7 @@
   &__status {
     width: fit-content;
     display: block;
-    background-color: #c9451517;
-    border-radius: 0.5rem;
     padding: 0.1rem 0.3rem;
-    &--out {
-      color: $color-error;
-    }
     @include tablet {
       width: max-content;
     }
@@ -111,13 +97,13 @@
   }
 
   &__buttons {
+    margin-top: 2rem;
     display: flex;
     justify-content: space-between;
     padding: 0 2rem;
 
     @include tablet {
-      width: 10rem;
-      height: 100%;
+      width: 12%;
       align-items: center;
       padding: 0;
       justify-content: space-evenly;

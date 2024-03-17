@@ -102,6 +102,7 @@
     &:hover {
       background-color: $color-secondary-text;
       color: $color-global;
+      cursor: pointer;
     }
     &:active {
       scale: 0.95;

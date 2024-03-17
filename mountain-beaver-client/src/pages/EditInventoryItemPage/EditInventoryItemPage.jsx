@@ -1,9 +1,11 @@
-import React, { useState, useEffect } from "react";
-import { Link, useNavigate, useParams } from "react-router-dom";
-import axios from "axios";
+import "./EditInventoryItemPage.scss";
 import Arrow from "../../assets/icons/arrow_back-24px.svg";
 import ArrowDown from "../../assets/icons/arrow_drop_down-24px.svg";
 import erroricon from "../../assets/icons/error-24px.svg";
+
+import React, { useRef, useState, useEffect } from "react";
+import { Link, useNavigate, useParams } from "react-router-dom";
+import axios from "axios";
 
 function EditInventoryItem() {
   const navigate = useNavigate();
@@ -20,6 +22,10 @@ function EditInventoryItem() {
   const [warehouses, setWarehouses] = useState([]);
   const [categories, setCategories] = useState([]);
   const [showCategoryDropdown, setShowCategoryDropdown] = useState(false);
+
+  const handleBack = () => {
+    navigate(-1);
+  };
 
   const errorMessage = "This field is required";
 
@@ -73,10 +79,6 @@ function EditInventoryItem() {
     fetchWarehouses();
     fetchCategories();
   }, []);
-
-  const handleBack = () => {
-    navigate(-1);
-  };
 
   const handleCategoryChange = (e) => {
     setCategory(e.target.value);
@@ -155,9 +157,12 @@ function EditInventoryItem() {
         <section className="inv">
           <div className="inv__full-wrapper">
             <div className="inv__title">
-              <Link to="/">
-                <img src={Arrow} alt="arrow back logo" className="inv__logo" />
-              </Link>
+              <img
+                src={Arrow}
+                alt="arrow back logo"
+                className="inv__logo"
+                onClick={handleBack}
+              />
               <h1 className="inv__text"> Edit Inventory Item</h1>
             </div>
             <div className="inv__container">
@@ -324,9 +329,9 @@ function EditInventoryItem() {
               </div>
             </div>
             <div className="inv__avail-button">
-              <Link to="/">
-                <button className="inv__button-cancel">Cancel</button>
-              </Link>
+              <button className="inv__button-cancel" onClick={handleBack}>
+                Cancel
+              </button>
               <button className="inv__button-save" onClick={handleSubmit}>
                 Save
               </button>

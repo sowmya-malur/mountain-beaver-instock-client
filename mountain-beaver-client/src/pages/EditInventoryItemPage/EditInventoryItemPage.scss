@@ -40,6 +40,9 @@
     margin-right: 0.5rem;
     height: 1.8rem;
     margin-top: 0.3rem;
+    &:hover {
+      cursor: pointer;
+    }
   }
   &__text {
     font-size: $mobile-font-size-header;
@@ -204,6 +207,9 @@
     color: $color-secondary-text;
     font-size: $mobile-font-size-label-button;
     font-weight: 600;
+    &:hover {
+      cursor: pointer;
+    }
     @include tablet {
       width: 10%;
       font-size: $tablet-font-size-label-button;
@@ -218,6 +224,9 @@
     border: none;
     font-size: $mobile-font-size-label-button;
     font-weight: 600;
+    &:hover {
+      cursor: pointer;
+    }
 
     @include tablet {
       width: 10%;

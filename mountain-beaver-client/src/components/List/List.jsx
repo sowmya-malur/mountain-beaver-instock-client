@@ -9,19 +9,12 @@ export default function MobileList({ list, titles, fetchList, url, to }) {
         return (
           <ListItem
             titles={titles}
-            data={[
-              item.item_name,
-              item.category,
-              item.status,
-              item.quantity,
-              item.warehouse_name,
-            ]}
-            warehouseId={item.warehouse_id}
-            id={item.id}
+            data={[item[0], item[1], item[2], item[3], item[4]]}
+            id={item[5]}
             to={to}
             fetchList={fetchList}
             url={url}
-            key={item.id}
+            key={item[5]}
           />
         );
       })}

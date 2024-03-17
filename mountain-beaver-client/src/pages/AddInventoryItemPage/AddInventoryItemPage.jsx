@@ -8,11 +8,13 @@ import ErrorIcon from "../../assets/icons/error-24px.svg";
 import "./AddInventoryItemPage.scss";
 
 function AddInventoryItemPage() {
+  // Initialize states for all the form fields and errors
+  const [warehouseId, setWarehouseId] = useState(0);
+  const [warehouseName, setWarehouseName] = useState("");
   const [itemName, setItemName] = useState("");
   const [description, setDescription] = useState("");
   const [category, setCategory] = useState("");
-  const [warehouse, setWarehouse] = useState("");
-  const [quantity, setQuantity] = useState("");
+  const [quantity, setQuantity] = useState(0);
   const [status, setStatus] = useState("In Stock"); // Default status
   const [errors, setErrors] = useState({});
   const [showWarehouseOptions, setShowWarehouseOptions] = useState(false); // Define showWarehouseOptions state
@@ -67,14 +69,24 @@ function AddInventoryItemPage() {
     if (!description.trim()) {
       formErrors.description = errorMessage;
     }
-    if (!category.trim()) {
+    if (category.trim() === "Please select") {
       formErrors.category = errorMessage;
     }
-    if (!warehouse.trim()) {
-      formErrors.warehouse = errorMessage;
+    if (warehouseName.trim() === "Please select") {
+      formErrors.warehouseName = errorMessage;
     }
-    if (status === "In Stock" && !quantity.trim()) {
-      formErrors.quantity = errorMessage;
+    if (status === "In Stock") {
+      // check if quantity is not a number or empty string.
+      if (isNaN(quantity) || !quantity.trim()) {
+        formErrors.quantity = "Quantity must be a number.";
+      } else if (!Number.isInteger(Number(quantity))) {
+        // check if quantity is a whole number.
+        formErrors.quantity = "Quantity must be a whole number.";
+      } else if (quantity <= 0) {
+        // check if quantity is zero or less.
+        console.log("in here");
+        formErrors.quantity = "Quantity cannot be zero(0).";
+      }
     }
     setErrors(formErrors);
     return Object.keys(formErrors).length === 0;
@@ -112,8 +124,9 @@ function AddInventoryItemPage() {
     setItemName("");
     setDescription("");
     setCategory("");
-    setWarehouse("");
-    setQuantity("");
+    setWarehouseId(0);
+    setWarehouseName("");
+    setQuantity(0);
     setStatus("In Stock");
     setErrors({});
   };
@@ -266,14 +279,16 @@ function AddInventoryItemPage() {
                 onChange={(e) => setQuantity(e.target.value)}
               />
             )}
-            {errors.warehouse && (
+            {errors.warehouseName && (
               <div className="inv__error-container">
                 <img
                   src={ErrorIcon}
                   alt="error icon"
                   className="inv__error-icon"
                 />
-                <span className="inv__error-message">{errors.warehouse}</span>
+                <span className="inv__error-message">
+                  {errors.warehouseName}
+                </span>
               </div>
             )}
             <h3 className="inv__details-label">Warehouse</h3>
@@ -316,7 +331,9 @@ function AddInventoryItemPage() {
           </div>
         </div>
         <div className="inv__avail-button">
-          <button className="inv__button-cancel">Cancel</button>
+          <button className="inv__button-cancel" onClick={handleBack}>
+            Cancel
+          </button>
           <button className="inv__button-save" onClick={handleSubmit}>
             Save
           </button>

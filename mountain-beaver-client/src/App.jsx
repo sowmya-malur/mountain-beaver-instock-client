@@ -2,7 +2,7 @@ import React from "react";
 import "./App.scss";
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 
-import Footer from "./components/footer/Footer";
+import Footer from "./components/Footer/Footer";
 import Header from "./components/Header/Header";
 // Import Components
 import EditInventoryItem from "./pages/EditInventoryItemPage/EditInventoryItemPage";
