@@ -134,4 +134,9 @@
       }
     }
   }
+  &__sort {
+    &:hover {
+      cursor: pointer;
+    }
+  }
 }
