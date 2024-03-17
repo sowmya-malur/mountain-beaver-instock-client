@@ -2,8 +2,6 @@ import logo from "../../assets/logos/InStock-Logo_2x.png";
 import "./Header.scss";
 import { NavLink, Link, useLocation } from "react-router-dom";
 function Header() {
-  const location = useLocation();
-  console.log(location.pathname);
   return (
     <header className="header">
       <Link to="/">
