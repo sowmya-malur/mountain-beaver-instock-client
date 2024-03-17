@@ -4,12 +4,15 @@ import "./WarehouseList.scss";
 import SearchLogo from "../../assets/icons/search-24px.svg";
 import sort from "../../assets/icons/sort-24px.svg";
 import Warehouses from "../Warehouses/Warehouses";
+import { useNavigate } from "react-router-dom";
 
 const WarehouseList = () => {
   const [warehouses, setWarehouses] = useState([]);
   const url = `${process.env.REACT_APP_BACKEND_URL}/warehouses/`;
+  const navigate = useNavigate();
+
   const handleAdd = async () => {
-    console.log("add");
+    navigate("/warehouses/add");
   };
 
   const fetchWarehouses = async () => {

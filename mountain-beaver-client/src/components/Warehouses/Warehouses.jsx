@@ -10,7 +10,7 @@ export default function Warehouses({ list, titles, fetchList, url, to }) {
           <WarehouseItem
             titles={titles}
             data={[item[0], item[1], item[2], item[3]]}
-            id={item.id}
+            id={item[4]}
             to={to}
             fetchList={fetchList}
             url={url}
