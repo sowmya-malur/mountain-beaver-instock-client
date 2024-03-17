@@ -8,17 +8,31 @@ import { useNavigate } from "react-router-dom";
 
 const WarehouseList = () => {
   const [warehouses, setWarehouses] = useState([]);
-  const url = `${process.env.REACT_APP_BACKEND_URL}/warehouses/`;
+  const url = `${process.env.REACT_APP_BACKEND_URL}/warehouses`;
+  const [sort_by, setSort_by] = useState("");
+  const [order, setOrder] = useState(true);
   const navigate = useNavigate();
 
   const handleAdd = async () => {
     navigate("/warehouses/add");
   };
+  const handleSort = (name) => {
+    if (sort_by !== name) {
+      setSort_by(name);
+      setOrder(true);
+    } else {
+      setOrder(!order);
+    }
+  };
 
   const fetchWarehouses = async () => {
     try {
       const response = await axios.get(
-        `${process.env.REACT_APP_BACKEND_URL}/warehouses`
+        `${url}${
+          sort_by
+            ? `?sort_by=${sort_by}&order_by=${order ? "asc" : "desc"}`
+            : ""
+        }`
       );
       const list = response.data.map((item) => {
         return [
@@ -36,8 +50,8 @@ const WarehouseList = () => {
   };
 
   useEffect(() => {
-    fetchWarehouses();
-  }, []);
+    fetchWarehouses(); // eslint-disable-next-line
+  }, [sort_by, order]);
 
   return (
     <div className="warehouse">
@@ -62,23 +76,42 @@ const WarehouseList = () => {
         <div className="warehouse__titles">
           <div className="warehouse__title warehouse__title--name">
             <h4>WAREHOUSE</h4>
-            <img src={sort} alt="sort" />
+            <img
+              src={sort}
+              alt="sort"
+              className="warehouse__sort"
+              onClick={() => handleSort("warehouse_name")}
+            />
           </div>
           <div className="warehouse__title warehouse__title--type">
             <h4>ADDRESS</h4>
-            <img src={sort} alt="sort" />
+            <img
+              src={sort}
+              alt="sort"
+              className="warehouse__sort"
+              onClick={() => handleSort("address")}
+            />
           </div>
           <div className="warehouse__title warehouse__title--contactName">
             <h4>CONTACT NAME</h4>
-            <img src={sort} alt="sort" />
+            <img
+              src={sort}
+              alt="sort"
+              className="warehouse__sort"
+              onClick={() => handleSort("contact_name")}
+            />
           </div>
           <div className="warehouse__title warehouse__title--info">
             <h4>CONTACT INFORMATION</h4>
-            <img src={sort} alt="sort" />
+            <img
+              src={sort}
+              alt="sort"
+              className="warehouse__sort"
+              onClick={() => handleSort("contact_email")}
+            />
           </div>
           <div className="warehouse__title warehouse__title--ations">
             <h4>ACTIONS</h4>
-            <img src={sort} alt="sort" />
           </div>
         </div>
         <Warehouses
