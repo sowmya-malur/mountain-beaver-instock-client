@@ -1,0 +1,119 @@
+@use "../../styles/partials/variables" as *;
+@use "../../styles/partials/mixin" as *;
+@use "../../styles/partials/typography" as *;
+
+.wItem {
+  position: relative;
+  border-bottom: 1px solid $color-borders;
+  width: 100%;
+  padding: 0 1rem 1.5rem 1rem;
+  &:hover {
+    background-color: $color-background-light;
+  }
+  @include tablet {
+    display: flex;
+    height: 5rem;
+    align-items: flex-start;
+    padding: 0.2rem 1rem 0rem 1rem;
+  }
+
+  &__content {
+    width: 100%;
+    display: flex;
+    padding: 0 1rem;
+    padding-top: 1rem;
+    gap: 3rem;
+    @include tablet {
+      gap: 0;
+      width: fit-content;
+    }
+  }
+  &__row {
+    width: 40%;
+    @include tablet {
+      width: fit-content;
+      display: flex;
+    }
+  }
+
+  &__block {
+    padding-bottom: 1rem;
+    height: 4rem;
+
+    &--name {
+      min-width: 17vw;
+    }
+    &--address {
+      min-width: 14vw;
+    }
+    &--contactName {
+      min-width: 20vw;
+      @include desktop {
+        min-width: 21vw;
+      }
+    }
+    &--info {
+      width: 18vw;
+      margin-right: 4vw;
+      @include desktop {
+        max-width: 15vw;
+      }
+    }
+  }
+
+  &__link {
+    display: flex;
+    align-items: center;
+    &:hover {
+      cursor: pointer;
+    }
+    @include tablet {
+      width: max-content;
+      min-width: 7rem;
+      margin-right: 0;
+    }
+  }
+
+  &__data {
+    &--name {
+      color: $color-primary-cta;
+    }
+  }
+
+  &__status {
+    width: fit-content;
+    display: block;
+    padding: 0.1rem 0.3rem;
+    @include tablet {
+      width: max-content;
+    }
+  }
+
+  &__type {
+    color: $color-secondary-text;
+    @include tablet {
+      display: none;
+    }
+  }
+
+  &__buttons {
+    margin-top: 2rem;
+    display: flex;
+    justify-content: space-between;
+    padding: 0 2rem;
+
+    @include tablet {
+      width: 12%;
+      align-items: center;
+      padding: 0;
+      justify-content: space-evenly;
+    }
+  }
+  &__button {
+    border: none;
+    background-color: transparent;
+    &:hover {
+      cursor: pointer;
+    }
+  }
+}

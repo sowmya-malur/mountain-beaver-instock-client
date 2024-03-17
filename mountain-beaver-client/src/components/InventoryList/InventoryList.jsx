@@ -18,7 +18,16 @@ const InventoryList = () => {
   const fetchInventories = async () => {
     try {
       const response = await axios.get(`${url}`);
-      setInventories(response.data);
+      const list = response.data.map(item => {
+        return [
+          item.item_name,
+          item.category,
+          item.status,
+          item.quantity,
+          item.warehouse_name,
+        ]
+      })
+      setInventories(list);
     } catch (error) {
       console.error(`Error fetching inventories`, error);
     }
