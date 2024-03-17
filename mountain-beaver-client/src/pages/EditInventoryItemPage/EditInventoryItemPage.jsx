@@ -147,9 +147,6 @@ function EditInventoryItem() {
     setWarehouseName("");
     setErrors({});
   };
-  const toggleCategoryDropdown = () => {
-    setShowCategoryDropdown(!showCategoryDropdown);
-  };
 
   return (
     <>

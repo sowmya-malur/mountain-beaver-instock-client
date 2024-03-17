@@ -57,6 +57,14 @@ function AddInventoryItemPage() {
     fetchCategories();
   }, []);
 
+  const handleCategoryChange = (e) => {
+    setCategory(e.target.value);
+  };
+
+  const handleWarehouseChange = (e) => {
+    setWarehouseName(e.target.value);
+  };
+
   const handleBack = () => {
     navigate(-1);
   };
@@ -102,7 +110,7 @@ function AddInventoryItemPage() {
             itemName,
             description,
             category,
-            warehouse,
+            warehouses,
             quantity,
             status,
           }
@@ -213,7 +221,7 @@ function AddInventoryItemPage() {
                 }`}
                 placeholder="Please select"
                 value={category}
-                onChange={(e) => setCategory(e.target.value)}
+                onChange={handleCategoryChange}
               />
 
               {showCategoryOptions && (
@@ -298,21 +306,20 @@ function AddInventoryItemPage() {
                 name="warehouse"
                 id="warehouse"
                 className={`inv__details-input ${
-                  errors.warehouse ? "inv__details-input--error" : ""
+                  errors.warehouseName ? "inv__details-input--error" : ""
                 }`}
                 placeholder="Please select"
-                value={warehouse}
-                onChange={(e) => setWarehouse(e.target.value)}
+                value={warehouseName}
+                onChange={handleWarehouseChange}
               />
-
               {showWarehouseOptions && (
                 <div className="dropdown-options">
                   {warehouses.map((wh, index) => (
                     <div
                       key={index}
                       onClick={() => {
-                        setWarehouse(wh.warehouse_name);
-                        setShowWarehouseOptions(false); // Close dropdown after selecting
+                        setWarehouseName(wh.warehouse_name);
+                        setShowWarehouseOptions(false);
                       }}
                     >
                       {wh.warehouse_name}
