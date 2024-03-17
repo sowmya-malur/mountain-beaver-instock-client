@@ -7,15 +7,7 @@ import edit from "../../assets/icons/edit-24px.svg";
 import Arow from "../../assets/icons/chevron_right-24px.svg";
 import axios from "axios";
 
-export default function MobileItem({
-  titles,
-  data,
-  warehouseId,
-  id,
-  to,
-  fetchList,
-  url,
-}) {
+export default function MobileItem({ titles, data, id, to, fetchList, url }) {
   const [showModal, setShowModal] = useState(false);
 
   const handleDelClicked = (e) => {
@@ -67,7 +59,7 @@ export default function MobileItem({
               <span className="Item__data">{data[4]}</span>
             </div>
           ) : (
-            {}
+            <></>
           )}
         </div>
       </div>
