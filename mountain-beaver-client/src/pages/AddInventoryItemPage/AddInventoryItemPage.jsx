@@ -9,12 +9,12 @@ import "./AddInventoryItemPage.scss";
 
 function AddInventoryItemPage() {
   // Initialize states for all the form fields and errors
-  const [warehouseId, setWarehouseId] = useState(0);
+  const [warehouseId, setWarehouseId] = useState(1);
   const [warehouseName, setWarehouseName] = useState("");
   const [itemName, setItemName] = useState("");
   const [description, setDescription] = useState("");
   const [category, setCategory] = useState("");
-  const [quantity, setQuantity] = useState(0);
+  const [quantity, setQuantity] = useState(1);
   const [status, setStatus] = useState("In Stock"); // Default status
   const [errors, setErrors] = useState({});
   const [showWarehouseOptions, setShowWarehouseOptions] = useState(false); // Define showWarehouseOptions state
@@ -77,22 +77,21 @@ function AddInventoryItemPage() {
     if (!description.trim()) {
       formErrors.description = errorMessage;
     }
-    if (category.trim() === "Please select") {
+    if (category === "Please select") {
       formErrors.category = errorMessage;
     }
-    if (warehouseName.trim() === "Please select") {
+    if (warehouseName === "Please select") {
       formErrors.warehouseName = errorMessage;
     }
     if (status === "In Stock") {
       // check if quantity is not a number or empty string.
-      if (isNaN(quantity) || !quantity.trim()) {
+      if (isNaN(quantity) || (quantity === ' ')) {
         formErrors.quantity = "Quantity must be a number.";
       } else if (!Number.isInteger(Number(quantity))) {
         // check if quantity is a whole number.
         formErrors.quantity = "Quantity must be a whole number.";
       } else if (quantity <= 0) {
         // check if quantity is zero or less.
-        console.log("in here");
         formErrors.quantity = "Quantity cannot be zero(0).";
       }
     }
@@ -104,37 +103,58 @@ function AddInventoryItemPage() {
     event.preventDefault();
     if (validateForm()) {
       try {
-        const response = await axios.post(
+        const newInventory = {
+          warehouse_id: warehouseId,
+          item_name: itemName,
+          description: description,
+          category: category,
+          quantity: quantity,
+          status: status
+        };
+
+        //TODO: del
+        console.log("warehouse_id", warehouseId);
+        console.log("newInventory", newInventory);
+
+         // POST request to backend API
+         const response = await axios.post(
           `${process.env.REACT_APP_BACKEND_URL}/inventories`,
-          {
-            itemName,
-            description,
-            category,
-            warehouses,
-            quantity,
-            status,
-          }
+          newInventory
         );
+        
         if (response.status === 201) {
-          console.log("Item added successfully");
+          setErrors({});
+          alert("New inventory added successfully");
+          // Reset the form fields after submission
           resetForm();
-          navigate("/"); // Navigate to desired location after successful submission
+          navigate("/inventory");
         }
       } catch (error) {
-        console.error("Error adding item:", error);
+        if (error.response && error.response.status === 400) {
+          setErrors({
+            exception: error.response.data.errorMessage, // missing fields or format error
+          });
+        } else if (error.response && error.response.status === 500) {
+          setErrors({
+            exception: error.response.data.errorMessage, // Internal server error
+          });
+        } else {
+          setErrors({
+            exception: "Error adding new inventory item", // Generic error message
+          });
+        }
+        console.error("Error adding new inventory item.", error);
       }
-    } else {
-      console.log("Form has errors, please correct them");
-    }
+    } 
   };
 
   const resetForm = () => {
     setItemName("");
     setDescription("");
     setCategory("");
-    setWarehouseId(0);
+    setWarehouseId(1);
     setWarehouseName("");
-    setQuantity(0);
+    setQuantity(1);
     setStatus("In Stock");
     setErrors({});
   };
@@ -222,6 +242,7 @@ function AddInventoryItemPage() {
                 placeholder="Please select"
                 value={category}
                 onChange={handleCategoryChange}
+                readOnly
               />
 
               {showCategoryOptions && (
@@ -311,13 +332,15 @@ function AddInventoryItemPage() {
                 placeholder="Please select"
                 value={warehouseName}
                 onChange={handleWarehouseChange}
+                readOnly
               />
               {showWarehouseOptions && (
                 <div className="dropdown-options">
-                  {warehouses.map((wh, index) => (
+                  {warehouses.map((wh) => (
                     <div
-                      key={index}
+                      key={wh.id}
                       onClick={() => {
+                        setWarehouseId(wh.id);
                         setWarehouseName(wh.warehouse_name);
                         setShowWarehouseOptions(false);
                       }}
