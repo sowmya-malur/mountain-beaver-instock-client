@@ -14,7 +14,7 @@ function AddInventoryItemPage() {
   const [itemName, setItemName] = useState("");
   const [description, setDescription] = useState("");
   const [category, setCategory] = useState("");
-  const [quantity, setQuantity] = useState(1);
+  const [quantity, setQuantity] = useState(0);
   const [status, setStatus] = useState("In Stock"); // Default status
   const [errors, setErrors] = useState({});
   const [showWarehouseOptions, setShowWarehouseOptions] = useState(false); // Define showWarehouseOptions state
@@ -92,7 +92,7 @@ function AddInventoryItemPage() {
         formErrors.quantity = "Quantity must be a whole number.";
       } else if (quantity <= 0) {
         // check if quantity is zero or less.
-        formErrors.quantity = "Quantity cannot be zero(0).";
+        formErrors.quantity = "Quantity cannot be zero(0)";
       }
     }
     setErrors(formErrors);
@@ -154,7 +154,7 @@ function AddInventoryItemPage() {
     setCategory("");
     setWarehouseId(1);
     setWarehouseName("");
-    setQuantity(1);
+    setQuantity(0);
     setStatus("In Stock");
     setErrors({});
   };

@@ -116,6 +116,7 @@
     left: 89%;
     top: -3.2rem;
     height: 2rem;
+    cursor: pointer;
   }
   &__details-input--error {
     border-color: $color-error !important;
@@ -183,6 +184,7 @@
     left: 89%;
     top: -3.2rem;
     height: 2rem;
+    cursor: pointer;
   }
   &__avail-button {
     padding: 0 1rem;
