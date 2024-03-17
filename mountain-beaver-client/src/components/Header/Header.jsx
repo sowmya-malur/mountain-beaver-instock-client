@@ -1,7 +1,9 @@
 import logo from "../../assets/logos/InStock-Logo_2x.png";
 import "./Header.scss";
-import { Link } from "react-router-dom";
+import { NavLink, Link, useLocation } from "react-router-dom";
 function Header() {
+  const location = useLocation();
+  console.log(location.pathname);
   return (
     <header className="header">
       <Link to="/">
@@ -9,12 +11,22 @@ function Header() {
       </Link>
       <nav className="header__nav">
         <ul className="header__list">
-          <Link className="header__link" to="/warehouses">
+          <NavLink
+            className={({ isActive }) =>
+              isActive ? "header__link header__link--active" : "header__link"
+            }
+            to="/warehouses"
+          >
             Warehouses
-          </Link>
-          <Link className="header__link" to="/inventory">
+          </NavLink>
+          <NavLink
+            className={({ isActive }) =>
+              isActive ? "header__link header__link--active" : "header__link"
+            }
+            to="/inventory"
+          >
             Inventory
-          </Link>
+          </NavLink>
         </ul>
       </nav>
     </header>

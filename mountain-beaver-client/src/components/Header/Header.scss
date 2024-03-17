@@ -67,5 +67,10 @@
       border-radius: 15rem;
       border: 0.5rem transparent;
     }
+    &--active {
+      background-color: $color-primary-text;
+      border-radius: 15rem;
+      border: 0.5rem transparent;
+    }
   }
 }
