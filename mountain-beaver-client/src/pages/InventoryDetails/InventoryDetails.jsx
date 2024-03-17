@@ -5,26 +5,23 @@ import backarrow from "../../assets/icons/arrow_back-24px.svg";
 import erroricon from "../../assets/icons/error-24px.svg";
 
 import { useNavigate, useParams } from "react-router-dom";
-import { Link } from "react-router-dom";
 import { useState, useEffect } from "react";
 import axios from "axios";
 
 function InventoryDetails() {
   // Initialize hooks
   const navigate = useNavigate();
-  const { warehouseId, inventoryId } = useParams();
 
   // Initialize use states
   const [inventory, setInventory] = useState({});
   const [notFound, setNotFound] = useState(false); // if the item is found or not
- const [errorMessage, setErrorMessage] = useState(""); // sets user-friendly error messages
+  const [errorMessage, setErrorMessage] = useState(""); // sets user-friendly error messages
   const { inventoryId } = useParams();
 
   const handleClick = () => {
     navigate(`/inventory/${inventoryId}/edit`);
     // TODO: Add functionality to call edit inventory item page by passing the id
     // navigate("/EditInventoryItem/inventoryId"); //TODO: to test integration
-
   };
   const handleBack = () => {
     navigate(-1);
@@ -75,7 +72,6 @@ function InventoryDetails() {
         {notFound ? (
           <>
             <div className="inv-details__page-title">
-
               {/* TODO: Link to Warehouse Details page */}
               <div onClick={handleBack} className="inv-details__arrow-back">
                 <img src={backarrow} alt="back arrow icon" />

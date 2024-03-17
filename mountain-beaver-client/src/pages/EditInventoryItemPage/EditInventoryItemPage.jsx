@@ -1,4 +1,3 @@
-
 import "./EditInventoryItemPage.scss";
 import Arrow from "../../assets/icons/arrow_back-24px.svg";
 import ArrowDown from "../../assets/icons/arrow_drop_down-24px.svg";
@@ -7,7 +6,6 @@ import erroricon from "../../assets/icons/error-24px.svg";
 import React, { useRef, useState, useEffect } from "react";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import axios from "axios";
-
 
 function EditInventoryItem() {
   // Initialize hooks
@@ -27,7 +25,6 @@ function EditInventoryItem() {
   const [quantity, setQuantity] = useState(0);
   const [stock, setStock] = useState("");
   const [errors, setErrors] = useState({});
-  const navigate = useNavigate();
 
   const handleBack = () => {
     navigate(-1);
@@ -148,9 +145,12 @@ function EditInventoryItem() {
         <section className="inv">
           <div className="inv__full-wrapper">
             <div className="inv__title">
-              <Link to="/">
-                <img src={Arrow} alt="arrow back logo" className="inv__logo" />
-              </Link>
+              <img
+                src={Arrow}
+                alt="arrow back logo"
+                className="inv__logo"
+                onClick={handleBack}
+              />
               <h1 className="inv__text"> Edit Inventory Item</h1>
             </div>
             <div className="inv__container">
@@ -225,22 +225,20 @@ function EditInventoryItem() {
                   <option value="Health">Health</option>
                 </select> */}
                 <input
-              type="text"
-              className={`inv__details-input ${
-                errors.category && "inv__details-input--error"
-              }`}
-              value={category}
-              onChange={(e) => setCategory(e.target.value)}
-            />
+                  type="text"
+                  className={`inv__details-input ${
+                    errors.category && "inv__details-input--error"
+                  }`}
+                  value={category}
+                  onChange={(e) => setCategory(e.target.value)}
+                />
 
-            <img
-              className="inv__details-input-logo-1"
-              src={ArrowDown}
-              alt="Arrow down"
-              onClick={() => {
-                
-              }}
-            />
+                <img
+                  className="inv__details-input-logo-1"
+                  src={ArrowDown}
+                  alt="Arrow down"
+                  onClick={() => {}}
+                />
               </div>
               <div className="inv__avail">
                 <h2 className="inv__details-title">Item Availability</h2>
@@ -290,9 +288,9 @@ function EditInventoryItem() {
               </div>
             </div>
             <div className="inv__avail-button">
-              <Link to="/">
-                <button className="inv__button-cancel">Cancel</button>
-              </Link>
+              <button className="inv__button-cancel" onClick={handleBack}>
+                Cancel
+              </button>
               <button className="inv__button-save" onClick={handleSubmit}>
                 Save
               </button>

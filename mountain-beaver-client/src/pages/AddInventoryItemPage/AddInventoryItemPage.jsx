@@ -223,7 +223,9 @@ function AddInventoryItemPage() {
           </div>
         </div>
         <div className="inv__avail-button">
-          <button className="inv__button-cancel">Cancel</button>
+          <button className="inv__button-cancel" onClick={handleBack}>
+            Cancel
+          </button>
           <button className="inv__button-save" onClick={handleSubmit}>
             Save
           </button>

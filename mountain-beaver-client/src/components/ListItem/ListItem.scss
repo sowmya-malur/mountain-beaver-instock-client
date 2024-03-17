@@ -7,6 +7,9 @@
   border-bottom: 1px solid $color-borders;
   width: 100%;
   padding: 0 1rem 1.5rem 1rem;
+  &:hover {
+    background-color: $color-background-light;
+  }
   @include tablet {
     display: flex;
     height: 4rem;
@@ -70,6 +73,9 @@
   &__link {
     display: flex;
     align-items: center;
+    &:hover {
+      cursor: pointer;
+    }
     @include tablet {
       width: max-content;
       min-width: 7rem;
@@ -108,6 +114,7 @@
     display: flex;
     justify-content: space-between;
     padding: 0 2rem;
+
     @include tablet {
       width: 10rem;
       height: 100%;
@@ -119,5 +126,8 @@
   &__button {
     border: none;
     background-color: transparent;
+    &:hover {
+      cursor: pointer;
+    }
   }
 }

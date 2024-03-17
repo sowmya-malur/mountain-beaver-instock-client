@@ -28,6 +28,9 @@
 
   &__arrow-back {
     display: flex;
+    &:hover {
+      cursor: pointer;
+    }
   }
 
   &__page-title {
@@ -143,7 +146,7 @@
 
   &__column {
     @include tablet {
-      flex:1;
+      flex: 1;
       padding-left: $tablet-margin;
       padding-right: $tablet-margin;
       margin-top: 2rem;
@@ -153,7 +156,7 @@
       padding-left: $desktop-inner-margin;
       padding-right: $desktop-inner-margin;
     }
-    
+
     &--divider {
       @include tablet {
         border-left: 0.063rem solid $color-borders;
@@ -171,7 +174,7 @@
     flex-direction: row;
     align-items: center;
     font-size: $mobile-font-size-body-small;
-    
+
     @include tablet {
       font-size: $tablet-font-size-body-small;
     }
