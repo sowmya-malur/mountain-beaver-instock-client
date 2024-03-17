@@ -2,15 +2,19 @@ import "./AddInventoryItemPage.scss";
 import Arrow from "../../assets/icons/arrow_back-24px.svg";
 import ArrowDown from "../../assets/icons/arrow_drop_down-24px.svg";
 import ErrorIcon from "../../assets/icons/error-24px.svg";
+
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import axios from "axios";
 
 function AddInventoryItemPage() {
+  // Initialize states for all the form fields and errors
+  const [warehouseId, setWarehouseId] = useState(0);
+  const [warehouseName, setWarehouseName] = useState("");
   const [itemName, setItemName] = useState("");
   const [description, setDescription] = useState("");
   const [category, setCategory] = useState("");
-  const [warehouse, setWarehouse] = useState("");
-  const [quantity, setQuantity] = useState("");
+  const [quantity, setQuantity] = useState(0);
   const [status, setStatus] = useState("In Stock"); // Default status
   const [errors, setErrors] = useState({});
 
@@ -29,29 +33,76 @@ function AddInventoryItemPage() {
     if (!description.trim()) {
       formErrors.description = errorMessage;
     }
-    if (!category.trim()) {
+    if (category.trim() === "Please select") {
       formErrors.category = errorMessage;
     }
-    if (!warehouse.trim()) {
-      formErrors.warehouse = errorMessage;
+    if (warehouseName.trim() === "Please select") {
+      formErrors.warehouseName = errorMessage;
     }
-    if (status === "In Stock" && !quantity.trim()) {
-      formErrors.quantity = errorMessage;
+    if (status === "In Stock") {
+      // check if quantity is not a number or empty string.
+      if (isNaN(quantity) || !quantity.trim()) {
+        formErrors.quantity = "Quantity must be a number.";
+      } else if (!Number.isInteger(Number(quantity))) {
+        // check if quantity is a whole number.
+        formErrors.quantity = "Quantity must be a whole number.";
+      } else if (quantity <= 0) {
+        // check if quantity is zero or less.
+        console.log("in here");
+        formErrors.quantity = "Quantity cannot be zero(0).";
+      }
     }
     setErrors(formErrors);
     return Object.keys(formErrors).length === 0;
   };
 
-  const handleSubmit = (event) => {
-    event.preventDefault();
-    if (validateForm()) {
+  // Event handler for form submission
+  const handleSubmit = async (event) => {
+    try {
+      event.preventDefault();
+
       // Form is valid, proceed with submission
-      console.log("Form submitted successfully");
-      // Here you can submit the form data to the backend
-      // Reset the form fields after submission
-      resetForm();
-    } else {
-      console.log("Form has errors, please correct them");
+      if (validateForm()) {
+        const newInventory = {
+          warehouse_id: 1, // TODO: how to set this?
+          item_name: itemName,
+          description: description,
+          category: category,
+          status: status,
+          quantity: quantity,
+        };
+        setWarehouseId(1); // TODO: del
+        console.log(warehouseId); // TODO: del
+        console.log("newInventory", newInventory); // TODO: del
+
+        // POST request to backend API
+        const response = await axios.post(
+          `${process.env.REACT_APP_BACKEND_URL}/inventories`,
+          newInventory
+        );
+
+        if (response.status === 201) {
+          setErrors({});
+          alert("New inventory added successfully");
+          // Reset the form fields after submission
+          resetForm();
+        }
+      }
+    } catch (error) {
+      if (error.response && error.response.status === 400) {
+        setErrors({
+          exception: error.response.data.errorMessage, // missing fields or format error
+        });
+      } else if (error.response && error.response.status === 500) {
+        setErrors({
+          exception: error.response.data.errorMessage, // Internal server error
+        });
+      } else {
+        setErrors({
+          exception: "Error adding new inventory item", // Generic error message
+        });
+      }
+      console.error("Error adding new inventory item.", error);
     }
   };
 
@@ -59,8 +110,9 @@ function AddInventoryItemPage() {
     setItemName("");
     setDescription("");
     setCategory("");
-    setWarehouse("");
-    setQuantity("");
+    setWarehouseId(0);
+    setWarehouseName("");
+    setQuantity(0);
     setStatus("In Stock");
     setErrors({});
   };
@@ -192,14 +244,16 @@ function AddInventoryItemPage() {
                 onChange={(e) => setQuantity(e.target.value)}
               />
             )}
-            {errors.warehouse && (
+            {errors.warehouseName && (
               <div className="inv__error-container">
                 <img
                   src={ErrorIcon}
                   alt="error icon"
                   className="inv__error-icon"
                 />
-                <span className="inv__error-message">{errors.warehouse}</span>
+                <span className="inv__error-message">
+                  {errors.warehouseName}
+                </span>
               </div>
             )}
             <h3 className="inv__details-label">Warehouse</h3>
@@ -208,11 +262,11 @@ function AddInventoryItemPage() {
               name="name"
               id="name"
               className={`inv__details-input ${
-                errors.warehouse ? "inv__details-input--error" : ""
+                errors.warehouseName ? "inv__details-input--error" : ""
               }`}
               placeholder="Please select"
-              value={warehouse}
-              onChange={(e) => setWarehouse(e.target.value)}
+              value={warehouseName}
+              onChange={(e) => setWarehouseName(e.target.value)}
             />
 
             <img
