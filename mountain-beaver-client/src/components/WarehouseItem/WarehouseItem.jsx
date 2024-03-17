@@ -71,7 +71,7 @@ export default function WarehouseItem({
       {showModal ? (
         <Modal
           name={data[0]}
-          type={"inventory"}
+          type={"warehouse"}
           setActive={setShowModal}
           del={handleDelete}
         />

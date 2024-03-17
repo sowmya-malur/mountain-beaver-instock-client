@@ -478,7 +478,10 @@ function EditWarehousePage() {
             </div>
           </div>
           <div className="edit-warehouse__buttons-container">
-            <Link to="/" className="edit-warehouse__wrapper">
+            <Link
+              to={`/warehouses/${warehouseId}`}
+              className="edit-warehouse__wrapper"
+            >
               <button id="cancel" className="edit-warehouse__secondary">
                 Cancel
               </button>
