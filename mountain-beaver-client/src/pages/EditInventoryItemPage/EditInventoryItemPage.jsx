@@ -22,7 +22,9 @@ function EditInventoryItem() {
   const [warehouses, setWarehouses] = useState([]);
   const [categories, setCategories] = useState([]);
   const [showCategoryDropdown, setShowCategoryDropdown] = useState(false);
-
+  const [quantity, setQuantity] = useState(0);
+  const [status, setStatus] = useState("In Stock")
+  const [warehouseId, setWarehouseId] = useState(0);
   const handleBack = () => {
     navigate(-1);
   };
@@ -102,6 +104,23 @@ function EditInventoryItem() {
     if (!warehouseName.trim()) {
       formErrors.warehouseName = errorMessage;
     }
+    if (status === "In Stock") {
+      // check if quantity is not a number or empty string.
+      if (isNaN(quantity) || (quantity === ' ')) {
+        formErrors.quantity = "Quantity must be a number.";
+      } else if (!Number.isInteger(Number(quantity))) {
+        // check if quantity is a whole number.
+        formErrors.quantity = "Quantity must be a whole number.";
+      } else if (quantity <= 0) {
+        // check if quantity is zero or less.
+        formErrors.quantity = "Quantity cannot be zero(0)";
+      }
+    }
+    if(status === "Out of Stock") {
+      if(quantity > 0) {
+        formErrors.quantity = "Quantity cannot be greather than zero(0)";
+      }
+    }
     setErrors(formErrors);
     return Object.keys(formErrors).length === 0;
   };
@@ -119,6 +138,10 @@ function EditInventoryItem() {
         quantity: inventory.quantity,
       };
 
+         //TODO: del
+         console.log("warehouse_id", inventory.warehouse_id);
+         console.log("updated", updatedInventoryItem);
+
       try {
         const response = await axios.put(
           `${process.env.REACT_APP_BACKEND_URL}/inventories/${inventory.id}`,
@@ -127,17 +150,27 @@ function EditInventoryItem() {
 
         if (response.status === 200) {
           console.log("Inventory item updated successfully");
+          setErrors({});
           resetForm();
-          navigate("/");
+          navigate("/inventory");
         }
       } catch (error) {
-        console.error("Error updating inventory item:", error);
+        if (error.response && error.response.status === 400) {
+          setErrors({
+            exception: error.response.data.errorMessage, // missing fields or format error
+          });
+        } else if (error.response && error.response.status === 500) {
+          setErrors({
+            exception: error.response.data.errorMessage, // Internal server error
+          });
+        } else {
+          setErrors({
+            exception: "Error updating new inventory item", // Generic error message
+          });
+        }
+        console.error("Error updating new inventory item.", error);
       }
-
-      navigate("/inventory");
-    } else {
-      console.log("Form has errors, please correct them");
-    }
+    } 
   };
 
   const resetForm = () => {
@@ -145,6 +178,9 @@ function EditInventoryItem() {
     setDescription("");
     setCategory("");
     setWarehouseName("");
+    setWarehouseId(1);
+    setQuantity(0);
+    setStatus("In Stock");
     setErrors({});
   };
 

@@ -112,10 +112,6 @@ function AddInventoryItemPage() {
           status: status
         };
 
-        //TODO: del
-        console.log("warehouse_id", warehouseId);
-        console.log("newInventory", newInventory);
-
          // POST request to backend API
          const response = await axios.post(
           `${process.env.REACT_APP_BACKEND_URL}/inventories`,
