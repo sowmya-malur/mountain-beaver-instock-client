@@ -92,6 +92,7 @@
   &__titles {
     display: none;
     height: 3rem;
+    background-color: $color-background-light;
     @include tablet {
       display: flex;
       align-items: center;
