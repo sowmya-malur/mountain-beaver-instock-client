@@ -127,8 +127,9 @@ function EditInventoryItem() {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-
+  
     if (validateForm()) {
+      console.log("here");
       const updatedInventoryItem = {
         warehouse_id: inventory.warehouse_id,
         item_name: itemName,
@@ -151,8 +152,8 @@ function EditInventoryItem() {
         if (response.status === 200) {
           console.log("Inventory item updated successfully");
           setErrors({});
-          resetForm();
-          navigate("/inventory");
+          // resetForm();
+          // navigate("/inventory");
         }
       } catch (error) {
         if (error.response && error.response.status === 400) {
@@ -312,6 +313,31 @@ function EditInventoryItem() {
                     </>
                   )}
                 </div>
+                <h3 className="inv__details-label">Quantity</h3>
+            {status === "In Stock" && (
+              <input
+                type="text"
+                name="quantity"
+                id="quantity"
+                className={`inv__details-input ${
+                  errors.quantity ? "inv__details-input--error" : ""
+                }`}
+                placeholder="0"
+                value={quantity}
+                onChange={(e) => setQuantity(e.target.value)}
+              />
+            )}
+            {errors.quantity && (
+              <div className="inv__error-container">
+                <img
+                  src={erroricon}
+                  alt="error icon"
+                  className="inv__error-icon"
+                />
+                <span className="inv__error-message">{errors.quantity}</span>
+              </div>
+            )}
+
                 {errors.warehouseName && (
                   <img
                     src={erroricon}
@@ -339,10 +365,11 @@ function EditInventoryItem() {
                   />
                   {showWarehouseOptions && (
                     <div className="dropdown-options">
-                      {warehouses.map((wh, index) => (
+                      {warehouses.map((wh) => (
                         <div
-                          key={index}
+                          key={wh.id}
                           onClick={() => {
+                            setWarehouseId(wh.id);
                             setWarehouseName(wh.warehouse_name);
                             setShowWarehouseOptions(false);
                           }}
