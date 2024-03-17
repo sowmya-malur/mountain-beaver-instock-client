@@ -4,26 +4,23 @@ import List from "../List/List";
 import "./InventoryList.scss";
 import SearchLogo from "../../assets/icons/search-24px.svg";
 import sort from "../../assets/icons/sort-24px.svg";
-import { useParams } from "react-router-dom";
 
 const InventoryList = () => {
   const [Inventories, setInventories] = useState([]);
-  const { warehouseId } = useParams();
+  const url = `${process.env.REACT_APP_BACKEND_URL}/inventories/`;
+
+  const fetchInventories = async () => {
+    try {
+      const response = await axios.get(`${url}`);
+      setInventories(response.data);
+    } catch (error) {
+      console.error(`Error fetching inventories`, error);
+    }
+  };
 
   useEffect(() => {
-    const fetchInventories = async () => {
-      try {
-        const response = await axios.get(
-          `${process.env.REACT_APP_BACKEND_URL}/inventories/${warehouseId}`
-        );
-        setInventories(response.data);
-      } catch (error) {
-        console.error(`Error fetching inventories`, error);
-      }
-    };
-
-    fetchInventories();
-  }, [warehouseId]);
+    fetchInventories(); // eslint-disable-next-line
+  }, []);
 
   return (
     <div className="inventory">
@@ -72,6 +69,9 @@ const InventoryList = () => {
         <List
           list={Inventories}
           titles={["INVENTORY ITEM", "CATEGORY", "STATUS", "QTY", "WAREHOUSE"]}
+          fetchList={fetchInventories}
+          url={url}
+          to={"inventory"}
         />
       </div>
     </div>

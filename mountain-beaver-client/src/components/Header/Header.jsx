@@ -10,7 +10,7 @@ function Header() {
           <Link className="header__link" to="/warehouses">
             Warehouses
           </Link>
-          <Link className="header__link" to="/inventory/1">
+          <Link className="header__link" to="/inventory">
             Inventory
           </Link>
         </ul>

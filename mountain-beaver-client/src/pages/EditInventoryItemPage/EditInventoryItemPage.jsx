@@ -3,6 +3,7 @@ import Arrow from "../../assets/icons/arrow_back-24px.svg";
 import ArrowDown from "../../assets/icons/arrow_drop_down-24px.svg";
 import erroricon from "../../assets/icons/error-24px.svg";
 import React, { useState } from "react";
+import { Link, useParams } from "react-router-dom";
 
 function EditInventoryItem() {
   const [itemName, setItemName] = useState("");
@@ -10,6 +11,7 @@ function EditInventoryItem() {
   const [category, setCategory] = useState("");
   const [warehouse, setWarehouse] = useState("");
   const [errors, setErrors] = useState({});
+  const { inventoryId } = useParams();
 
   const errorMessage = "This field is required";
 
@@ -45,7 +47,9 @@ function EditInventoryItem() {
     <section className="inv">
       <div className="inv__full-wrapper">
         <div className="inv__title">
-          <img src={Arrow} alt="arrow back logo" className="inv__logo" />
+          <Link to={`/inventory/${inventoryId}`}>
+            <img src={Arrow} alt="arrow back logo" className="inv__logo" />
+          </Link>
           <h1 className="inv__text"> Edit Inventory Item</h1>
         </div>
         <div className="inv__container">
