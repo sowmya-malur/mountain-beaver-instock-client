@@ -233,8 +233,7 @@ function AddInventoryItemPage() {
                 onChange={handleCategoryChange}
                 readOnly
               />
-
-              {showCategoryOptions && (
+                 {showCategoryOptions && (
                 <div className="dropdown-options">
                   {categories.map((cat, index) => (
                     <div
@@ -249,7 +248,7 @@ function AddInventoryItemPage() {
                   ))}
                 </div>
               )}
-              {errors.category && (
+            {errors.category && (
               <div className="inv__error-container">
                 <img
                   src={ErrorIcon}
@@ -262,7 +261,8 @@ function AddInventoryItemPage() {
             </div>
 
             <img
-              className="inv__details-input-logo-1"
+              // className="inv__details-input-logo-1"
+              className={`inv__details-input-logo-1 ${errors.category && "inv__details-input-logo-1--align-error"}`}
               src={ArrowDown}
               alt="Arrow down"
               onClick={() => setShowCategoryOptions(!showCategoryOptions)}
@@ -308,7 +308,7 @@ function AddInventoryItemPage() {
                 <span className="inv__error-message">{errors.quantity}</span>
               </div>
             )}
-            
+
             <h3 className="inv__details-label">Warehouse</h3>
             <div className="dropdown-container">
               <input
