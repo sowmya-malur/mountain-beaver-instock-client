@@ -83,6 +83,7 @@
     font-size: $mobile-font-size-label-button;
     font-weight: $font-weight-semi-bold;
     padding-bottom: 0.4rem;
+    margin-top: $mobile-margin;
     @include tablet {
       font-size: $tablet-font-size-label-button;
     }
@@ -93,7 +94,7 @@
     border-radius: $border-radius;
     height: $element-mobile-height;
     border: 0.063rem solid $color-borders;
-    margin-bottom: $mobile-margin;
+    margin-bottom: 0;
     font-family: $font-family;
     padding: 0 1rem 0.25rem 1rem;
   }
@@ -108,15 +109,19 @@
     height: auto;
     border: 0.063rem solid $color-borders;
     border-radius: 1.3rem;
-    margin-bottom: 1rem;
+    margin-bottom: 0;
     font-family: $font-family;
   }
   &__details-input-logo-1 {
     position: relative;
     left: 89%;
-    top: -3.2rem;
+    top: -2.2rem;
     height: 2rem;
     cursor: pointer;
+
+    &--align-error {
+      top: -4.1rem;
+    }
   }
   &__details-input--error {
     border-color: $color-error !important;
@@ -182,9 +187,12 @@
   &__avail-input-logo-2 {
     position: relative;
     left: 89%;
-    top: -3.2rem;
+    top: -2.2rem;
     height: 2rem;
     cursor: pointer;
+    &--align-error {
+      top: -4.1rem;
+    }
   }
   &__avail-button {
     padding: 0 1rem;

@@ -174,16 +174,6 @@ function AddInventoryItemPage() {
         <div className="inv__container">
           <div className="inv__details">
             <h2 className="inv__details-title">Item Details</h2>
-            {errors.itemName && (
-              <div className="inv__error-container">
-                <img
-                  src={ErrorIcon}
-                  alt="error icon"
-                  className="inv__error-icon"
-                />
-                <span className="inv__error-message">{errors.itemName}</span>
-              </div>
-            )}
             <h3 className="inv__details-label">Item Name</h3>
             <input
               type="text"
@@ -194,15 +184,14 @@ function AddInventoryItemPage() {
               value={itemName}
               onChange={(e) => setItemName(e.target.value)}
             />
-
-            {errors.description && (
+             {errors.itemName && (
               <div className="inv__error-container">
                 <img
                   src={ErrorIcon}
                   alt="error icon"
                   className="inv__error-icon"
                 />
-                <span className="inv__error-message">{errors.description}</span>
+                <span className="inv__error-message">{errors.itemName}</span>
               </div>
             )}
 
@@ -218,17 +207,17 @@ function AddInventoryItemPage() {
               value={description}
               onChange={(e) => setDescription(e.target.value)}
             />
-
-            {errors.category && (
+            {errors.description && (
               <div className="inv__error-container">
                 <img
                   src={ErrorIcon}
                   alt="error icon"
                   className="inv__error-icon"
                 />
-                <span className="inv__error-message">{errors.category}</span>
+                <span className="inv__error-message">{errors.description}</span>
               </div>
             )}
+            
 
             <h3 className="inv__details-label">Category</h3>
             <div className="dropdown-container">
@@ -260,6 +249,16 @@ function AddInventoryItemPage() {
                   ))}
                 </div>
               )}
+              {errors.category && (
+              <div className="inv__error-container">
+                <img
+                  src={ErrorIcon}
+                  alt="error icon"
+                  className="inv__error-icon"
+                />
+                <span className="inv__error-message">{errors.category}</span>
+              </div>
+            )}
             </div>
 
             <img
@@ -284,16 +283,7 @@ function AddInventoryItemPage() {
                 <p className="inv__avail-text">Out of stock</p>
               </div>
             </div>
-            {errors.quantity && (
-              <div className="inv__error-container">
-                <img
-                  src={ErrorIcon}
-                  alt="error icon"
-                  className="inv__error-icon"
-                />
-                <span className="inv__error-message">{errors.quantity}</span>
-              </div>
-            )}
+            
             <h3 className="inv__details-label">Quantity</h3>
             {status === "In Stock" && (
               <input
@@ -308,18 +298,17 @@ function AddInventoryItemPage() {
                 onChange={(e) => setQuantity(e.target.value)}
               />
             )}
-            {errors.warehouseName && (
+            {errors.quantity && (
               <div className="inv__error-container">
                 <img
                   src={ErrorIcon}
                   alt="error icon"
                   className="inv__error-icon"
                 />
-                <span className="inv__error-message">
-                  {errors.warehouseName}
-                </span>
+                <span className="inv__error-message">{errors.quantity}</span>
               </div>
             )}
+            
             <h3 className="inv__details-label">Warehouse</h3>
             <div className="dropdown-container">
               <input
@@ -350,10 +339,22 @@ function AddInventoryItemPage() {
                   ))}
                 </div>
               )}
+              {errors.warehouseName && (
+              <div className="inv__error-container">
+                <img
+                  src={ErrorIcon}
+                  alt="error icon"
+                  className="inv__error-icon"
+                />
+                <span className="inv__error-message">
+                  {errors.warehouseName}
+                </span>
+              </div>
+            )}
             </div>
 
             <img
-              className="inv__avail-input-logo-2"
+              className={`inv__avail-input-logo-2 ${errors.warehouseName && "inv__avail-input-logo-2--align-error"}`}
               src={ArrowDown}
               alt="Arrow down"
               onClick={() => setShowWarehouseOptions(!showWarehouseOptions)}
