@@ -1,23 +1,29 @@
-import React from "react";
+import React, { useState } from "react";
 import "./ListItem.scss";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
+import Modal from "../Modal/Modal";
 import trash from "../../assets/icons/delete_outline-24px.svg";
 import edit from "../../assets/icons/edit-24px.svg";
 import Arow from "../../assets/icons/chevron_right-24px.svg";
 
 export default function MobileItem({ titles, data, id, to }) {
-  const handleDel = async () => {
-    try {
-      await axios.delete(`${process.env.REACT_APP_BACKEND_URL}/${to}/${id}`);
-    } catch (error) {
-      console.log(`Delete ${to} error: ${error}`);
-    }
+  const [showModal, setShowModal] = useState(false);
+  // const handleDel = async () => {
+  //   try {
+  //     await axios.delete(`${process.env.REACT_APP_BACKEND_URL}/${to}/${id}`);
+  //   } catch (error) {
+  //     console.log(`Delete ${to} error: ${error}`);
+  //   }
+  // };
+  const handleDelClicked = (e) => {
+    e.preventDefault();
+    setShowModal(true);
   };
   const navigate = useNavigate();
   const handleClick = () => {
-      navigate(`${process.env.REACT_APP_BACKEND_URL}/inventory/${id}`)
-  }
+    navigate(`${process.env.REACT_APP_BACKEND_URL}/inventory/${id}`);
+  };
 
   return (
     <div className="Item">
@@ -59,7 +65,7 @@ export default function MobileItem({ titles, data, id, to }) {
         </div>
       </div>
       <div className="Item__buttons">
-        <button onClick={handleDel} className="Item__button">
+        <button onClick={handleDelClicked} className="Item__button">
           <img src={trash} alt="delete" />
         </button>
 
@@ -67,6 +73,17 @@ export default function MobileItem({ titles, data, id, to }) {
           <img src={edit} alt="edit" />
         </Link>
       </div>
+
+      {showModal ? (
+        <Modal
+          name={data[0]}
+          type={"inventory"}
+          id={id}
+          setActive={setShowModal}
+        />
+      ) : (
+        <></>
+      )}
     </div>
   );
 }
