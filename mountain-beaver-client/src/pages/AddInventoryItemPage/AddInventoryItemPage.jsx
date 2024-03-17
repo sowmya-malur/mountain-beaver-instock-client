@@ -77,10 +77,10 @@ function AddInventoryItemPage() {
     if (!description.trim()) {
       formErrors.description = errorMessage;
     }
-    if (category === "Please select") {
+    if (!category.trim()) {
       formErrors.category = errorMessage;
     }
-    if (warehouseName === "Please select") {
+    if (!warehouseName.trim()) {
       formErrors.warehouseName = errorMessage;
     }
     if (status === "In Stock") {
