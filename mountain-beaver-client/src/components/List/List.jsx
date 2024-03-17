@@ -16,6 +16,7 @@ export default function MobileList({ list, titles }) {
               item.quantity,
               item.warehouse_name,
             ]}
+            warehouseId={item.warehouse_id}
             id={item.id}
             to={"inventory"}
             key={item.id}

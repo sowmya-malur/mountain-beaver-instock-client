@@ -7,7 +7,7 @@ import trash from "../../assets/icons/delete_outline-24px.svg";
 import edit from "../../assets/icons/edit-24px.svg";
 import Arow from "../../assets/icons/chevron_right-24px.svg";
 
-export default function MobileItem({ titles, data, id, to }) {
+export default function MobileItem({ titles, data, warehouseId, id, to }) {
   const [showModal, setShowModal] = useState(false);
   // const handleDel = async () => {
   //   try {
@@ -69,7 +69,7 @@ export default function MobileItem({ titles, data, id, to }) {
           <img src={trash} alt="delete" />
         </button>
 
-        <Link to={`/${to}/edit/:${id}`}>
+        <Link to={`/${to}/${warehouseId}/${id}/edit`}>
           <img src={edit} alt="edit" />
         </Link>
       </div>
