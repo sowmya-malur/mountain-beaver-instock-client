@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import "./ListItem.scss";
 import { Link, useNavigate } from "react-router-dom";
-import Modal from "../Modal/Modal";
+import Modal from "../modal/Modal";
 import trash from "../../assets/icons/delete_outline-24px.svg";
 import edit from "../../assets/icons/edit-24px.svg";
 import Arow from "../../assets/icons/chevron_right-24px.svg";

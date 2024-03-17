@@ -1,9 +1,11 @@
-import "./AddInventoryItemPage.scss";
+import React, { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
+import axios from "axios";
+
 import Arrow from "../../assets/icons/arrow_back-24px.svg";
 import ArrowDown from "../../assets/icons/arrow_drop_down-24px.svg";
 import ErrorIcon from "../../assets/icons/error-24px.svg";
-import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import "./AddInventoryItemPage.scss";
 
 function AddInventoryItemPage() {
   const [itemName, setItemName] = useState("");
@@ -13,9 +15,45 @@ function AddInventoryItemPage() {
   const [quantity, setQuantity] = useState("");
   const [status, setStatus] = useState("In Stock"); // Default status
   const [errors, setErrors] = useState({});
+  const [showWarehouseOptions, setShowWarehouseOptions] = useState(false); // Define showWarehouseOptions state
+  const [showCategoryOptions, setShowCategoryOptions] = useState(false); // Define showCategoryOptions state
+  const [warehouses, setWarehouses] = useState([]); // Define warehouses state
+  const [categories, setCategories] = useState([]); // Define categories state
+  const navigate = useNavigate();
 
   const errorMessage = "This field is required";
-  const navigate = useNavigate();
+
+  useEffect(() => {
+    // Fetch warehouse data when component mounts
+    const fetchWarehouses = async () => {
+      try {
+        const response = await axios.get(
+          `${process.env.REACT_APP_BACKEND_URL}/warehouses`
+        );
+        setWarehouses(response.data);
+      } catch (error) {
+        console.error("Error fetching warehouses:", error);
+      }
+    };
+
+    // Fetch category data when component mounts
+    const fetchCategories = async () => {
+      try {
+        const url = `${process.env.REACT_APP_BACKEND_URL}/inventories`;
+        const response = await axios.get(url);
+        // Extract unique categories from the inventory data
+        const uniqueCategories = Array.from(
+          new Set(response.data.map((item) => item.category))
+        );
+        setCategories(uniqueCategories);
+      } catch (error) {
+        console.error("Error fetching categories:", error);
+      }
+    };
+
+    fetchWarehouses();
+    fetchCategories();
+  }, []);
 
   const handleBack = () => {
     navigate(-1);
@@ -42,14 +80,29 @@ function AddInventoryItemPage() {
     return Object.keys(formErrors).length === 0;
   };
 
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
     if (validateForm()) {
-      // Form is valid, proceed with submission
-      console.log("Form submitted successfully");
-      // Here you can submit the form data to the backend
-      // Reset the form fields after submission
-      resetForm();
+      try {
+        const response = await axios.post(
+          `${process.env.REACT_APP_BACKEND_URL}/inventories`,
+          {
+            itemName,
+            description,
+            category,
+            warehouse,
+            quantity,
+            status,
+          }
+        );
+        if (response.status === 201) {
+          console.log("Item added successfully");
+          resetForm();
+          navigate("/"); // Navigate to desired location after successful submission
+        }
+      } catch (error) {
+        console.error("Error adding item:", error);
+      }
     } else {
       console.log("Form has errors, please correct them");
     }
@@ -111,6 +164,7 @@ function AddInventoryItemPage() {
                 <span className="inv__error-message">{errors.description}</span>
               </div>
             )}
+
             <h3 className="inv__details-label">Description</h3>
             <input
               type="text"
@@ -134,23 +188,43 @@ function AddInventoryItemPage() {
                 <span className="inv__error-message">{errors.category}</span>
               </div>
             )}
+
             <h3 className="inv__details-label">Category</h3>
-            <input
-              type="text"
-              name="category"
-              id="category"
-              className={`inv__details-input ${
-                errors.category ? "inv__details-input--error" : ""
-              }`}
-              placeholder="Please select"
-              value={category}
-              onChange={(e) => setCategory(e.target.value)}
-            />
+            <div className="dropdown-container">
+              <input
+                type="text"
+                name="category"
+                id="category"
+                className={`inv__details-input ${
+                  errors.category ? "inv__details-input--error" : ""
+                }`}
+                placeholder="Please select"
+                value={category}
+                onChange={(e) => setCategory(e.target.value)}
+              />
+
+              {showCategoryOptions && (
+                <div className="dropdown-options">
+                  {categories.map((cat, index) => (
+                    <div
+                      key={index}
+                      onClick={() => {
+                        setCategory(cat);
+                        setShowCategoryOptions(false); // Close dropdown after selecting
+                      }}
+                    >
+                      {cat}
+                    </div>
+                  ))}
+                </div>
+              )}
+            </div>
 
             <img
               className="inv__details-input-logo-1"
               src={ArrowDown}
               alt="Arrow down"
+              onClick={() => setShowCategoryOptions(!showCategoryOptions)}
             />
           </div>
           <div className="inv__avail">
@@ -203,22 +277,41 @@ function AddInventoryItemPage() {
               </div>
             )}
             <h3 className="inv__details-label">Warehouse</h3>
-            <input
-              type="text"
-              name="name"
-              id="name"
-              className={`inv__details-input ${
-                errors.warehouse ? "inv__details-input--error" : ""
-              }`}
-              placeholder="Please select"
-              value={warehouse}
-              onChange={(e) => setWarehouse(e.target.value)}
-            />
+            <div className="dropdown-container">
+              <input
+                type="text"
+                name="warehouse"
+                id="warehouse"
+                className={`inv__details-input ${
+                  errors.warehouse ? "inv__details-input--error" : ""
+                }`}
+                placeholder="Please select"
+                value={warehouse}
+                onChange={(e) => setWarehouse(e.target.value)}
+              />
+
+              {showWarehouseOptions && (
+                <div className="dropdown-options">
+                  {warehouses.map((wh, index) => (
+                    <div
+                      key={index}
+                      onClick={() => {
+                        setWarehouse(wh.warehouse_name);
+                        setShowWarehouseOptions(false); // Close dropdown after selecting
+                      }}
+                    >
+                      {wh.warehouse_name}
+                    </div>
+                  ))}
+                </div>
+              )}
+            </div>
 
             <img
               className="inv__avail-input-logo-2"
               src={ArrowDown}
               alt="Arrow down"
+              onClick={() => setShowWarehouseOptions(!showWarehouseOptions)}
             />
           </div>
         </div>

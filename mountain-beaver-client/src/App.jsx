@@ -2,7 +2,7 @@ import React from "react";
 import "./App.scss";
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 
-import Footer from "./components/Footer/Footer";
+import Footer from "./components/footer/Footer";
 import Header from "./components/Header/Header";
 // Import Components
 import EditInventoryItem from "./pages/EditInventoryItemPage/EditInventoryItemPage";
@@ -21,7 +21,7 @@ function App() {
         <Header />
         <Routes>
           <Route path="/" element={<WarehousesPage />} />
-          <Route path="/warehouses" element={<Navigate to="/" />} /> 
+          <Route path="/warehouses" element={<Navigate to="/" />} />
           <Route
             path="/warehouses/:warehouseId"
             element={<WarehouseDetailsPage />}
@@ -37,10 +37,7 @@ function App() {
             path="/inventory/:inventoryId"
             element={<InventoryDetails />}
           />
-          <Route
-            path="/inventory/add"
-            element={<AddInventoryItemPage />}
-          />
+          <Route path="/inventory/add" element={<AddInventoryItemPage />} />
           <Route
             path="/inventory/:inventoryId/edit"
             element={<EditInventoryItem />}
