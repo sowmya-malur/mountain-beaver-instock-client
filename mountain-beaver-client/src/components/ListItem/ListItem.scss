@@ -42,31 +42,26 @@
     &--name {
       @include tablet {
         width: 15vw;
-        background-color: burlywood;
       }
     }
     &--type {
       @include tablet {
         width: 10vw;
-        background-color: burlywood;
       }
     }
     &--stock {
       @include tablet {
-        width: 11vw;
-        background-color: burlywood;
+        width: 9vw;
       }
     }
     &--location {
       @include tablet {
         width: fit-content;
-        background-color: burlywood;
       }
     }
     &--number {
       @include tablet {
         width: 6vw;
-        background-color: aqua;
         display: flex;
         justify-content: flex-end;
       }
@@ -98,7 +93,7 @@
       color: $color-error;
     }
     @include tablet {
-      width: fit-content;
+      width: max-content;
     }
   }
 

@@ -1,6 +1,6 @@
 import React from "react";
 import "./ListItem.scss";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 import trash from "../../assets/icons/delete_outline-24px.svg";
 import edit from "../../assets/icons/edit-24px.svg";
@@ -14,6 +14,10 @@ export default function MobileItem({ titles, data, id, to }) {
       console.log(`Delete ${to} error: ${error}`);
     }
   };
+  const navigate = useNavigate();
+  const handleClick = () => {
+      navigate(`${process.env.REACT_APP_BACKEND_URL}/inventory/${id}`)
+  }
 
   return (
     <div className="Item">
@@ -21,7 +25,7 @@ export default function MobileItem({ titles, data, id, to }) {
         <div className="Item__row">
           <div className="Item__block Item__block--name">
             <h4 className="Item__type">{titles[0]}</h4>
-            <div className="Item__link">
+            <div className="Item__link" onClick={handleClick}>
               <span className="Item__data Item__data--name">{data[0]}</span>
               <img className="Item__logo" src={Arow} alt="arrow" />
             </div>

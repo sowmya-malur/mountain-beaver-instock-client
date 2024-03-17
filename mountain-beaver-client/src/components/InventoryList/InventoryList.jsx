@@ -3,15 +3,18 @@ import axios from "axios";
 import List from "../List/List";
 import "./InventoryList.scss";
 import SearchLogo from "../../assets/icons/search-24px.svg";
+import sort from "../../assets/icons/sort-24px.svg";
+import { useParams } from "react-router-dom";
 
 const InventoryList = () => {
   const [Inventories, setInventories] = useState([]);
+  const { warehouseId } = useParams();
 
   useEffect(() => {
     const fetchInventories = async () => {
       try {
         const response = await axios.get(
-          `${process.env.REACT_APP_BACKEND_URL}/inventories/`
+          `${process.env.REACT_APP_BACKEND_URL}/inventories/${warehouseId}`
         );
         setInventories(response.data);
       } catch (error) {
@@ -20,13 +23,13 @@ const InventoryList = () => {
     };
 
     fetchInventories();
-  }, []);
+  }, [warehouseId]);
 
   return (
     <div className="inventory">
       <div className="inventory__wrapper">
         <div className="inventory__container">
-          <h2 className="inventory__title">Inventory</h2>
+          <h2 className="inventory__topTitle">Inventory</h2>
           <div className="inventory__input-wrapper">
             <input
               type="text"
@@ -40,7 +43,32 @@ const InventoryList = () => {
             <button className="inventory__button">+Add New Item</button>
           </div>
         </div>
-
+        <div className="inventory__titles">
+          <div className="inventory__title inventory__title--name">
+            <h4>INVENTORY ITEM</h4>
+            <img src={sort} alt="sort" />
+          </div>
+          <div className="inventory__title inventory__title--type">
+            <h4>CATEGORY</h4>
+            <img src={sort} alt="sort" />
+          </div>
+          <div className="inventory__title inventory__title--status">
+            <h4>STATUS</h4>
+            <img src={sort} alt="sort" />
+          </div>
+          <div className="inventory__title inventory__title--qty">
+            <h4>QTY</h4>
+            <img src={sort} alt="sort" />
+          </div>
+          <div className="inventory__title inventory__title--warehouse">
+            <h4>WAREHOUSE</h4>
+            <img src={sort} alt="sort" />
+          </div>
+          <div className="inventory__title inventory__title--ations">
+            <h4>ACTIONS</h4>
+            <img src={sort} alt="sort" />
+          </div>
+        </div>
         <List
           list={Inventories}
           titles={["INVENTORY ITEM", "CATEGORY", "STATUS", "QTY", "WAREHOUSE"]}
