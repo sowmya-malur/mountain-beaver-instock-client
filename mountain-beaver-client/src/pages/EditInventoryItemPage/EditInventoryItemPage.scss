@@ -192,6 +192,7 @@
     display: flex;
     gap: 2rem;
     margin: $mobile-margin;
+
     @include tablet {
       display: flex;
       justify-content: flex-end;
