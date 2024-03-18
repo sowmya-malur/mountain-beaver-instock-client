@@ -39,7 +39,6 @@ function EditInventoryItem() {
         );
 
         setInventory(inventoryResponse.data);
-        console.log(inventoryResponse.data);
 
         if (inventoryResponse.data) {
           setItemName(inventoryResponse.data.item_name);
@@ -120,28 +119,32 @@ function EditInventoryItem() {
         formErrors.quantity = "Quantity cannot be zero(0)";
       }
     }
-    else if (status === "Out of Stock" && parseInt(quantity) > 0) {
-      formErrors.quantity = "Change the qty to zero(0) when status is 'Out of Stock'";
-    }
+    // else if (status === "Out of Stock" && parseInt(quantity) > 0) {
+    //   formErrors.quantity = "Change the qty to zero(0) when status is 'Out of Stock'";
+    // }
     setErrors(formErrors);
     return Object.keys(formErrors).length === 0;
   };
+
+  useEffect(()=>{
+      if(status === "Out of Stock") {
+        setQuantity("0");
+      }
+  },[status]);
 
   const handleSubmit = async (event) => {
     event.preventDefault();
 
     if (validateForm()) {
-      console.log("here"); //TODO:
       const updatedInventoryItem = {
+        id: inventory.id,
         warehouse_id: warehouseId,
         item_name: itemName,
         description: description,
         category: category,
-        quantity: parseInt(quantity),
+        quantity: quantity,
         status: status,
       };
-
-      console.log("updated :", updatedInventoryItem);
 
       try {
         // POST request to backend API
@@ -189,6 +192,9 @@ function EditInventoryItem() {
   // Function to toggle the status
   const toggleStatus = () => {
     setStatus(status === "In Stock" ? "Out of Stock" : "In Stock");
+    if(status === "Out of stock") {
+      setQuantity(0);
+    }
   };
 
   return (
@@ -310,10 +316,10 @@ function EditInventoryItem() {
                 <h3 className="inv__details-label">
                   Status:
                 </h3>
+           
 
-
-                {/* <div className="inv__avail-wrapper">
-                  {inventory.quantity > 0 ? (
+               <div className="inv__avail-wrapper"> 
+                
                     <>
                       <div className="inv__avail-cont" onClick={toggleStatus}>
                         <div className={status === "In Stock" ? "inv__avail-shape-out" : "inv__avail-shape"}>
@@ -325,6 +331,23 @@ function EditInventoryItem() {
                         <div className={status === "Out of Stock" ? "inv__avail-shape-out" : "inv__avail-shape"}>
                         <div className="inv__avail-dot"></div>
                         </div>
+                        <p className="inv__avail-text">Out of stock</p>
+                      </div>
+                    </>
+                    </div>
+              
+
+            {/* <div className="inv__avail-wrapper">
+                  {inventory.quantity > 0 ? (
+                    <>
+                      <div className="inv__avail-cont">
+                        <div className="inv__avail-shape-out">
+                          <div className="inv__avail-dot"></div>
+                        </div>
+                        <p className="inv__avail-text">In stock</p>
+                      </div>
+                      <div className="inv__avail-cont">
+                        <div className="inv__avail-shape"></div>
                         <p className="inv__avail-text">Out of stock</p>
                       </div>
                     </>
@@ -343,36 +366,6 @@ function EditInventoryItem() {
                     </>
                   )}
                 </div> */}
-
-<div className="inv__avail-wrapper">
-                  {inventory.quantity > 0 ? (
-                    <>
-                      <div className="inv__avail-cont">
-                        <div className="inv__avail-shape-out">
-                          <div className="inv__avail-dot"></div>
-                        </div>
-                        <p className="inv__avail-text">In stock</p>
-                      </div>
-                      <div className="inv__avail-cont">
-                        <div className="inv__avail-shape"></div>
-                        <p className="inv__avail-text">Out of stock</p>
-                      </div>
-                    </>
-                  ) : (
-                    <>
-                      <div className="inv__avail-cont">
-                        <div className="inv__avail-shape"></div>
-                        <p className="inv__avail-text">In stock</p>
-                      </div>
-                      <div className="inv__avail-cont">
-                        <div className="inv__avail-shape-out">
-                          <div className="inv__avail-dot"></div>
-                        </div>
-                        <p className="inv__avail-text">Out of stock</p>
-                      </div>
-                    </>
-                  )}
-                </div>
                 
                 {status === "In Stock" && (
                   <>
@@ -425,7 +418,6 @@ function EditInventoryItem() {
                         <div
                           key={wh.id}
                           onClick={() => {
-                            console.log("wh.id", wh.id);
                             setWarehouseId(wh.id);
                             setWarehouseName(wh.warehouse_name);
                             setShowWarehouseOptions(false);
