@@ -120,10 +120,8 @@ function EditInventoryItem() {
         formErrors.quantity = "Quantity cannot be zero(0)";
       }
     }
-    if (status === "Out of Stock") {
-      if (quantity > 0) {
-        formErrors.quantity = "Quantity cannot be greather than zero(0)";
-      }
+    else if (status === "Out of Stock" && parseInt(quantity) > 0) {
+      formErrors.quantity = "Change the qty to zero(0) when status is 'Out of Stock'";
     }
     setErrors(formErrors);
     return Object.keys(formErrors).length === 0;
@@ -191,9 +189,6 @@ function EditInventoryItem() {
   // Function to toggle the status
   const toggleStatus = () => {
     setStatus(status === "In Stock" ? "Out of Stock" : "In Stock");
-    if (status === "In Stock") {
-      setQuantity(0);
-    }
   };
 
   return (
@@ -317,7 +312,8 @@ function EditInventoryItem() {
                 </h3>
 
 
-                <div className="inv__avail-wrapper">
+                {/* <div className="inv__avail-wrapper">
+                  {inventory.quantity > 0 ? (
                     <>
                       <div className="inv__avail-cont" onClick={toggleStatus}>
                         <div className={status === "In Stock" ? "inv__avail-shape-out" : "inv__avail-shape"}>
@@ -332,8 +328,52 @@ function EditInventoryItem() {
                         <p className="inv__avail-text">Out of stock</p>
                       </div>
                     </>
-                </div>
+                  ) : (
+                    <>
+                      <div className="inv__avail-cont">
+                        <div className="inv__avail-shape"></div>
+                        <p className="inv__avail-text">In stock</p>
+                      </div>
+                      <div className="inv__avail-cont">
+                        <div className="inv__avail-shape-out">
+                          <div className="inv__avail-dot"></div>
+                        </div>
+                        <p className="inv__avail-text">Out of stock</p>
+                      </div>
+                    </>
+                  )}
+                </div> */}
 
+<div className="inv__avail-wrapper">
+                  {inventory.quantity > 0 ? (
+                    <>
+                      <div className="inv__avail-cont">
+                        <div className="inv__avail-shape-out">
+                          <div className="inv__avail-dot"></div>
+                        </div>
+                        <p className="inv__avail-text">In stock</p>
+                      </div>
+                      <div className="inv__avail-cont">
+                        <div className="inv__avail-shape"></div>
+                        <p className="inv__avail-text">Out of stock</p>
+                      </div>
+                    </>
+                  ) : (
+                    <>
+                      <div className="inv__avail-cont">
+                        <div className="inv__avail-shape"></div>
+                        <p className="inv__avail-text">In stock</p>
+                      </div>
+                      <div className="inv__avail-cont">
+                        <div className="inv__avail-shape-out">
+                          <div className="inv__avail-dot"></div>
+                        </div>
+                        <p className="inv__avail-text">Out of stock</p>
+                      </div>
+                    </>
+                  )}
+                </div>
+                
                 {status === "In Stock" && (
                   <>
                     <h3 className="inv__details-label">Quantity</h3>
