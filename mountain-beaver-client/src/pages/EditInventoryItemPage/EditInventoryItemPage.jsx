@@ -47,7 +47,7 @@ function EditInventoryItem() {
           setWarehouseName(inventoryResponse.data.warehouse_name);
           setQuantity(inventoryResponse.data.quantity);
           setStatus(inventoryResponse.data.status);
-          setWarehouseId(inventoryResponse.data.warehouse_id);
+          setWarehouseId(inventoryResponse.data.id);
         }
       } catch (error) {
         console.error("Error fetching data:", error);
@@ -119,21 +119,25 @@ function EditInventoryItem() {
         formErrors.quantity = "Quantity cannot be zero(0)";
       }
     }
-    if (status === "Out of Stock") {
-      if (quantity > 0) {
-        formErrors.quantity = "Quantity cannot be greather than zero(0)";
-      }
-    }
+    // else if (status === "Out of Stock" && parseInt(quantity) > 0) {
+    //   formErrors.quantity = "Change the qty to zero(0) when status is 'Out of Stock'";
+    // }
     setErrors(formErrors);
     return Object.keys(formErrors).length === 0;
   };
+
+  useEffect(()=>{
+      if(status === "Out of Stock") {
+        setQuantity("0");
+      }
+  },[status]);
 
   const handleSubmit = async (event) => {
     event.preventDefault();
 
     if (validateForm()) {
-      console.log("here");
       const updatedInventoryItem = {
+        id: inventory.id,
         warehouse_id: warehouseId,
         item_name: itemName,
         description: description,
@@ -141,10 +145,6 @@ function EditInventoryItem() {
         quantity: quantity,
         status: status,
       };
-
-      //TODO: del
-      console.log("inventory.id", inventory.id);
-      console.log("updated", updatedInventoryItem);
 
       try {
         // POST request to backend API
@@ -187,6 +187,14 @@ function EditInventoryItem() {
     setQuantity(0);
     setStatus("In Stock");
     setErrors({});
+  };
+
+  // Function to toggle the status
+  const toggleStatus = () => {
+    setStatus(status === "In Stock" ? "Out of Stock" : "In Stock");
+    if(status === "Out of stock") {
+      setQuantity(0);
+    }
   };
 
   return (
@@ -238,7 +246,6 @@ function EditInventoryItem() {
                   value={description}
                   onChange={(e) => setDescription(e.target.value)}
                 />
-
                 {errors.description && (
                   <div className="inv__error-container">
                     <img
@@ -251,6 +258,7 @@ function EditInventoryItem() {
                     </span>
                   </div>
                 )}
+                {/* Category */}
                 <h3 className="inv__details-label">Category</h3>
                 <div className="dropdown-container">
                   <input
@@ -294,16 +302,42 @@ function EditInventoryItem() {
                   )}
                 </div>
                 <img
-                  className={`inv__details-input-logo-1 ${errors.category && "inv__details-input-logo-1--align-error"}`}
+                  className={`inv__details-input-logo-1 ${
+                    errors.category && "inv__details-input-logo-1--align-error"
+                  }`}
                   src={ArrowDown}
                   alt="Arrow down"
                   onClick={() => setShowCategoryOptions(!showCategoryOptions)}
                 />
               </div>
+              {/* Availability */}
               <div className="inv__avail">
                 <h2 className="inv__details-title">Item Availability</h2>
-                <h3 className="inv__details-label">Status</h3>
-                <div className="inv__avail-wrapper">
+                <h3 className="inv__details-label">
+                  Status:
+                </h3>
+           
+
+               <div className="inv__avail-wrapper"> 
+                
+                    <>
+                      <div className="inv__avail-cont" onClick={toggleStatus}>
+                        <div className={status === "In Stock" ? "inv__avail-shape-out" : "inv__avail-shape"}>
+                          <div className="inv__avail-dot"></div>
+                        </div>
+                        <p className="inv__avail-text">In stock</p>
+                      </div>
+                      <div className="inv__avail-cont" onClick={toggleStatus}>
+                        <div className={status === "Out of Stock" ? "inv__avail-shape-out" : "inv__avail-shape"}>
+                        <div className="inv__avail-dot"></div>
+                        </div>
+                        <p className="inv__avail-text">Out of stock</p>
+                      </div>
+                    </>
+                    </div>
+              
+
+            {/* <div className="inv__avail-wrapper">
                   {inventory.quantity > 0 ? (
                     <>
                       <div className="inv__avail-cont">
@@ -331,21 +365,25 @@ function EditInventoryItem() {
                       </div>
                     </>
                   )}
-                </div>
-                <h3 className="inv__details-label">Quantity</h3>
+                </div> */}
+                
                 {status === "In Stock" && (
-                  <input
-                    type="text"
-                    name="quantity"
-                    id="quantity"
-                    className={`inv__details-input ${
-                      errors.quantity ? "inv__details-input--error" : ""
-                    }`}
-                    placeholder="0"
-                    value={quantity}
-                    onChange={(e) => setQuantity(e.target.value)}
-                  />
+                  <>
+                    <h3 className="inv__details-label">Quantity</h3>
+                    <input
+                      type="text"
+                      name="quantity"
+                      id="quantity"
+                      className={`inv__details-input ${
+                        errors.quantity ? "inv__details-input--error" : ""
+                      }`}
+                      placeholder="0"
+                      value={quantity}
+                      onChange={(e) => setQuantity(e.target.value)}
+                    />
+                  </>
                 )}
+
                 {errors.quantity && (
                   <div className="inv__error-container">
                     <img
@@ -359,7 +397,7 @@ function EditInventoryItem() {
                   </div>
                 )}
 
-          
+                {/* Warehouse */}
                 <h3 className="inv__details-label">Warehouse</h3>
                 <div className="dropdown-container">
                   <input
@@ -391,21 +429,24 @@ function EditInventoryItem() {
                     </div>
                   )}
                   {errors.warehouseName && (
-              <div className="inv__error-container">
-                <img
-                  src={errorIcon}
-                  alt="error icon"
-                  className="inv__error-icon"
-                />
-                <span className="inv__error-message">
-                  {errors.warehouseName}
-                </span>
-              </div>
-            )}
+                    <div className="inv__error-container">
+                      <img
+                        src={errorIcon}
+                        alt="error icon"
+                        className="inv__error-icon"
+                      />
+                      <span className="inv__error-message">
+                        {errors.warehouseName}
+                      </span>
+                    </div>
+                  )}
                 </div>
                 <img
-              className={`inv__avail-input-logo-2 ${errors.warehouseName && "inv__avail-input-logo-2--align-error"}`}
-              src={ArrowDown}
+                  className={`inv__avail-input-logo-2 ${
+                    errors.warehouseName &&
+                    "inv__avail-input-logo-2--align-error"
+                  }`}
+                  src={ArrowDown}
                   alt="Arrow down"
                   onClick={() => setShowWarehouseOptions(!showWarehouseOptions)}
                 />
