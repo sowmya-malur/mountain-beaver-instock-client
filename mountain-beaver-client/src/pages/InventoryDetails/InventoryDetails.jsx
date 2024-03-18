@@ -20,8 +20,6 @@ function InventoryDetails() {
 
   const handleClick = () => {
     navigate(`/inventory/${inventoryId}/edit`);
-    // TODO: Add functionality to call edit inventory item page by passing the id
-    // navigate("/EditInventoryItem/inventoryId"); //TODO: to test integration //
   };
   const handleBack = () => {
     navigate(-1);
