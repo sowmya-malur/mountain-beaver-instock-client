@@ -3,8 +3,8 @@ import Arrow from "../../assets/icons/arrow_back-24px.svg";
 import ArrowDown from "../../assets/icons/arrow_drop_down-24px.svg";
 import errorIcon from "../../assets/icons/error-24px.svg";
 
-import React, { useRef, useState, useEffect } from "react";
-import { Link, useNavigate, useParams } from "react-router-dom";
+import React, { useState, useEffect } from "react";
+import { useNavigate, useParams } from "react-router-dom";
 import axios from "axios";
 
 function EditInventoryItem() {
@@ -21,7 +21,7 @@ function EditInventoryItem() {
   const [showWarehouseOptions, setShowWarehouseOptions] = useState(false);
   const [warehouses, setWarehouses] = useState([]);
   const [categories, setCategories] = useState([]);
-  const [showCategoryDropdown, setShowCategoryDropdown] = useState(false);
+  // const [showCategoryDropdown, setShowCategoryDropdown] = useState(false);
   const [quantity, setQuantity] = useState(0);
   const [status, setStatus] = useState("In Stock");
   const [warehouseId, setWarehouseId] = useState(0);
