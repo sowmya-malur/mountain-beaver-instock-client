@@ -112,10 +112,6 @@ function AddInventoryItemPage() {
           status: status
         };
 
-        //TODO: del
-        console.log("warehouse_id", warehouseId);
-        console.log("newInventory", newInventory);
-
          // POST request to backend API
          const response = await axios.post(
           `${process.env.REACT_APP_BACKEND_URL}/inventories`,
@@ -261,7 +257,6 @@ function AddInventoryItemPage() {
             </div>
 
             <img
-              // className="inv__details-input-logo-1"
               className={`inv__details-input-logo-1 ${errors.category && "inv__details-input-logo-1--align-error"}`}
               src={ArrowDown}
               alt="Arrow down"

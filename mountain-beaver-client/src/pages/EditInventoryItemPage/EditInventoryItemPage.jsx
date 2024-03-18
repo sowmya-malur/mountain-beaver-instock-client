@@ -1,7 +1,7 @@
 import "./EditInventoryItemPage.scss";
 import Arrow from "../../assets/icons/arrow_back-24px.svg";
 import ArrowDown from "../../assets/icons/arrow_drop_down-24px.svg";
-import erroricon from "../../assets/icons/error-24px.svg";
+import errorIcon from "../../assets/icons/error-24px.svg";
 
 import React, { useRef, useState, useEffect } from "react";
 import { Link, useNavigate, useParams } from "react-router-dom";
@@ -22,7 +22,9 @@ function EditInventoryItem() {
   const [warehouses, setWarehouses] = useState([]);
   const [categories, setCategories] = useState([]);
   const [showCategoryDropdown, setShowCategoryDropdown] = useState(false);
-
+  const [quantity, setQuantity] = useState(0);
+  const [status, setStatus] = useState("In Stock");
+  const [warehouseId, setWarehouseId] = useState(0);
   const handleBack = () => {
     navigate(-1);
   };
@@ -43,6 +45,9 @@ function EditInventoryItem() {
           setDescription(inventoryResponse.data.description);
           setCategory(inventoryResponse.data.category);
           setWarehouseName(inventoryResponse.data.warehouse_name);
+          setQuantity(inventoryResponse.data.quantity);
+          setStatus(inventoryResponse.data.status);
+          setWarehouseId(inventoryResponse.data.warehouse_id);
         }
       } catch (error) {
         console.error("Error fetching data:", error);
@@ -102,6 +107,23 @@ function EditInventoryItem() {
     if (!warehouseName.trim()) {
       formErrors.warehouseName = errorMessage;
     }
+    if (status === "In Stock") {
+      // check if quantity is not a number or empty string.
+      if (isNaN(quantity) || quantity === " ") {
+        formErrors.quantity = "Quantity must be a number.";
+      } else if (!Number.isInteger(Number(quantity))) {
+        // check if quantity is a whole number.
+        formErrors.quantity = "Quantity must be a whole number.";
+      } else if (quantity <= 0) {
+        // check if quantity is zero or less.
+        formErrors.quantity = "Quantity cannot be zero(0)";
+      }
+    }
+    if (status === "Out of Stock") {
+      if (quantity > 0) {
+        formErrors.quantity = "Quantity cannot be greather than zero(0)";
+      }
+    }
     setErrors(formErrors);
     return Object.keys(formErrors).length === 0;
   };
@@ -110,33 +132,49 @@ function EditInventoryItem() {
     event.preventDefault();
 
     if (validateForm()) {
+      console.log("here");
       const updatedInventoryItem = {
-        warehouse_id: inventory.warehouse_id,
+        warehouse_id: warehouseId,
         item_name: itemName,
-        description,
-        category,
-        status: inventory.status,
-        quantity: inventory.quantity,
+        description: description,
+        category: category,
+        quantity: quantity,
+        status: status,
       };
 
+      //TODO: del
+      console.log("inventory.id", inventory.id);
+      console.log("updated", updatedInventoryItem);
+
       try {
+        // POST request to backend API
         const response = await axios.put(
           `${process.env.REACT_APP_BACKEND_URL}/inventories/${inventory.id}`,
           updatedInventoryItem
         );
 
-        if (response.status === 200) {
+        if (response.status === 201) {
           console.log("Inventory item updated successfully");
+          setErrors({});
           resetForm();
-          navigate("/");
+          navigate("/inventory");
         }
       } catch (error) {
-        console.error("Error updating inventory item:", error);
+        if (error.response && error.response.status === 400) {
+          setErrors({
+            exception: error.response.data.errorMessage, // missing fields or format error
+          });
+        } else if (error.response && error.response.status === 500) {
+          setErrors({
+            exception: error.response.data.errorMessage, // Internal server error
+          });
+        } else {
+          setErrors({
+            exception: "Error updating new inventory item", // Generic error message
+          });
+        }
+        console.error("Error updating new inventory item.", error);
       }
-
-      navigate("/inventory");
-    } else {
-      console.log("Form has errors, please correct them");
     }
   };
 
@@ -145,6 +183,9 @@ function EditInventoryItem() {
     setDescription("");
     setCategory("");
     setWarehouseName("");
+    setWarehouseId(1);
+    setQuantity(0);
+    setStatus("In Stock");
     setErrors({});
   };
 
@@ -165,16 +206,7 @@ function EditInventoryItem() {
             <div className="inv__container">
               <div className="inv__details">
                 <h2 className="inv__details-title">Item Details</h2>
-                {errors.itemName && (
-                  <img
-                    src={erroricon}
-                    alt="error icon"
-                    className="inv__error-icon"
-                  />
-                )}
-                {errors.itemName && (
-                  <span className="inv__error-message">{errors.itemName}</span>
-                )}
+
                 <h3 className="inv__details-label">Item Name</h3>
                 <input
                   type="text"
@@ -184,18 +216,17 @@ function EditInventoryItem() {
                   value={itemName}
                   onChange={(e) => setItemName(e.target.value)}
                 />
-
-                {errors.description && (
-                  <img
-                    src={erroricon}
-                    alt="error icon"
-                    className="inv__error-icon"
-                  />
-                )}
-                {errors.description && (
-                  <span className="inv__error-message">
-                    {errors.description}
-                  </span>
+                {errors.itemName && (
+                  <div className="inv__error-container">
+                    <img
+                      src={errorIcon}
+                      alt="error icon"
+                      className="inv__error-icon"
+                    />
+                    <span className="inv__error-message">
+                      {errors.itemName}
+                    </span>
+                  </div>
                 )}
 
                 <h3 className="inv__details-label">Description</h3>
@@ -208,6 +239,18 @@ function EditInventoryItem() {
                   onChange={(e) => setDescription(e.target.value)}
                 />
 
+                {errors.description && (
+                  <div className="inv__error-container">
+                    <img
+                      src={errorIcon}
+                      alt="error icon"
+                      className="inv__error-icon"
+                    />
+                    <span className="inv__error-message">
+                      {errors.description}
+                    </span>
+                  </div>
+                )}
                 <h3 className="inv__details-label">Category</h3>
                 <div className="dropdown-container">
                   <input
@@ -220,6 +263,7 @@ function EditInventoryItem() {
                     placeholder="Please select"
                     value={category}
                     onChange={handleCategoryChange}
+                    readOnly
                   />
                   {showCategoryOptions && (
                     <div className="dropdown-options">
@@ -236,9 +280,21 @@ function EditInventoryItem() {
                       ))}
                     </div>
                   )}
+                  {errors.category && (
+                    <div className="inv__error-container">
+                      <img
+                        src={errorIcon}
+                        alt="error icon"
+                        className="inv__error-icon"
+                      />
+                      <span className="inv__error-message">
+                        {errors.category}
+                      </span>
+                    </div>
+                  )}
                 </div>
                 <img
-                  className="inv__details-input-logo-1"
+                  className={`inv__details-input-logo-1 ${errors.category && "inv__details-input-logo-1--align-error"}`}
                   src={ArrowDown}
                   alt="Arrow down"
                   onClick={() => setShowCategoryOptions(!showCategoryOptions)}
@@ -276,18 +332,34 @@ function EditInventoryItem() {
                     </>
                   )}
                 </div>
-                {errors.warehouseName && (
-                  <img
-                    src={erroricon}
-                    alt="error icon"
-                    className="inv__error-icon"
+                <h3 className="inv__details-label">Quantity</h3>
+                {status === "In Stock" && (
+                  <input
+                    type="text"
+                    name="quantity"
+                    id="quantity"
+                    className={`inv__details-input ${
+                      errors.quantity ? "inv__details-input--error" : ""
+                    }`}
+                    placeholder="0"
+                    value={quantity}
+                    onChange={(e) => setQuantity(e.target.value)}
                   />
                 )}
-                {errors.warehouseName && (
-                  <span className="inv__error-message">
-                    {errors.warehouseName}
-                  </span>
+                {errors.quantity && (
+                  <div className="inv__error-container">
+                    <img
+                      src={errorIcon}
+                      alt="error icon"
+                      className="inv__error-icon"
+                    />
+                    <span className="inv__error-message">
+                      {errors.quantity}
+                    </span>
+                  </div>
                 )}
+
+          
                 <h3 className="inv__details-label">Warehouse</h3>
                 <div className="dropdown-container">
                   <input
@@ -300,13 +372,15 @@ function EditInventoryItem() {
                     placeholder="Please select"
                     value={warehouseName}
                     onChange={handleWarehouseChange}
+                    readOnly
                   />
                   {showWarehouseOptions && (
                     <div className="dropdown-options">
-                      {warehouses.map((wh, index) => (
+                      {warehouses.map((wh) => (
                         <div
-                          key={index}
+                          key={wh.id}
                           onClick={() => {
+                            setWarehouseId(wh.id);
                             setWarehouseName(wh.warehouse_name);
                             setShowWarehouseOptions(false);
                           }}
@@ -316,10 +390,22 @@ function EditInventoryItem() {
                       ))}
                     </div>
                   )}
+                  {errors.warehouseName && (
+              <div className="inv__error-container">
+                <img
+                  src={errorIcon}
+                  alt="error icon"
+                  className="inv__error-icon"
+                />
+                <span className="inv__error-message">
+                  {errors.warehouseName}
+                </span>
+              </div>
+            )}
                 </div>
                 <img
-                  className="inv__avail-input-logo-2"
-                  src={ArrowDown}
+              className={`inv__avail-input-logo-2 ${errors.warehouseName && "inv__avail-input-logo-2--align-error"}`}
+              src={ArrowDown}
                   alt="Arrow down"
                   onClick={() => setShowWarehouseOptions(!showWarehouseOptions)}
                 />
