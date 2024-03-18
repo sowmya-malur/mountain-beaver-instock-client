@@ -1,7 +1,7 @@
 import "./EditInventoryItemPage.scss";
 import Arrow from "../../assets/icons/arrow_back-24px.svg";
 import ArrowDown from "../../assets/icons/arrow_drop_down-24px.svg";
-import erroricon from "../../assets/icons/error-24px.svg";
+import errorIcon from "../../assets/icons/error-24px.svg";
 
 import React, { useRef, useState, useEffect } from "react";
 import { Link, useNavigate, useParams } from "react-router-dom";
@@ -203,14 +203,7 @@ function EditInventoryItem() {
             <div className="inv__container">
               <div className="inv__details">
                 <h2 className="inv__details-title">Item Details</h2>
-                {errors.itemName && (
-                  <img
-                    src={erroricon}
-                    alt="error icon"
-                    className="inv__error-icon"
-                  />
-                )}
-            
+
                 <h3 className="inv__details-label">Item Name</h3>
                 <input
                   type="text"
@@ -220,21 +213,17 @@ function EditInventoryItem() {
                   value={itemName}
                   onChange={(e) => setItemName(e.target.value)}
                 />
-                    {errors.itemName && (
-                  <span className="inv__error-message">{errors.itemName}</span>
-                )}
-                
-                {errors.description && (
-                  <img
-                    src={erroricon}
-                    alt="error icon"
-                    className="inv__error-icon"
-                  />
-                )}
-                {errors.description && (
-                  <span className="inv__error-message">
-                    {errors.description}
-                  </span>
+                {errors.itemName && (
+                  <div className="inv__error-container">
+                    <img
+                      src={errorIcon}
+                      alt="error icon"
+                      className="inv__error-icon"
+                    />
+                    <span className="inv__error-message">
+                      {errors.itemName}
+                    </span>
+                  </div>
                 )}
 
                 <h3 className="inv__details-label">Description</h3>
@@ -247,6 +236,18 @@ function EditInventoryItem() {
                   onChange={(e) => setDescription(e.target.value)}
                 />
 
+                {errors.description && (
+                  <div className="inv__error-container">
+                    <img
+                      src={errorIcon}
+                      alt="error icon"
+                      className="inv__error-icon"
+                    />
+                    <span className="inv__error-message">
+                      {errors.description}
+                    </span>
+                  </div>
+                )}
                 <h3 className="inv__details-label">Category</h3>
                 <div className="dropdown-container">
                   <input
@@ -273,6 +274,18 @@ function EditInventoryItem() {
                           {cat}
                         </div>
                       ))}
+                    </div>
+                  )}
+                  {errors.category && (
+                    <div className="inv__error-container">
+                      <img
+                        src={errorIcon}
+                        alt="error icon"
+                        className="inv__error-icon"
+                      />
+                      <span className="inv__error-message">
+                        {errors.category}
+                      </span>
                     </div>
                   )}
                 </div>
@@ -332,7 +345,7 @@ function EditInventoryItem() {
                 {errors.quantity && (
                   <div className="inv__error-container">
                     <img
-                      src={erroricon}
+                      src={errorIcon}
                       alt="error icon"
                       className="inv__error-icon"
                     />
@@ -344,7 +357,7 @@ function EditInventoryItem() {
 
                 {errors.warehouseName && (
                   <img
-                    src={erroricon}
+                    src={errorIcon}
                     alt="error icon"
                     className="inv__error-icon"
                   />
