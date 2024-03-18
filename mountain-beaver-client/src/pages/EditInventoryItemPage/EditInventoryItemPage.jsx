@@ -260,6 +260,7 @@ function EditInventoryItem() {
                     placeholder="Please select"
                     value={category}
                     onChange={handleCategoryChange}
+                    readOnly
                   />
                   {showCategoryOptions && (
                     <div className="dropdown-options">
@@ -368,6 +369,7 @@ function EditInventoryItem() {
                     placeholder="Please select"
                     value={warehouseName}
                     onChange={handleWarehouseChange}
+                    readOnly
                   />
                   {showWarehouseOptions && (
                     <div className="dropdown-options">
