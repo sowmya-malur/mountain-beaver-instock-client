@@ -119,18 +119,16 @@ function EditInventoryItem() {
         formErrors.quantity = "Quantity cannot be zero(0)";
       }
     }
-    // else if (status === "Out of Stock" && parseInt(quantity) > 0) {
-    //   formErrors.quantity = "Change the qty to zero(0) when status is 'Out of Stock'";
-    // }
+
     setErrors(formErrors);
     return Object.keys(formErrors).length === 0;
   };
 
-  useEffect(()=>{
-      if(status === "Out of Stock") {
-        setQuantity("0");
-      }
-  },[status]);
+  useEffect(() => {
+    if (status === "Out of Stock") {
+      setQuantity("0");
+    }
+  }, [status]);
 
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -192,7 +190,7 @@ function EditInventoryItem() {
   // Function to toggle the status
   const toggleStatus = () => {
     setStatus(status === "In Stock" ? "Out of Stock" : "In Stock");
-    if(status === "Out of stock") {
+    if (status === "Out of stock") {
       setQuantity(0);
     }
   };
@@ -313,60 +311,45 @@ function EditInventoryItem() {
               {/* Availability */}
               <div className="inv__avail">
                 <h2 className="inv__details-title">Item Availability</h2>
-                <h3 className="inv__details-label">
-                  Status:
-                </h3>
-           
+                <h3 className="inv__details-label">Status:</h3>
 
-               <div className="inv__avail-wrapper"> 
-                
-                    <>
-                      <div className="inv__avail-cont" onClick={toggleStatus}>
-                        <div className={status === "In Stock" ? "inv__avail-shape-out" : "inv__avail-shape"}>
-                          <div className="inv__avail-dot"></div>
-                        </div>
-                        <p className="inv__avail-text">In stock</p>
-                      </div>
-                      <div className="inv__avail-cont" onClick={toggleStatus}>
-                        <div className={status === "Out of Stock" ? "inv__avail-shape-out" : "inv__avail-shape"}>
+                <div className="inv__avail-wrapper">
+                  <div
+                    className="inv__avail-cont"
+                    onClick={() => toggleStatus("In Stock")}
+                  >
+                    <div
+                      className={
+                        status === "In Stock"
+                          ? "inv__avail-shape-out"
+                          : "inv__avail-shape"
+                      }
+                    >
+                      {status === "In Stock" && (
                         <div className="inv__avail-dot"></div>
-                        </div>
-                        <p className="inv__avail-text">Out of stock</p>
-                      </div>
-                    </>
+                      )}
                     </div>
-              
+                    <p className="inv__avail-text">In stock</p>
+                  </div>
+                  <div
+                    className="inv__avail-cont"
+                    onClick={() => toggleStatus("Out of Stock")}
+                  >
+                    <div
+                      className={
+                        status === "Out of Stock"
+                          ? "inv__avail-shape-out"
+                          : "inv__avail-shape"
+                      }
+                    >
+                      {status === "Out of Stock" && (
+                        <div className="inv__avail-dot"></div>
+                      )}
+                    </div>
+                    <p className="inv__avail-text">Out of stock</p>
+                  </div>
+                </div>
 
-            {/* <div className="inv__avail-wrapper">
-                  {inventory.quantity > 0 ? (
-                    <>
-                      <div className="inv__avail-cont">
-                        <div className="inv__avail-shape-out">
-                          <div className="inv__avail-dot"></div>
-                        </div>
-                        <p className="inv__avail-text">In stock</p>
-                      </div>
-                      <div className="inv__avail-cont">
-                        <div className="inv__avail-shape"></div>
-                        <p className="inv__avail-text">Out of stock</p>
-                      </div>
-                    </>
-                  ) : (
-                    <>
-                      <div className="inv__avail-cont">
-                        <div className="inv__avail-shape"></div>
-                        <p className="inv__avail-text">In stock</p>
-                      </div>
-                      <div className="inv__avail-cont">
-                        <div className="inv__avail-shape-out">
-                          <div className="inv__avail-dot"></div>
-                        </div>
-                        <p className="inv__avail-text">Out of stock</p>
-                      </div>
-                    </>
-                  )}
-                </div> */}
-                
                 {status === "In Stock" && (
                   <>
                     <h3 className="inv__details-label">Quantity</h3>
