@@ -40,6 +40,11 @@
     margin-right: 0.5rem;
     height: 1.8rem;
     margin-top: 0.3rem;
+    width: 1.9rem;
+    transition: all 0.2s;
+    &:hover {
+      padding-right: 4px;
+    }
   }
   &__text {
     font-size: $mobile-font-size-header;
@@ -250,8 +255,5 @@
     @include tablet {
       font-size: $tablet-font-size-body-small;
     }
-
-   
   }
-
 }
