@@ -69,7 +69,7 @@ const WarehouseList = () => {
             <img src={SearchLogo} alt="" className="warehouse__logo" />
 
             <button onClick={handleAdd} className="warehouse__button">
-              +Add New Item
+              +Add New Warehouse
             </button>
           </div>
         </div>

@@ -85,7 +85,7 @@ const WarehouseInventoryList = ({ warehouseId }) => {
         <div className="wInventory__container">
           <div className="wInventory__input-wrapper">
             <div onClick={handleBack} className="wInventory__logoContainer">
-              <img src={backarrow} alt="back arrow icon" />
+              <img src={backarrow} alt="back arrow icon" className="wInventory__arrow" />
               <h1 className="wInventory__locationName">
                 {currentWarehouse.warehouse_name}
               </h1>

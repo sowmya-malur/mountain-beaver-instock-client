@@ -85,7 +85,11 @@ function InventoryDetails() {
             <div className="inv-details__page-title">
               <div className="inv-details__inner-container">
                 <div onClick={handleBack} className="inv-details__arrow-back">
-                  <img src={backarrow} alt="back arrow icon" />
+                  <img
+                    src={backarrow}
+                    alt="back arrow icon"
+                    className="inv-details__arrow"
+                  />
                 </div>
                 <h1 className="inv-details__title">{inventory.item_name}</h1>
               </div>
