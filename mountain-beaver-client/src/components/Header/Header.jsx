@@ -13,7 +13,7 @@ function Header() {
             className={({ isActive }) =>
               isActive ? "header__link header__link--active" : "header__link"
             }
-            to="/warehouses"
+            to={"/" || "/warehouses"}
           >
             Warehouses
           </NavLink>
