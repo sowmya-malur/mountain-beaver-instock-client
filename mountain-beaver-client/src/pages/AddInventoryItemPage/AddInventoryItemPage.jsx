@@ -257,7 +257,6 @@ function AddInventoryItemPage() {
             </div>
 
             <img
-              // className="inv__details-input-logo-1"
               className={`inv__details-input-logo-1 ${errors.category && "inv__details-input-logo-1--align-error"}`}
               src={ArrowDown}
               alt="Arrow down"

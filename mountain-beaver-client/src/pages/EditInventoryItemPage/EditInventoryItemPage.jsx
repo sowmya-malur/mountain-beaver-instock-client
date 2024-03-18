@@ -290,7 +290,7 @@ function EditInventoryItem() {
                   )}
                 </div>
                 <img
-                  className="inv__details-input-logo-1"
+                  className={`inv__details-input-logo-1 ${errors.category && "inv__details-input-logo-1--align-error"}`}
                   src={ArrowDown}
                   alt="Arrow down"
                   onClick={() => setShowCategoryOptions(!showCategoryOptions)}
@@ -355,18 +355,7 @@ function EditInventoryItem() {
                   </div>
                 )}
 
-                {errors.warehouseName && (
-                  <img
-                    src={errorIcon}
-                    alt="error icon"
-                    className="inv__error-icon"
-                  />
-                )}
-                {errors.warehouseName && (
-                  <span className="inv__error-message">
-                    {errors.warehouseName}
-                  </span>
-                )}
+          
                 <h3 className="inv__details-label">Warehouse</h3>
                 <div className="dropdown-container">
                   <input
@@ -396,10 +385,22 @@ function EditInventoryItem() {
                       ))}
                     </div>
                   )}
+                  {errors.warehouseName && (
+              <div className="inv__error-container">
+                <img
+                  src={errorIcon}
+                  alt="error icon"
+                  className="inv__error-icon"
+                />
+                <span className="inv__error-message">
+                  {errors.warehouseName}
+                </span>
+              </div>
+            )}
                 </div>
                 <img
-                  className="inv__avail-input-logo-2"
-                  src={ArrowDown}
+              className={`inv__avail-input-logo-2 ${errors.warehouseName && "inv__avail-input-logo-2--align-error"}`}
+              src={ArrowDown}
                   alt="Arrow down"
                   onClick={() => setShowWarehouseOptions(!showWarehouseOptions)}
                 />
