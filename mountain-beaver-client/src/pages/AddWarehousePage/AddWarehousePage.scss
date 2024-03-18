@@ -23,6 +23,11 @@
   }
   &__arrow-back {
     display: flex;
+    width: 2rem;
+    transition: all 0.2s;
+    &:hover {
+      padding-right: 4px;
+    }
   }
 
   &__page-title {
@@ -30,7 +35,6 @@
     flex-direction: row;
     gap: 0.625rem;
     border-bottom: 0.063rem solid $color-borders;
-
     padding: $mobile-margin;
 
     @include tablet {
@@ -110,7 +114,6 @@
     @include tablet {
       font-size: $tablet-font-size-label-button;
       height: $element-tablet-height;
-      
     }
     &--error {
       border: 0.063rem solid $color-error;
