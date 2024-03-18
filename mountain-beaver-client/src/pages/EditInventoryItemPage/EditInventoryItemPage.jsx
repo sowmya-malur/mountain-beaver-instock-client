@@ -23,7 +23,7 @@ function EditInventoryItem() {
   const [categories, setCategories] = useState([]);
   const [showCategoryDropdown, setShowCategoryDropdown] = useState(false);
   const [quantity, setQuantity] = useState(0);
-  const [status, setStatus] = useState("In Stock")
+  const [status, setStatus] = useState("In Stock");
   const [warehouseId, setWarehouseId] = useState(0);
   const handleBack = () => {
     navigate(-1);
@@ -106,7 +106,7 @@ function EditInventoryItem() {
     }
     if (status === "In Stock") {
       // check if quantity is not a number or empty string.
-      if (isNaN(quantity) || (quantity === ' ')) {
+      if (isNaN(quantity) || quantity === " ") {
         formErrors.quantity = "Quantity must be a number.";
       } else if (!Number.isInteger(Number(quantity))) {
         // check if quantity is a whole number.
@@ -116,8 +116,8 @@ function EditInventoryItem() {
         formErrors.quantity = "Quantity cannot be zero(0)";
       }
     }
-    if(status === "Out of Stock") {
-      if(quantity > 0) {
+    if (status === "Out of Stock") {
+      if (quantity > 0) {
         formErrors.quantity = "Quantity cannot be greather than zero(0)";
       }
     }
@@ -127,33 +127,34 @@ function EditInventoryItem() {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-  
+
     if (validateForm()) {
       console.log("here");
       const updatedInventoryItem = {
-        warehouse_id: inventory.warehouse_id,
+        warehouse_id: warehouseId,
         item_name: itemName,
-        description,
-        category,
-        status: inventory.status,
-        quantity: inventory.quantity,
+        description: description,
+        category: category,
+        quantity: quantity,
+        status: status,
       };
 
-         //TODO: del
-         console.log("warehouse_id", inventory.warehouse_id);
-         console.log("updated", updatedInventoryItem);
+      //TODO: del
+      console.log("inventory.id", inventory.id);
+      console.log("updated", updatedInventoryItem);
 
       try {
+        // POST request to backend API
         const response = await axios.put(
           `${process.env.REACT_APP_BACKEND_URL}/inventories/${inventory.id}`,
           updatedInventoryItem
         );
 
-        if (response.status === 200) {
+        if (response.status === 201) {
           console.log("Inventory item updated successfully");
           setErrors({});
-          // resetForm();
-          // navigate("/inventory");
+          resetForm();
+          navigate("/inventory");
         }
       } catch (error) {
         if (error.response && error.response.status === 400) {
@@ -171,7 +172,7 @@ function EditInventoryItem() {
         }
         console.error("Error updating new inventory item.", error);
       }
-    } 
+    }
   };
 
   const resetForm = () => {
@@ -209,9 +210,7 @@ function EditInventoryItem() {
                     className="inv__error-icon"
                   />
                 )}
-                {errors.itemName && (
-                  <span className="inv__error-message">{errors.itemName}</span>
-                )}
+            
                 <h3 className="inv__details-label">Item Name</h3>
                 <input
                   type="text"
@@ -221,7 +220,10 @@ function EditInventoryItem() {
                   value={itemName}
                   onChange={(e) => setItemName(e.target.value)}
                 />
-
+                    {errors.itemName && (
+                  <span className="inv__error-message">{errors.itemName}</span>
+                )}
+                
                 {errors.description && (
                   <img
                     src={erroricon}
@@ -314,29 +316,31 @@ function EditInventoryItem() {
                   )}
                 </div>
                 <h3 className="inv__details-label">Quantity</h3>
-            {status === "In Stock" && (
-              <input
-                type="text"
-                name="quantity"
-                id="quantity"
-                className={`inv__details-input ${
-                  errors.quantity ? "inv__details-input--error" : ""
-                }`}
-                placeholder="0"
-                value={quantity}
-                onChange={(e) => setQuantity(e.target.value)}
-              />
-            )}
-            {errors.quantity && (
-              <div className="inv__error-container">
-                <img
-                  src={erroricon}
-                  alt="error icon"
-                  className="inv__error-icon"
-                />
-                <span className="inv__error-message">{errors.quantity}</span>
-              </div>
-            )}
+                {status === "In Stock" && (
+                  <input
+                    type="text"
+                    name="quantity"
+                    id="quantity"
+                    className={`inv__details-input ${
+                      errors.quantity ? "inv__details-input--error" : ""
+                    }`}
+                    placeholder="0"
+                    value={quantity}
+                    onChange={(e) => setQuantity(e.target.value)}
+                  />
+                )}
+                {errors.quantity && (
+                  <div className="inv__error-container">
+                    <img
+                      src={erroricon}
+                      alt="error icon"
+                      className="inv__error-icon"
+                    />
+                    <span className="inv__error-message">
+                      {errors.quantity}
+                    </span>
+                  </div>
+                )}
 
                 {errors.warehouseName && (
                   <img
