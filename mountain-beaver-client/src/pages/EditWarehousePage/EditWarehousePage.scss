@@ -25,6 +25,14 @@
   &__arrow-back {
     display: flex;
   }
+  &__arrow {
+    width: 2rem;
+    transition: all 0.2s;
+    &:hover {
+      padding-right: 4px;
+      cursor: pointer;
+    }
+  }
 
   &__page-title {
     display: flex;

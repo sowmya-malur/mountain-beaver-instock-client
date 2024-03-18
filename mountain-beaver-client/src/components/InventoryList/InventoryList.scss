@@ -2,7 +2,7 @@
 @use "../../styles/partials/mixin" as *;
 @use "../../styles/partials/typography" as *;
 
-.warehouse {
+.inventory {
   background-color: $color-background-light;
   &__wrapper {
     position: relative;
@@ -86,7 +86,7 @@
     cursor: pointer;
     margin-bottom: 2rem;
     @include tablet {
-      width: 20rem;
+      width: 12.75rem;
     }
   }
   &__titles {
@@ -106,24 +106,22 @@
     width: fit-content;
 
     &--name {
-      width: 17vw;
+      width: 20vw;
     }
     &--type {
-      width: 14vw;
+      width: 15vw;
+    }
+    &--status {
+      width: 16vw;
       @include desktop {
-        mini-width: 23vw;
+        width: 18vw;
       }
     }
-    &--contactName {
-      width: 19vw;
+    &--qty {
+      width: 8vw;
+      max-width: 16rem;
       @include desktop {
-        width: 21vw;
-      }
-    }
-    &--info {
-      width: 27vw;
-      @include desktop {
-        width: 22vw;
+        width: 6vw;
       }
     }
     &--warehouse {

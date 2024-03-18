@@ -2,7 +2,7 @@
 @use "../../styles/partials/mixin" as *;
 @use "../../styles/partials/typography" as *;
 
-.warehouse {
+.wInventory {
   background-color: $color-background-light;
   &__wrapper {
     position: relative;
@@ -29,12 +29,11 @@
     border-bottom: 0.063rem solid $color-borders;
     padding: 0 1rem;
     @include tablet {
+      height: 6rem;
       display: flex;
       flex-direction: row;
-      align-items: baseline;
+      align-items: center;
       justify-content: space-between;
-      padding-top: 1rem;
-      border-bottom: none;
     }
   }
   &__topTitle {
@@ -45,8 +44,11 @@
     padding-bottom: 1rem;
   }
   &__input-wrapper {
+    width: 100%;
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
+    justify-content: space-between;
+    padding: 2rem 1rem;
     @include tablet {
       display: flex;
       flex-direction: row;
@@ -86,7 +88,7 @@
     cursor: pointer;
     margin-bottom: 2rem;
     @include tablet {
-      width: 20rem;
+      width: 12.75rem;
     }
   }
   &__titles {
@@ -106,24 +108,23 @@
     width: fit-content;
 
     &--name {
-      width: 17vw;
+      width: 20vw;
     }
     &--type {
-      width: 14vw;
+      width: 15vw;
+    }
+    &--status {
+      width: 16vw;
       @include desktop {
-        mini-width: 23vw;
+        width: 18vw;
       }
     }
-    &--contactName {
-      width: 19vw;
+    &--qty {
+      width: 8vw;
+      max-width: 16rem;
+      margin-right: 5vw;
       @include desktop {
-        width: 21vw;
-      }
-    }
-    &--info {
-      width: 27vw;
-      @include desktop {
-        width: 22vw;
+        width: 5vw;
       }
     }
     &--warehouse {
@@ -132,6 +133,84 @@
       @include desktop {
         width: 16%;
         max-width: 17rem;
+      }
+    }
+  }
+  &__logoContainer {
+    width: 15rem;
+    display: flex;
+    justify-content: flex-start;
+    gap: 0.625rem;
+  }
+  &__arrow {
+    width: 2rem;
+    transition: all 0.2s;
+    &:hover {
+      cursor: pointer;
+      padding-right: 4px;
+    }
+  }
+  &__locationName {
+    font-size: 2rem;
+  }
+  &__edit {
+    @include tablet {
+      width: 5rem;
+      background-color: $color-primary-cta;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding-right: 1rem;
+      height: 2.5rem;
+      border-radius: 30px;
+    }
+    &:hover {
+      cursor: pointer;
+    }
+  }
+  &__editIcon {
+    width: 3rem;
+    @include tablet {
+      width: fit-content;
+    }
+  }
+  &__editText {
+    display: none;
+    color: $color-global;
+    @include tablet {
+      display: inline-block;
+    }
+  }
+  &__warehouseInfo {
+    padding: 1rem 10vw 2rem 2rem;
+    color: $color-secondary-text;
+    border-bottom: 1px solid $color-borders;
+    @include tablet {
+      border-bottom: none;
+      display: flex;
+      padding-bottom: 0;
+    }
+  }
+  &__data {
+    color: $color-primary-text;
+    &--address {
+      display: inline-block;
+      @include tablet {
+        display: block;
+      }
+    }
+  }
+  &__infoBlock {
+    display: flex;
+    width: 100%;
+    max-width: 23rem;
+    justify-content: space-between;
+    &--top {
+      margin-bottom: 2rem;
+      @include tablet {
+        max-width: 25vw;
+        margin-right: 5vw;
+        border-right: 2px solid $color-borders;
       }
     }
   }

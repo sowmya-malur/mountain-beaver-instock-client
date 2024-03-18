@@ -1,26 +1,22 @@
 import React from "react";
 import "./Modal.scss";
-import axios from "axios";
 
 /*
 Component Modal
 Props:
   -name: name of item (ex. television)
   -type: warehouse or inventory
-  -id: id of warehouse or inventory
   -setActive: change the bolean of showing modal in parent component
-  -fethList: the feth list function of warehouse or inventory
+  -Del: delete inventory function pass from parent
 */
 
-function Modal({ name, type, id, setActive, fetchList }) {
-  const url = `${process.env.REACT_APP_URL}/${type}/${id}`;
+function Modal({ name, type, setActive, del }) {
   const handleCancel = (e) => {
     e.preventDefault();
     setActive(false);
   };
   const handleDelete = async () => {
-    await axios.delete(url);
-    await fetchList();
+    del();
     setActive(false);
   };
   return (

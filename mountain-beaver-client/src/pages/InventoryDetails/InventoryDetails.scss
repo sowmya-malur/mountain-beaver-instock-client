@@ -28,6 +28,16 @@
 
   &__arrow-back {
     display: flex;
+    &:hover {
+      cursor: pointer;
+    }
+  }
+  &__arrow {
+    width: 2rem;
+    transition: all 0.2s;
+    &:hover {
+      padding-right: 4px;
+    }
   }
 
   &__page-title {
@@ -143,7 +153,7 @@
 
   &__column {
     @include tablet {
-      flex:1;
+      flex: 1;
       padding-left: $tablet-margin;
       padding-right: $tablet-margin;
       margin-top: 2rem;
@@ -153,7 +163,7 @@
       padding-left: $desktop-inner-margin;
       padding-right: $desktop-inner-margin;
     }
-    
+
     &--divider {
       @include tablet {
         border-left: 0.063rem solid $color-borders;
@@ -163,6 +173,22 @@
 
   &__edit {
     cursor: pointer;
+    @include tablet {
+      background-color: $color-primary-cta;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding-right: 1rem;
+      border-radius: 30px;
+      width: 5rem;
+    }
+  }
+  &__editText {
+    color: $color-global;
+    display: none;
+    @include tablet {
+      display: inline-block;
+    }
   }
 
   &__error-message {
@@ -171,7 +197,7 @@
     flex-direction: row;
     align-items: center;
     font-size: $mobile-font-size-body-small;
-    
+
     @include tablet {
       font-size: $tablet-font-size-body-small;
     }
