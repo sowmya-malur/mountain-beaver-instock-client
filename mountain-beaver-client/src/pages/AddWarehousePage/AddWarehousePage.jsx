@@ -223,7 +223,7 @@ function AddWarehousePage() {
       <div className="wrapper">
         <div className="add-warehouse__page-title">
           <Link to="/" className="add-warehouse__arrow-back">
-            <img src={backarrow} alt="back arrow icon" />
+            <img src={backarrow} alt="back arrow icon"/>
           </Link>
           <h1 className="add-warehouse__title">Add New Warehouse</h1>
         </div>

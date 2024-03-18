@@ -137,10 +137,17 @@
     }
   }
   &__logoContainer {
-    width: fit-content;
+    width: 15rem;
     display: flex;
+    justify-content: flex-start;
+    gap: 0.625rem;
+  }
+  &__arrow {
+    width: 2rem;
+    transition: all 0.2s;
     &:hover {
       cursor: pointer;
+      padding-right: 4px;
     }
   }
   &__locationName {

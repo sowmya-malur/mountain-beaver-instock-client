@@ -267,7 +267,7 @@ function EditWarehousePage() {
       <div className="wrapper">
         <div className="edit-warehouse__page-title">
           <div onClick={handleBack} className="edit-warehouse__arrow-back">
-            <img src={backarrow} alt="back arrow icon" />
+            <img src={backarrow} alt="back arrow icon" className="edit-warehouse__arrow" />
           </div>
           <h1 className="edit-warehouse__title">Edit Warehouse</h1>
         </div>
