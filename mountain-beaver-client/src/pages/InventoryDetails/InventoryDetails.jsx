@@ -1,28 +1,24 @@
 import "../InventoryDetails/InventoryDetails.scss";
 
-import edit from "../../assets/icons/edit.png";
+import edit from "../../assets/icons/edit-24px.svg";
 import backarrow from "../../assets/icons/arrow_back-24px.svg";
 import erroricon from "../../assets/icons/error-24px.svg";
 
-import { useNavigate, useParams } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { useState, useEffect } from "react";
 import axios from "axios";
 
-function InventoryDetails() {
-  // Initialize hooks
+function InventoryDetails({ inventoryId }) {
   const navigate = useNavigate();
 
-  // Initialize use states
   const [inventory, setInventory] = useState({});
-  const [notFound, setNotFound] = useState(false); // if the item is found or not
-  const [errorMessage, setErrorMessage] = useState(""); // sets user-friendly error messages
-  const { inventoryId } = useParams();
+  const [notFound, setNotFound] = useState(false);
 
   const handleClick = () => {
-    navigate(`/inventory/${inventoryId}/edit`);
-  };
-  const handleBack = () => {
-    navigate(-1);
+    console.log("in click");
+    // TODO: Add functionality to call edit inventory item page by passing the id
+    // navigate("/EditInventoryItem/inventoryId"); //TODO: to test integration
   };
 
   useEffect(() => {
@@ -30,8 +26,9 @@ function InventoryDetails() {
       try {
         // Fetch inventory data from backend API
         const inventoryResponse = await axios.get(
-          `${process.env.REACT_APP_BACKEND_URL}/inventories/${inventoryId}`
+          `${process.env.REACT_APP_BACKEND_URL}/api/inventories/${inventoryId}`
         );
+
         // If request is successful and data is received, set inventory state
         if (inventoryResponse.status === 200) {
           setInventory(inventoryResponse.data);
@@ -42,12 +39,8 @@ function InventoryDetails() {
         if (error.response && error.response.status === 404) {
           // If inventory item not found, set notFound state to true
           setNotFound(true);
-          setErrorMessage("Inventory item not found");
           console.error("Inventory item not found");
         } else {
-          setErrorMessage(
-            "Error fetching inventory data. Please try again later."
-          );
           console.error("Error fetching inventory data:", error);
         }
       }
@@ -71,45 +64,32 @@ function InventoryDetails() {
           <>
             <div className="inv-details__page-title">
               {/* TODO: Link to Warehouse Details page */}
-              <div onClick={handleBack} className="inv-details__arrow-back">
+              <Link to="/" className="inv-details__arrow-back">
                 <img src={backarrow} alt="back arrow icon" />
-              </div>
+              </Link>
             </div>
             <div className="inv-details__error-message inv-details__error-message--align">
-              <img src={erroricon} alt="error icon" />
-              <p>{errorMessage}</p>
-            </div>
+            <img src={erroricon} alt="error icon" />
+            <p>Item not found</p>
+          </div>
           </>
         ) : (
           <>
             <div className="inv-details__page-title">
+              {/* TODO: Link to Warehouse Details page */}
               <div className="inv-details__inner-container">
-                <div onClick={handleBack} className="inv-details__arrow-back">
-                  <img
-                    src={backarrow}
-                    alt="back arrow icon"
-                    className="inv-details__arrow"
-                  />
-                </div>
+                <Link to="/" className="inv-details__arrow-back">
+                  <img src={backarrow} alt="back arrow icon" />
+                </Link>
                 <h1 className="inv-details__title">{inventory.item_name}</h1>
               </div>
-              <div className="inv-details__edit">
-                <img
-                  src={edit}
-                  alt="edit icon"
-                  onClick={handleClick}
-                  className="inv-details__editIcon"
-                />
-                <span className="inv-details__editText">Edit</span>
-              </div>
+              <img src={edit} alt="edit icon" onClick={handleClick} className="inv-details__edit"/>
             </div>
             <div className="inv-details__container">
               <div className="inv-details__column">
                 <p className="inv-details__heading">ITEM DESCRIPTION:</p>
                 <p className="inv-details__info">{inventory.description}</p>
-                <p className="inv-details__heading inv-details__heading--spacing">
-                  CATEGORY:
-                </p>
+                <p className="inv-details__heading inv-details__heading--spacing">CATEGORY:</p>
                 <p className="inv-details__info">{inventory.category}</p>
               </div>
               <div className="inv-details__column inv-details__column--divider">
@@ -131,9 +111,7 @@ function InventoryDetails() {
                     <p className="inv-details__info">{inventory.quantity}</p>
                   </div>
                 </div>
-                <p className="inv-details__heading inv-details__heading--spacing">
-                  WAREHOUSE:
-                </p>
+                <p className="inv-details__heading inv-details__heading--spacing">WAREHOUSE:</p>
                 <p className="inv-details__info">{inventory.warehouse_name}</p>
               </div>
             </div>

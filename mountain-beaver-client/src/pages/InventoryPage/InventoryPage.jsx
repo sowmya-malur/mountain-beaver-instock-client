@@ -1,14 +1,12 @@
 import InventoryList from "../../components/InventoryList/InventoryList";
-import "./InventoryPage.scss";
 
 const InventoryPage = () => {
-  return (
-    <div className="inventoryPage">
-      <InventoryList
-        titles={["INVENTORY ITEM", "CATEGORY", "STATUS", "QTY", "WAREHOUSE"]}
-      />
-    </div>
-  );
+
+    return (
+        <>
+        <InventoryList/>
+        </>
+    );
 };
 
 export default InventoryPage;

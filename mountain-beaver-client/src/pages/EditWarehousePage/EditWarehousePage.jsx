@@ -2,18 +2,28 @@ import backarrow from "../../assets/icons/arrow_back-24px.svg";
 import erroricon from "../../assets/icons/error-24px.svg";
 import "../EditWarehousePage/EditWarehousePage.scss";
 
-import { Link, useNavigate, useParams } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useState, useRef, useEffect } from "react";
 import axios from "axios";
 
-function EditWarehousePage() {
+function EditWarehousePage({ warehouse }) {
+  // TODO: will get warehouse object with id for the row that was clicked to edit from Warehouses Page
+  // const warehouse = {
+  //     id: 1,
+  //     warehouse_name: "Manhattan",
+  //     address: "503 Broadway",
+  //     city: "New York",
+  //     country: "USA",
+  //     contact_name: "Parmin Aujla",
+  //     contact_position: "Warehouse Manager",
+  //     contact_phone: "+1 (646) 123-1234",
+  //     contact_email: "paujla@instock.com",
+  //   };
   // Initialize hooks
   const navigate = useNavigate();
-  const { warehouseId } = useParams();
   const errorMessage = "This field is required";
 
   // Set states for all the form fields and errors
-  const [warehouse, setWarehouse] = useState({}); // to display the warehouse record to be edited
   const [wareHouseName, setWareHouseName] = useState("");
   const [streetAddress, setStreetAddress] = useState("");
   const [city, setCity] = useState("");
@@ -22,8 +32,8 @@ function EditWarehousePage() {
   const [position, setPosition] = useState("");
   const [phoneNumber, setPhoneNumber] = useState("");
   const [email, setEmail] = useState("");
-  const [errors, setErrors] = useState({}); // state to track errors
-  const [notFound, setNotFound] = useState(false); // state to track if warehouse with the id is found or not
+  const [errors, setErrors] = useState({});
+  const [notFound, setNotFound] = useState(false);
   const [activeFields, setActiveFields] = useState({
     wareHouseName: false,
     streetAddress: false,
@@ -35,55 +45,18 @@ function EditWarehousePage() {
     email: false,
   });
 
-  const handleBack = () => {
-    navigate(-1);
-  };
-
   useEffect(() => {
-    const getWarehouse = async () => {
-      try {
-        // Fetch warehouse data from backend API for the given warehouse id
-        const warehouseResponse = await axios.get(
-          `${process.env.REACT_APP_BACKEND_URL}/warehouses/${warehouseId}`
-        );
-
-        // If request is successful and data is received, set warehouse state
-        if (warehouseResponse.status === 200) {
-          const warehouseData = warehouseResponse.data;
-          setWarehouse(warehouseData);
-
-          // Only set other state variables if warehouseData exists
-          if (warehouseData) {
-            setWareHouseName(warehouseData.warehouse_name);
-            setStreetAddress(warehouseData.address);
-            setCity(warehouseData.city);
-            setCountry(warehouseData.country);
-            setContactName(warehouseData.contact_name);
-            setPosition(warehouseData.contact_position);
-            setPhoneNumber(warehouseData.contact_phone);
-            setEmail(warehouseData.contact_email);
-          }
-        }
-      } catch (error) {
-        if (error.response && error.response.status === 404) {
-          // If warehouse record not found, set notFound state to true
-          setNotFound(true);
-          setErrors({
-            exception: "Error fetching warehouse data. Warehouse not found.",
-          });
-          console.error("Error fetching warehouse data. Warehouse not found.");
-        } else {
-          setErrors({
-            exception: "Error fetching warehouse data. Please try again later.",
-          });
-          console.error("Error fetching warehouse data:", error);
-        }
-      }
-    };
-
-    // call to async func
-    getWarehouse();
-  }, [warehouseId]);
+    if (warehouse) {
+      setWareHouseName(warehouse.warehouse_name);
+      setStreetAddress(warehouse.address);
+      setCity(warehouse.city);
+      setCountry(warehouse.country);
+      setContactName(warehouse.contact_name);
+      setPosition(warehouse.contact_position);
+      setPhoneNumber(warehouse.contact_phone);
+      setEmail(warehouse.contact_email);
+    }
+  }, [warehouse]);
 
   // Set refs for all the form fields to focus
   const formRef = useRef();
@@ -218,11 +191,12 @@ function EditWarehousePage() {
 
         // PUT request to backend API
         const response = await axios.put(
-          `${process.env.REACT_APP_BACKEND_URL}/warehouses/${warehouse.id}`,
+          `${process.env.REACT_APP_BACKEND_URL}/api/warehouses/${warehouse.id}`,
           updateWareHouse
         );
 
         if (response.status === 200) {
+          console.log("Warehouse updated successfully"); //TODO:
           setNotFound(false);
           // Reset form fields and clear errors
           resetForm();
@@ -232,17 +206,11 @@ function EditWarehousePage() {
     } catch (error) {
       // Handle any errors during the API call
       if (error.response && error.response.status === 404) {
-        // If warehouse record not found, set notFound state to true
+        // If inventory item not found, set notFound state to true
         setNotFound(true);
-        setErrors({
-          exception: "Error updating warehouse data. Warehouse not found.",
-        });
-        console.error("Error updating warehouse data. Warehouse not found.");
+        console.error("Warehouse not found");
       } else {
-        setErrors({
-          exception: "Error updating warehouse data. Please try again later.",
-        });
-        console.error("Error updating warehouse.", error);
+        console.error("Error updating warehouse", error);
       }
     }
   };
@@ -266,9 +234,9 @@ function EditWarehousePage() {
     <section className="edit-warehouse">
       <div className="wrapper">
         <div className="edit-warehouse__page-title">
-          <div onClick={handleBack} className="edit-warehouse__arrow-back">
-            <img src={backarrow} alt="back arrow icon" className="edit-warehouse__arrow" />
-          </div>
+          <Link to="/" className="edit-warehouse__arrow-back">
+            <img src={backarrow} alt="back arrow icon" />
+          </Link>
           <h1 className="edit-warehouse__title">Edit Warehouse</h1>
         </div>
         <form
@@ -478,10 +446,7 @@ function EditWarehousePage() {
             </div>
           </div>
           <div className="edit-warehouse__buttons-container">
-            <Link
-              to={`/warehouses/${warehouseId}`}
-              className="edit-warehouse__wrapper"
-            >
+            <Link to="/" className="edit-warehouse__wrapper">
               <button id="cancel" className="edit-warehouse__secondary">
                 Cancel
               </button>
@@ -498,7 +463,7 @@ function EditWarehousePage() {
         {notFound ? (
           <div className="edit-warehouse__error-message edit-warehouse__error-message--align">
             <img src={erroricon} alt="error icon" />
-            <p>{errors.exception}</p>
+            <p>Warehouse not found</p>
           </div>
         ) : (
           ""
