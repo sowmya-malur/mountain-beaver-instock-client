@@ -45,6 +45,9 @@ function EditInventoryItem() {
           setDescription(inventoryResponse.data.description);
           setCategory(inventoryResponse.data.category);
           setWarehouseName(inventoryResponse.data.warehouse_name);
+          setQuantity(inventoryResponse.data.quantity);
+          setStatus(inventoryResponse.data.status);
+          setWarehouseId(inventoryResponse.data.warehouse_id);
         }
       } catch (error) {
         console.error("Error fetching data:", error);
